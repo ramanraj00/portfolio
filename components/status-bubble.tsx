@@ -3,11 +3,17 @@
 import { useEffect, useState } from 'react'
 import { cn } from '~/lib/utils'
 
+/**
+ * Discord-style status bubble that sits on the top-right edge of the avatar.
+ * Cycles through 3 states automatically:
+ *   0 → "SKILL ISSUE" text
+ *   1 → Smug face (‾ ‿ ‾)
+ *   2 → Smug face + shining star ✦
+ */
 export function StatusBubble() {
   const [step, setStep] = useState(0)
 
   useEffect(() => {
-    // Switch state every 2 seconds for a snappier 3-step loop
     const interval = setInterval(() => {
       setStep((prev) => (prev + 1) % 3)
     }, 2000)
@@ -15,83 +21,84 @@ export function StatusBubble() {
   }, [])
 
   return (
-    <div className="absolute top-0 right-0 translate-x-2 -translate-y-2 sm:translate-x-3 sm:-translate-y-3 z-30 w-12 h-12 sm:w-[3.75rem] sm:h-[3.75rem] hover:scale-110 transition-transform cursor-crosshair">
-      {/* Speech Bubble SVG Base */}
+    <div
+      className="absolute z-30 cursor-default"
+      style={{
+        // Position: top-right of the circular avatar, overlapping the edge
+        top: '-4px',
+        right: '-6px',
+        width: '36px',
+        height: '36px',
+      }}
+    >
+      {/* Dark speech bubble shape */}
       <svg
-        className="absolute inset-0 w-full h-full drop-shadow-md"
-        viewBox="0 0 100 100"
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          d="
-            M 50 10
-            A 40 40 0 1 0 21.7 78.3
-            L 12 92
-            L 28.5 83.5
-            A 40 40 0 0 0 90 50
-            A 40 40 0 0 0 50 10
-            Z"
-          fill="white"
-          stroke="#1c1c1c"
-          strokeWidth="6"
-          strokeLinejoin="round"
-        />
+        {/* Main bubble */}
+        <ellipse cx="20" cy="17" rx="17" ry="15" fill="#1a1a1a" stroke="#2a2a2a" strokeWidth="1" />
+        {/* Tail pointing down-left toward avatar center */}
+        <path d="M10 28 L6 36 L16 28" fill="#1a1a1a" />
       </svg>
 
-      {/* Content Container */}
-      <div className="absolute inset-0 pb-[6px] pr-[2px] flex items-center justify-center">
-        
-        {/* SKILL ISSUE Text */}
+      {/* Content inside the bubble */}
+      <div className="absolute inset-0 flex items-center justify-center" style={{ paddingBottom: '8px' }}>
+
+        {/* Step 0: SKILL ISSUE text */}
         <div
           className={cn(
-            "absolute flex flex-col items-center justify-center text-center transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-            step === 0 ? "opacity-100 scale-100 rotate-0 blur-0" : "opacity-0 scale-50 -rotate-12 blur-sm pointer-events-none"
+            "absolute transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+            step === 0
+              ? "opacity-100 scale-100 blur-0"
+              : "opacity-0 scale-75 blur-[2px] pointer-events-none"
           )}
         >
-          <span className="font-black text-[#1c1c1c] text-[0.55rem] sm:text-[0.7rem] leading-[0.95] tracking-tight">
-            SKILL<br />ISSUE
+          <span className="font-extrabold text-white text-[7px] leading-[1] tracking-tight text-center block">
+            SKILL
+            <br />
+            ISSUE
           </span>
         </div>
 
-        {/* Smug Face & Star */}
+        {/* Step 1 & 2: Smug face */}
         <div
           className={cn(
-            "absolute flex items-center justify-center w-full h-full transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-            step !== 0 ? "opacity-100 scale-100 rotate-0 blur-0" : "opacity-0 scale-150 rotate-12 blur-sm pointer-events-none"
+            "absolute flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+            step !== 0
+              ? "opacity-100 scale-100 blur-0"
+              : "opacity-0 scale-125 blur-[2px] pointer-events-none"
           )}
         >
-          {/* Face Elements */}
-          <div className="flex flex-col items-center gap-[2px] mt-1 relative">
-            <div className="flex gap-[6px] sm:gap-[8px]">
-              {/* Left Eye */}
-              <div className="w-[6px] h-[3px] bg-[#1c1c1c] rounded-sm" />
-              {/* Right Eye */}
-              <div className="w-[6px] h-[3px] bg-[#1c1c1c] rounded-sm" />
+          <div className="relative flex flex-col items-center">
+            {/* Eyes */}
+            <div className="flex gap-[5px]">
+              <div className="w-[5px] h-[2px] bg-white rounded-[1px]" />
+              <div className="w-[5px] h-[2px] bg-white rounded-[1px]" />
             </div>
             {/* Smile */}
-            <svg width="12" height="5" viewBox="0 0 14 6" fill="none" className="mt-[1px]">
-              <path d="M2 2C4 5 10 5 12 2" stroke="#1c1c1c" strokeWidth="2.5" strokeLinecap="round" />
+            <svg width="10" height="5" viewBox="0 0 14 6" fill="none" className="mt-[2px]">
+              <path d="M2 2C4 5 10 5 12 2" stroke="white" strokeWidth="2" strokeLinecap="round" />
             </svg>
-            
-            {/* Star (Step 2 only) */}
-            <div
+
+            {/* Star — only visible on step 2 */}
+            <svg
               className={cn(
-                "absolute -top-3 -right-3 sm:-top-4 sm:-right-4 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-                step === 2 ? "opacity-100 scale-100 rotate-0 blur-0" : "opacity-0 scale-0 -rotate-90 blur-sm"
+                "absolute -top-[8px] -right-[9px] w-[11px] h-[11px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                step === 2
+                  ? "opacity-100 scale-100 rotate-0"
+                  : "opacity-0 scale-0 -rotate-90"
               )}
+              viewBox="0 0 24 24"
+              fill="#ffb800"
+              stroke="#1a1a1a"
+              strokeWidth="1"
+              strokeLinejoin="round"
             >
-              <svg
-                className="w-4 h-4 sm:w-[1.125rem] sm:h-[1.125rem] text-[#ffb800]"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                stroke="#1c1c1c"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              >
-                <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 12 24C12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
-              </svg>
-            </div>
+              <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 12 24C12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
+            </svg>
           </div>
         </div>
       </div>
