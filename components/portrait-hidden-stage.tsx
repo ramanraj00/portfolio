@@ -185,8 +185,9 @@ export function PortraitHiddenStage({
         )}
       </span>
 
-      <button
-        type="button"
+      <div
+        role="button"
+        tabIndex={0}
         className="portrait-hidden-stage-trigger"
         aria-label={label}
         onPointerEnter={(event) => {
@@ -219,7 +220,12 @@ export function PortraitHiddenStage({
             syncStage()
           }
         }}
-        onKeyDown={() => {
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            keyboardFocused.current = !active // Toggle on enter/space
+            syncStage()
+          }
           if (pointerFocusSuppressed.current) {
             pointerFocusSuppressed.current = false
             keyboardFocused.current = true
@@ -233,7 +239,7 @@ export function PortraitHiddenStage({
         }}
       >
         {children}
-      </button>
+      </div>
     </span>
   )
 }

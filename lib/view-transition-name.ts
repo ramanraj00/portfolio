@@ -22,6 +22,8 @@ function postTransitionId(slug: string) {
       return 'p09'
     case 'we-decided-to-stop-buying-saas':
       return 'p10'
+    case 'how-i-built-a-zero-knowledge-e2ee-web-app':
+      return 'p11'
     default:
       throw new Error('Unknown post view-transition slug')
   }
