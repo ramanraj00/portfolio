@@ -24,8 +24,8 @@ export function StatusBubble() {
     <div
       className="absolute z-30 cursor-default"
       style={{
-        top: '-12px',
-        right: '-12px',
+        top: '-24px',
+        right: '-24px',
         width: '40px',
         height: '40px',
       }}
