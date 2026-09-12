@@ -55,7 +55,7 @@ export function StatusBubble() {
               : "opacity-0 scale-75 blur-[2px] pointer-events-none"
           )}
         >
-          <span className="font-black text-[#1a1a1a] text-[6.5px] leading-[1.1] tracking-tight text-center block">
+          <span className="font-black text-[#1a1a1a] text-[9px] leading-[1.1] tracking-tight text-center block">
             SKILL
             <br />
             ISSUE
@@ -89,7 +89,7 @@ export function StatusBubble() {
             {/* Star — step 2 only */}
             <svg
               className={cn(
-                "absolute -top-[7px] -right-[8px] w-[10px] h-[10px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                "absolute -top-[9px] -right-[10px] w-[14px] h-[14px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
                 step === 2
                   ? "opacity-100 scale-100 rotate-0"
                   : "opacity-0 scale-0 -rotate-90"
