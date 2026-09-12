@@ -5,9 +5,11 @@ import {
   GitHubCard,
   type GitHubSnapshot,
   type SocialSnapshot,
+  LinkedInCard,
   XCard,
   XiaohongshuCard,
 } from '~/components/social-cards'
+import { type SocialData } from '~/lib/social-live'
 import { T } from '~/lib/i18n'
 import { faviconUrl, getLinkPreview } from '~/lib/link-previews'
 
@@ -153,24 +155,24 @@ function ZolplayLink({ children }: { children: React.ReactNode }) {
   )
 }
 
-export function HomeContact({ social, github }: { social: SocialSnapshot; github: GitHubSnapshot }) {
+export function HomeContact({ social, github }: { social: SocialData; github: GitHubSnapshot }) {
   return (
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
       <T
         zh={
           <>
-            可以在 <XCard data={social} trigger="@r1zzdev" triggerClassName="home-contact-link" />、
+            可以在 <XCard data={social.x} trigger="@r1zzdev" triggerClassName="home-contact-link" />、
             <GitHubCard data={github} triggerClassName="home-contact-link" /> 和
-            <XiaohongshuCard triggerClassName="home-contact-link" />找到我，也可以发邮件到{' '}
-            <EmailCard address="hi@cali.so" trigger="hi@cali.so" triggerClassName="home-contact-link" />。
+            <XiaohongshuCard triggerClassName="home-contact-link" />找到我，也可以去{' '}
+            <LinkedInCard data={social.linkedin} triggerClassName="home-contact-link" />。
           </>
         }
         en={
           <>
-            Find me at <XCard data={social} trigger="@r1zzdev" triggerClassName="home-contact-link" />
+            Find me at <XCard data={social.x} trigger="@r1zzdev" triggerClassName="home-contact-link" />
             {', '}
             <GitHubCard data={github} triggerClassName="home-contact-link" /> and{' '}
-            <EmailCard address="hi@cali.so" trigger="hi@cali.so" triggerClassName="home-contact-link" />
+            <LinkedInCard data={social.linkedin} triggerClassName="home-contact-link" />
           </>
         }
       />
@@ -178,7 +180,7 @@ export function HomeContact({ social, github }: { social: SocialSnapshot; github
   )
 }
 
-export function HomeIntroduction({ social, github }: { social: SocialSnapshot; github: GitHubSnapshot }) {
+export function HomeIntroduction({ social, github }: { social: SocialData; github: GitHubSnapshot }) {
   return (
     <div className="home-introduction">
       <p className="text-sm leading-relaxed text-muted-foreground">

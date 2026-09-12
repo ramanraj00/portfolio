@@ -89,7 +89,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
 
         {/* Bottom Section: Full Width Intro (with social links included) */}
         <div className="enter opacity-95 leading-relaxed text-[1.05rem] max-w-full">
-          <HomeIntroduction social={social.x} github={github} />
+          <HomeIntroduction social={social} github={github} />
         </div>
       </div>
 

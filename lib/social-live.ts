@@ -6,6 +6,7 @@ import bakedSocial from '~/content/social.json'
 
 export interface SocialData {
   x: SocialSnapshot
+  linkedin: SocialSnapshot
   telegram: SocialSnapshot
   youtube: SocialSnapshot
 }
@@ -23,11 +24,11 @@ export async function getGitHub(): Promise<GitHubSnapshot> {
 
   try {
     const [contrib, user] = await Promise.all([
-      fetch('https://github-contributions-api.jogruber.de/v4/CaliCastle?y=last').then((r) => {
+      fetch('https://github-contributions-api.jogruber.de/v4/ramanraj00?y=last').then((r) => {
         if (!r.ok) throw new Error(`contributions ${r.status}`)
         return r.json()
       }),
-      fetch('https://api.github.com/users/CaliCastle', {
+      fetch('https://api.github.com/users/ramanraj00', {
         headers: { accept: 'application/vnd.github+json', 'user-agent': 'cali.so' },
       }).then((r) => {
         if (!r.ok) throw new Error(`user ${r.status}`)
@@ -36,7 +37,7 @@ export async function getGitHub(): Promise<GitHubSnapshot> {
     ])
     const days: Array<{ date: string; level: number }> = contrib.contributions
     return {
-      user: 'CaliCastle',
+      user: 'ramanraj00',
       followers: user.followers,
       total: contrib.total.lastYear,
       to: days[days.length - 1].date,
