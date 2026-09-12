@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import { cn } from '~/lib/utils'
 
 /**
- * Discord-style status bubble that sits on the top-right edge of the avatar.
- * Cycles through 3 states automatically:
- *   0 → "SKILL ISSUE" text
+ * Small white speech bubble badge on the avatar's top-right edge.
+ * Auto-cycles through 3 states:
+ *   0 → "SKILL ISSUE" bold text
  *   1 → Smug face (‾ ‿ ‾)
  *   2 → Smug face + shining star ✦
  */
@@ -24,30 +24,29 @@ export function StatusBubble() {
     <div
       className="absolute z-30 cursor-default"
       style={{
-        // Position: top-right of the circular avatar, overlapping the edge
-        top: '-4px',
-        right: '-6px',
-        width: '36px',
-        height: '36px',
+        top: '-2px',
+        right: '-4px',
+        width: '34px',
+        height: '34px',
       }}
     >
-      {/* Dark speech bubble shape */}
+      {/* White speech bubble with dark stroke */}
       <svg
-        className="absolute inset-0 w-full h-full"
+        className="absolute inset-0 w-full h-full drop-shadow-sm"
         viewBox="0 0 40 40"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Main bubble */}
-        <ellipse cx="20" cy="17" rx="17" ry="15" fill="#1a1a1a" stroke="#2a2a2a" strokeWidth="1" />
-        {/* Tail pointing down-left toward avatar center */}
-        <path d="M10 28 L6 36 L16 28" fill="#1a1a1a" />
+        <ellipse cx="20" cy="17" rx="16" ry="14" fill="white" stroke="#333" strokeWidth="1.5" />
+        <path d="M10 27 L5 35 L16 27" fill="white" stroke="#333" strokeWidth="1.5" strokeLinejoin="round" />
+        {/* Cover the stroke line inside the bubble where tail meets ellipse */}
+        <ellipse cx="20" cy="17" rx="14.5" ry="12.5" fill="white" />
       </svg>
 
-      {/* Content inside the bubble */}
-      <div className="absolute inset-0 flex items-center justify-center" style={{ paddingBottom: '8px' }}>
+      {/* Content */}
+      <div className="absolute inset-0 flex items-center justify-center" style={{ paddingBottom: '7px' }}>
 
-        {/* Step 0: SKILL ISSUE text */}
+        {/* Step 0: SKILL ISSUE */}
         <div
           className={cn(
             "absolute transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
@@ -56,7 +55,7 @@ export function StatusBubble() {
               : "opacity-0 scale-75 blur-[2px] pointer-events-none"
           )}
         >
-          <span className="font-extrabold text-white text-[7px] leading-[1] tracking-tight text-center block">
+          <span className="font-black text-[#1a1a1a] text-[6.5px] leading-[1.1] tracking-tight text-center block">
             SKILL
             <br />
             ISSUE
@@ -73,20 +72,20 @@ export function StatusBubble() {
           )}
         >
           <div className="relative flex flex-col items-center">
-            {/* Eyes */}
-            <div className="flex gap-[5px]">
-              <div className="w-[5px] h-[2px] bg-white rounded-[1px]" />
-              <div className="w-[5px] h-[2px] bg-white rounded-[1px]" />
+            {/* Eyes — flat lines */}
+            <div className="flex gap-[4px]">
+              <div className="w-[5px] h-[2px] bg-[#1a1a1a] rounded-[0.5px]" />
+              <div className="w-[5px] h-[2px] bg-[#1a1a1a] rounded-[0.5px]" />
             </div>
             {/* Smile */}
-            <svg width="10" height="5" viewBox="0 0 14 6" fill="none" className="mt-[2px]">
-              <path d="M2 2C4 5 10 5 12 2" stroke="white" strokeWidth="2" strokeLinecap="round" />
+            <svg width="10" height="5" viewBox="0 0 14 6" fill="none" className="mt-[1px]">
+              <path d="M2 2C4 5 10 5 12 2" stroke="#1a1a1a" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
 
-            {/* Star — only visible on step 2 */}
+            {/* Star — step 2 only */}
             <svg
               className={cn(
-                "absolute -top-[8px] -right-[9px] w-[11px] h-[11px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                "absolute -top-[7px] -right-[8px] w-[10px] h-[10px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
                 step === 2
                   ? "opacity-100 scale-100 rotate-0"
                   : "opacity-0 scale-0 -rotate-90"
@@ -94,7 +93,7 @@ export function StatusBubble() {
               viewBox="0 0 24 24"
               fill="#ffb800"
               stroke="#1a1a1a"
-              strokeWidth="1"
+              strokeWidth="1.5"
               strokeLinejoin="round"
             >
               <path d="M12 0C12 6.627 17.373 12 24 12C17.373 12 12 17.373 12 24C12 17.373 6.627 12 0 12C6.627 12 12 6.627 12 0Z" />
