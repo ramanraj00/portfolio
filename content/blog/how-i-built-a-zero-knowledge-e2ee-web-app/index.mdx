@@ -1,70 +1,107 @@
 ---
 title: "How I Built a Zero-Knowledge End-to-End Encrypted (E2EE) Web App in React & Node.js"
-description: "A deep dive into building a secure, zero-knowledge architecture using React, Node.js, and WebCrypto API to guarantee absolute data privacy."
+description: "Transitioning a standard web app into a Zero-Knowledge architecture is like rebuilding an airplane while it’s in the air."
 publishedAt: "2023-11-20T10:00:00.000Z"
+cover: ./vault-setup-flow.webp
+coverWidth: 1048
+coverHeight: 1184
 ---
 
-Privacy is more important than ever. In this post, I want to walk you through how I built a zero-knowledge end-to-end encrypted (E2EE) web application using React on the frontend and Node.js on the backend.
+Privacy is no longer just a feature; it’s a fundamental expectation. When building my latest app, *******, I wanted to ensure that my users’ data was completely private. I didn’t just want to promise privacy — I wanted to guarantee it mathematically.
 
-## What is Zero-Knowledge?
+That’s why I decided to implement a Zero-Knowledge End-to-End Encryption (E2EE) architecture.
 
-In a zero-knowledge architecture, the server that hosts the data has absolutely no way to read it. The decryption keys never leave the client device. This means even if the database is completely compromised, the attackers get nothing but mathematical gibberish.
+In a Zero-Knowledge system, the backend server is completely “blind.” It stores the encrypted data and the locked cryptographic keys, but it never possesses the actual password required to unlock and read the user’s data. Even if my entire database is compromised, the data remains unreadable.
 
-## Tech Stack
+***
 
-- **Frontend:** React, Next.js, WebCrypto API
-- **Backend:** Node.js, Express, PostgreSQL
-- **Cryptography:** AES-GCM for symmetric encryption, RSA-OAEP for asymmetric key exchange.
+## E2EE requirement
 
-## Step 1: User Registration & Key Generation
+Transitioning a standard web app into a Zero-Knowledge architecture is like rebuilding an airplane while it’s in the air. Suddenly, you can’t just send plaintext data to the server. You can’t just use a “Forgot Password” link. And most painfully, you have to manage encryption keys safely in the browser.
 
-The process begins as soon as the user registers:
-1. A master password is used to derive a strong symmetric key (using PBKDF2).
-2. We generate an RSA public/private key pair on the client.
-3. We encrypt the private key with the derived symmetric key and send it to the server for storage.
-4. The public key is stored in plaintext.
+## The Cryptographic Building Blocks
 
-```javascript
-// Example using WebCrypto API
-const keyPair = await window.crypto.subtle.generateKey(
-  {
-    name: "RSA-OAEP",
-    modulusLength: 2048,
-    publicExponent: new Uint8Array([1, 0, 1]),
-    hash: "SHA-256"
-  },
-  true,
-  ["encrypt", "decrypt"]
-);
-```
+Before writing any code, I had to understand the keys involved. You can’t encrypt data directly with a user’s password because passwords are too weak and too short.
 
-## Step 2: Encrypting the Payload
+- **DEK (Data Encryption Key):** A massive, random 256-bit key (AES-GCM). This is the true “Master Key.” Every piece of user data is encrypted and decrypted using this key.
+- **KEK (Key Encryption Key):** This key’s sole purpose is to encrypt the DEK. I derived this key from the user’s human-readable Vault Password using a heavy algorithm called PBKDF2 with 250,000+ iterations to prevent brute-force attacks.
 
-Before any sensitive data is sent to the Node.js backend, it is encrypted on the client using AES-GCM. 
+***
+
+## The Setup Flow & The Database
+
+When a user sets up their vault, the entire cryptographic heavy lifting happens strictly inside their browser using the native Web Crypto API.
+
+![Vault Password Setup](./vault-setup-flow.webp)
+
+1. The browser generates a random 256-bit DEK.
+2. The user types their Vault Password.
+3. The browser generates a random userSalt and uses PBKDF2 to derive the KEK from the password.
+4. The browser encrypts the DEK using the KEK.
+5. The browser sends the encryptedDEK and the userSalt to the backend.
+
+The backend never sees the raw DEK. My Mongoose schema looks like this:
 
 ```javascript
-const iv = window.crypto.getRandomValues(new Uint8Array(12));
-const encryptedData = await window.crypto.subtle.encrypt(
-  {
-    name: "AES-GCM",
-    iv: iv
-  },
-  aesKey,
-  new TextEncoder().encode(JSON.stringify(payload))
-);
+crypto: {
+    encryptedDEK_pwd: { type: Object }, // The locked Master Key
+    userSalt: { type: String },         // Needed to derive the KEK
+    pbkdf2Iterations: { type: Number, default: 250000 },
+    kdf: { type: String, default: "PBKDF2" },
+    lastVaultResetAt: { type: Date }    // Crucial for security (more on this later)
+}
 ```
 
-The Node.js server just acts as a dumb datastore. It takes the `iv`, the `ciphertext`, and the user's `id`, and saves them to Postgres.
+***
 
-## Step 3: Secure Sharing
+## The React SPA Challenge: Surviving Page Reloads
 
-To share data with another user:
-1. Fetch their public key from the backend.
-2. Encrypt the data (or a symmetric document key) using their public key.
-3. Send the encrypted package to the server.
+One of the biggest UX challenges with E2EE in a React SPA is page reloads. If the raw DEK only lives in React State (RAM), a simple page refresh will wipe it out, forcing the user to re-enter their Vault Password constantly.
 
-Because only the recipient possesses the private key required to decrypt the document key, the server remains completely blind to the contents.
+**The Trade-off: sessionStorage** 
+To balance extreme paranoia with modern UX, I utilized a CryptoContext in React. Once the DEK is decrypted, I export it as raw bytes, convert it to a Base64 string, and store it in sessionStorage.
+
+```javascript
+// Inside CryptoContext.jsx
+const rawKey = await window.crypto.subtle.exportKey("raw", dek);
+const base64Key = btoa(String.fromCharCode(...new Uint8Array(rawKey)));
+sessionStorage.setItem("workspace_dek", base64Key);
+```
+
+Since sessionStorage is strictly tied to the specific tab and is wiped the moment the tab is closed, it prevents the key from persisting indefinitely on disk, providing a level of security similar to WhatsApp Web.
+
+***
+
+## The Final Bosses: 3 Bugs That Almost Broke Me
+
+The hardest part of this journey wasn’t the cryptography — it was the integration of E2EE with standard authentication flows like Google OAuth. Here are the three brutal bugs I fought and conquered:
+
+### Bug #1: The “Existing User” Amnesia
+When I integrated Google Auth, I realized that my backend was returning `{ message: "Login successful" }` but omitting the cryptographic keys for existing users. The React frontend, seeing no keys, assumed the user was new and forcefully redirected them to the "Create Vault" screen, even if they already had one! 
+**The Fix:** I updated the Google Auth controller to properly nest and return the `cryptoKeys` object from the database so the frontend could seamlessly switch to the "Unlock Vault" screen instead.
+
+### Bug #2: The Cookie maxAge Discard
+I noticed that Email Login worked perfectly, but Google Login kept kicking users out when they refreshed the page. After hours of debugging, I found the culprit: I forgot to add `maxAge: 7 Days` to the Google Auth Set-Cookie header. The browser treated it as a temporary session cookie and ruthlessly discarded it during hard redirects between the SPA routes.
+
+### Bug #3: The “Time-Sync” Paradox (My Favorite Bug)
+This was the most mind-bending bug of the entire project. I had built a security feature where updating the Vault Password updates a `lastVaultResetAt` timestamp in the database. My `authMiddleware` would automatically reject any JWT tokens that were issued before that timestamp to prevent session hijacking.
+
+But during a new Google OAuth signup flow, users were getting instantly kicked out with a `401 Unauthorized` error! 
+
+Why?
+1. Google Auth generated a JWT token at 10:00:00.
+2. The user took 10 seconds to think of and type a new Vault Password on the frontend.
+3. The vault was created at 10:00:10, and the backend updated `lastVaultResetAt` to 10:00:10.
+4. The middleware checked the JWT. Since 10:00:00 < 10:00:10, my own security system assumed the token was stolen prior to a password reset and kicked the user out!
+
+**The Fix:** I had to explicitly re-issue a fresh JWT token at the exact moment the Vault was set up, ensuring the token’s `iat` (issued at) time synced perfectly with the vault creation time.
 
 ## Conclusion
 
-Building a zero-knowledge E2EE app requires a paradigm shift. You can no longer rely on the backend for search, filtering, or server-side rendering of sensitive data. However, the absolute guarantee of privacy you can offer your users is well worth the architectural trade-offs.
+Building a Zero-Knowledge E2EE application is a wild ride. You lose the ability to reset passwords easily, state management becomes a minefield, and integrating third-party auth requires meticulous care.
+
+However, in an era where data breaches make headlines weekly, having a system where you can look your users in the eye and say, “Even if I wanted to, I cannot read your data,” is a uniquely powerful feeling.
+
+If you’re building a privacy-first app, I highly recommend diving into the Web Crypto API. The journey is tough, but the destination is absolutely worth it.
+
+*Tags: [React](#), [Node.js](#), [Cybersecurity](#), [Web Development](#), [Cryptography](#)*
