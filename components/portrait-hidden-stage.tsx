@@ -220,12 +220,7 @@ export function PortraitHiddenStage({
             syncStage()
           }
         }}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            keyboardFocused.current = !active // Toggle on enter/space
-            syncStage()
-          }
+        onKeyDown={() => {
           if (pointerFocusSuppressed.current) {
             pointerFocusSuppressed.current = false
             keyboardFocused.current = true
@@ -239,7 +234,6 @@ export function PortraitHiddenStage({
         }}
       >
         {children}
-      </button>
       </div>
     </span>
   )
