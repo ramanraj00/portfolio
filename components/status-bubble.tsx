@@ -3,13 +3,6 @@
 import { useEffect, useState } from 'react'
 import { cn } from '~/lib/utils'
 
-/**
- * Small white speech bubble badge on the avatar's top-right edge.
- * Auto-cycles through 3 states:
- *   0 → "SKILL ISSUE" bold text
- *   1 → Smug face (‾ ‿ ‾)
- *   2 → Smug face + shining star ✦
- */
 export function StatusBubble() {
   const [showFace, setShowFace] = useState(false)
   const [showStar, setShowStar] = useState(false)
@@ -39,7 +32,6 @@ export function StatusBubble() {
         height: '56px',
       }}
     >
-      {/* White speech bubble with dark stroke */}
       <svg
         className="absolute inset-0 w-full h-full drop-shadow-sm"
         viewBox="0 0 40 40"
@@ -48,19 +40,13 @@ export function StatusBubble() {
       >
         <ellipse cx="20" cy="17" rx="16" ry="14" fill="white" stroke="#333" strokeWidth="1.5" />
         <path d="M10 27 L5 35 L16 27" fill="white" stroke="#333" strokeWidth="1.5" strokeLinejoin="round" />
-        {/* Cover the stroke line inside the bubble where tail meets ellipse */}
         <ellipse cx="20" cy="17" rx="14.5" ry="12.5" fill="white" />
       </svg>
 
-      {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center" style={{ paddingBottom: '7px' }}>
-
-        {/* Step 0: SKILL ISSUE */}
-        {/* SKILL ISSUE */}
         <div
           className={cn(
             "absolute transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-            step === 0
             !showFace
               ? "opacity-100 scale-100 blur-0"
               : "opacity-0 scale-75 blur-[2px] pointer-events-none"
@@ -73,19 +59,15 @@ export function StatusBubble() {
           </span>
         </div>
 
-        {/* Step 1 & 2: Smug face */}
-        {/* Smug face */}
         <div
           className={cn(
             "absolute flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-            step !== 0
             showFace
               ? "opacity-100 scale-100 blur-0"
               : "opacity-0 scale-125 blur-[2px] pointer-events-none"
           )}
         >
           <div className="relative flex flex-col items-center">
-            {/* Smug side-eye — looking right, ticks on right */}
             <div className="flex gap-[7px]">
               <svg width="10" height="7" viewBox="0 0 10 6" fill="none">
                 <path d="M1 2H9V5" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -94,17 +76,12 @@ export function StatusBubble() {
                 <path d="M1 2H9V5" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-            {/* Smile */}
             <svg width="10" height="5" viewBox="0 0 14 6" fill="none" className="mt-[1px]">
               <path d="M2 2C4 5 10 5 12 2" stroke="#1a1a1a" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
 
-            {/* Star — step 2 only */}
-            {/* Star — pops in 150ms after face */}
             <svg
               className={cn(
-                "absolute -top-[11px] -right-[12px] w-[18px] h-[18px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-                step === 2
                 "absolute -top-[11px] -right-[12px] w-[18px] h-[18px] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
                 showStar
                   ? "opacity-100 scale-100 rotate-0"
