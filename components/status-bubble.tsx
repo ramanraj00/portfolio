@@ -11,12 +11,23 @@ import { cn } from '~/lib/utils'
  *   2 → Smug face + shining star ✦
  */
 export function StatusBubble() {
-  const [step, setStep] = useState(0)
+  const [showFace, setShowFace] = useState(false)
+  const [showStar, setShowStar] = useState(false)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setStep((prev) => (prev + 1) % 3)
-    }, 2000)
+      setShowFace((prev) => {
+        const next = !prev
+        if (next) {
+          // Face is appearing → show star after a tiny delay
+          setTimeout(() => setShowStar(true), 150)
+        } else {
+          // Face is disappearing → hide star immediately
+          setShowStar(false)
+        }
+        return next
+      })
+    }, 2500)
     return () => clearInterval(interval)
   }, [])
 
@@ -46,11 +57,11 @@ export function StatusBubble() {
       {/* Content */}
       <div className="absolute inset-0 flex items-center justify-center" style={{ paddingBottom: '7px' }}>
 
-        {/* Step 0: SKILL ISSUE */}
+        {/* SKILL ISSUE */}
         <div
           className={cn(
             "absolute transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-            step === 0
+            !showFace
               ? "opacity-100 scale-100 blur-0"
               : "opacity-0 scale-75 blur-[2px] pointer-events-none"
           )}
@@ -62,11 +73,11 @@ export function StatusBubble() {
           </span>
         </div>
 
-        {/* Step 1 & 2: Smug face */}
+        {/* Smug face */}
         <div
           className={cn(
             "absolute flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-            step !== 0
+            showFace
               ? "opacity-100 scale-100 blur-0"
               : "opacity-0 scale-125 blur-[2px] pointer-events-none"
           )}
@@ -86,11 +97,11 @@ export function StatusBubble() {
               <path d="M2 2C4 5 10 5 12 2" stroke="#1a1a1a" strokeWidth="2.5" strokeLinecap="round" />
             </svg>
 
-            {/* Star — step 2 only */}
+            {/* Star — pops in 150ms after face */}
             <svg
               className={cn(
-                "absolute -top-[11px] -right-[12px] w-[18px] h-[18px] transition-all duration-400 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-                step === 2
+                "absolute -top-[11px] -right-[12px] w-[18px] h-[18px] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                showStar
                   ? "opacity-100 scale-100 rotate-0"
                   : "opacity-0 scale-0 -rotate-90"
               )}
