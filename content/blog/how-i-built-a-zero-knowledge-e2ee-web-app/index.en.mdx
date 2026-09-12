@@ -1,0 +1,70 @@
+---
+title: "How I Built a Zero-Knowledge End-to-End Encrypted (E2EE) Web App in React & Node.js"
+description: "A deep dive into building a secure, zero-knowledge architecture using React, Node.js, and WebCrypto API to guarantee absolute data privacy."
+publishedAt: "2023-11-20T10:00:00.000Z"
+---
+
+Privacy is more important than ever. In this post, I want to walk you through how I built a zero-knowledge end-to-end encrypted (E2EE) web application using React on the frontend and Node.js on the backend.
+
+## What is Zero-Knowledge?
+
+In a zero-knowledge architecture, the server that hosts the data has absolutely no way to read it. The decryption keys never leave the client device. This means even if the database is completely compromised, the attackers get nothing but mathematical gibberish.
+
+## Tech Stack
+
+- **Frontend:** React, Next.js, WebCrypto API
+- **Backend:** Node.js, Express, PostgreSQL
+- **Cryptography:** AES-GCM for symmetric encryption, RSA-OAEP for asymmetric key exchange.
+
+## Step 1: User Registration & Key Generation
+
+The process begins as soon as the user registers:
+1. A master password is used to derive a strong symmetric key (using PBKDF2).
+2. We generate an RSA public/private key pair on the client.
+3. We encrypt the private key with the derived symmetric key and send it to the server for storage.
+4. The public key is stored in plaintext.
+
+```javascript
+// Example using WebCrypto API
+const keyPair = await window.crypto.subtle.generateKey(
+  {
+    name: "RSA-OAEP",
+    modulusLength: 2048,
+    publicExponent: new Uint8Array([1, 0, 1]),
+    hash: "SHA-256"
+  },
+  true,
+  ["encrypt", "decrypt"]
+);
+```
+
+## Step 2: Encrypting the Payload
+
+Before any sensitive data is sent to the Node.js backend, it is encrypted on the client using AES-GCM. 
+
+```javascript
+const iv = window.crypto.getRandomValues(new Uint8Array(12));
+const encryptedData = await window.crypto.subtle.encrypt(
+  {
+    name: "AES-GCM",
+    iv: iv
+  },
+  aesKey,
+  new TextEncoder().encode(JSON.stringify(payload))
+);
+```
+
+The Node.js server just acts as a dumb datastore. It takes the `iv`, the `ciphertext`, and the user's `id`, and saves them to Postgres.
+
+## Step 3: Secure Sharing
+
+To share data with another user:
+1. Fetch their public key from the backend.
+2. Encrypt the data (or a symmetric document key) using their public key.
+3. Send the encrypted package to the server.
+
+Because only the recipient possesses the private key required to decrypt the document key, the server remains completely blind to the contents.
+
+## Conclusion
+
+Building a zero-knowledge E2EE app requires a paradigm shift. You can no longer rely on the backend for search, filtering, or server-side rendering of sensitive data. However, the absolute guarantee of privacy you can offer your users is well worth the architectural trade-offs.
