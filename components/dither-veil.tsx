@@ -70,7 +70,6 @@ export function DitheredImage({
   return (
     <>
       <Image {...imageProps} ref={imageRef} src={src} />
-      <DitherVeil imageRef={imageRef} seed={src} mode={ditherMode} />
     </>
   )
 }
