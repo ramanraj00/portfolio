@@ -9,6 +9,7 @@ import { PixelCluster } from '~/components/pixel-cluster'
 import { PortraitHiddenStage } from '~/components/portrait-hidden-stage'
 import { PostRow } from '~/components/post-row'
 import { ProfileAvatar } from '~/components/profile-avatar'
+import { StatusBubble } from '~/components/status-bubble'
 import { TimeOnEarth } from '~/components/time-on-earth'
 import { VinylShelf } from '~/components/vinyl-shelf'
 import { getAllPosts } from '~/lib/content'
@@ -66,11 +67,14 @@ export async function HomePageView({ locale }: { locale: Locale }) {
                   : '显现隐藏的等高线场'
               }
             >
-              <ProfileAvatar
-                realSrc="/images/real-avatar.jpg"
-                animeSrc="/images/anime-avatar.jpg"
-                alt="Profile photo"
-              />
+              <div className="relative w-full h-full">
+                <StatusBubble />
+                <ProfileAvatar
+                  realSrc="/images/real-avatar.jpg"
+                  animeSrc="/images/anime-avatar.jpg"
+                  alt="Profile photo"
+                />
+              </div>
             </PortraitHiddenStage>
           </div>
           
