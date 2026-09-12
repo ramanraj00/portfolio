@@ -24,10 +24,10 @@ export function StatusBubble() {
     <div
       className="absolute z-30 cursor-default"
       style={{
-        top: '-28px',
-        right: '-28px',
-        width: '48px',
-        height: '48px',
+        top: '-32px',
+        right: '-32px',
+        width: '56px',
+        height: '56px',
       }}
     >
       {/* White speech bubble with dark stroke */}
@@ -72,13 +72,13 @@ export function StatusBubble() {
           )}
         >
           <div className="relative flex flex-col items-center">
-            {/* Smug side-eye — looking right, ticks only on left */}
-            <div className="flex gap-[6px]">
-              <svg width="9" height="6" viewBox="0 0 10 6" fill="none">
-                <path d="M1 5V2H9" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Smug side-eye — looking right, ticks on right */}
+            <div className="flex gap-[7px]">
+              <svg width="10" height="7" viewBox="0 0 10 6" fill="none">
+                <path d="M1 2H9V5" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <svg width="9" height="6" viewBox="0 0 10 6" fill="none">
-                <path d="M1 5V2H9" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="10" height="7" viewBox="0 0 10 6" fill="none">
+                <path d="M1 2H9V5" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
             {/* Smile */}
