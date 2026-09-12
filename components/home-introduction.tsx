@@ -6,6 +6,7 @@ import {
   type GitHubSnapshot,
   type SocialSnapshot,
   LinkedInCard,
+  MediumCard,
   XCard,
   XiaohongshuCard,
 } from '~/components/social-cards'
@@ -162,8 +163,8 @@ export function HomeContact({ social, github }: { social: SocialData; github: Gi
         zh={
           <>
             可以在 <XCard data={social.x} trigger="@r1zzdev" triggerClassName="home-contact-link" />、
-            <GitHubCard data={github} triggerClassName="home-contact-link" /> 和
-            <XiaohongshuCard triggerClassName="home-contact-link" />找到我，也可以去{' '}
+            <GitHubCard data={github} triggerClassName="home-contact-link" />、
+            <MediumCard data={social.medium} triggerClassName="home-contact-link" /> 找到我，也可以去{' '}
             <LinkedInCard data={social.linkedin} triggerClassName="home-contact-link" />。
           </>
         }
@@ -171,7 +172,9 @@ export function HomeContact({ social, github }: { social: SocialData; github: Gi
           <>
             Find me at <XCard data={social.x} trigger="@r1zzdev" triggerClassName="home-contact-link" />
             {', '}
-            <GitHubCard data={github} triggerClassName="home-contact-link" /> and{' '}
+            <GitHubCard data={github} triggerClassName="home-contact-link" />
+            {', '}
+            <MediumCard data={social.medium} triggerClassName="home-contact-link" /> and{' '}
             <LinkedInCard data={social.linkedin} triggerClassName="home-contact-link" />
           </>
         }

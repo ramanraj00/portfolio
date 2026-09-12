@@ -7,6 +7,7 @@ import bakedSocial from '~/content/social.json'
 export interface SocialData {
   x: SocialSnapshot
   linkedin: SocialSnapshot
+  medium: SocialSnapshot
   telegram: SocialSnapshot
   youtube: SocialSnapshot
 }
