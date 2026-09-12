@@ -24,10 +24,10 @@ export function StatusBubble() {
     <div
       className="absolute z-30 cursor-default"
       style={{
-        top: '-2px',
-        right: '-4px',
-        width: '34px',
-        height: '34px',
+        top: '-12px',
+        right: '-12px',
+        width: '40px',
+        height: '40px',
       }}
     >
       {/* White speech bubble with dark stroke */}
