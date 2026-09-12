@@ -72,10 +72,14 @@ export function StatusBubble() {
           )}
         >
           <div className="relative flex flex-col items-center">
-            {/* Eyes — flat lines */}
-            <div className="flex gap-[4px]">
-              <div className="w-[5px] h-[2px] bg-[#1a1a1a] rounded-[0.5px]" />
-              <div className="w-[5px] h-[2px] bg-[#1a1a1a] rounded-[0.5px]" />
+            {/* Smug eyes — horizontal lines with downward ticks at ends */}
+            <div className="flex gap-[6px]">
+              <svg width="8" height="5" viewBox="0 0 10 6" fill="none">
+                <path d="M1 5V2H9V5" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <svg width="8" height="5" viewBox="0 0 10 6" fill="none">
+                <path d="M1 5V2H9V5" stroke="#1a1a1a" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
             {/* Smile */}
             <svg width="10" height="5" viewBox="0 0 14 6" fill="none" className="mt-[1px]">
