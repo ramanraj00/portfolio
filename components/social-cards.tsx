@@ -286,11 +286,20 @@ export function XCard({
 
 export function LinkedInCardBody({ data }: { data: SocialSnapshot }) {
   return (
-    <Identity
-      data={data}
-      avatar="/images/real-avatar.jpg"
-      service="linkedin"
-    />
+    <>
+      <Identity
+        data={data}
+        avatar="/images/anime-avatar.jpg"
+        service="linkedin"
+      />
+      {data.followers && (
+        <span className="service-card-stat">
+          <span>
+            <b>{data.followers}</b> <T zh="个联系人" en="connections" />
+          </span>
+        </span>
+      )}
+    </>
   )
 }
 
