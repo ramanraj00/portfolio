@@ -136,7 +136,7 @@ export function XCardBody({ data }: { data: SocialSnapshot }) {
     <>
       <Identity
         data={data}
-        avatar="/images/headshot.jpg"
+        avatar="/images/real-avatar.jpg"
         service="x"
       />
       {(data.followers || data.following) && (
@@ -271,7 +271,7 @@ export function XCard({
   return (
     <Card
       trigger={trigger}
-      href={`https://x.com/${data.handle}`}
+      href={`https://x.com/${data.handle}?s=20`}
       className="link-card service-card"
       triggerClassName={triggerClassName}
     >

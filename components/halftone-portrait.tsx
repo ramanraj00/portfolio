@@ -12,21 +12,30 @@ const RADIUS = 150 // pointer influence radius (CSS px)
 const SWELL = 0.08 // max extra dot growth near the pointer
 const PUSH = 3 // max dot displacement away from the pointer (CSS px)
 const FADE_MS = 550 // theme crossfade duration
+const COLOR_FADE_MS = 400 // monochrome → colorful transition duration
 
 // per-theme print inks, matching the foreground tokens
 const INK_LIGHT = 'oklch(0.145 0 0)'
 const INK_DARK = 'oklch(0.985 0 0)'
 
+// parsed RGB for lerping
+const INK_LIGHT_RGB = { r: 14, g: 14, b: 14 }
+const INK_DARK_RGB = { r: 250, g: 250, b: 250 }
+
 interface Cell {
   x: number
   y: number
   tone: number
+  r: number // original color red   (0–255)
+  g: number // original color green (0–255)
+  b: number // original color blue  (0–255)
 }
 
 interface Field {
   cells: Cell[]
   cell: number
   ink: string
+  inkRgb: { r: number; g: number; b: number }
 }
 
 // The portrait as an interactive halftone print with a source per theme:
@@ -34,15 +43,20 @@ interface Field {
 // natural positive), dark mode prints the studio portrait (ink ∝ light).
 // Theme switches crossfade between the two dot fields; a fine pointer
 // swells and repels dots. Touch and reduced motion get the static print.
+//
+// Hover reveals the original colors as a colorful halftone — each dot
+// transitions from monochrome ink to its sampled source color.
 export function HalftonePortrait({
   srcLight,
   srcDark,
+  srcColor,
   alt,
   altEn,
   className,
 }: {
   srcLight: string
   srcDark: string
+  srcColor?: string
   alt: string
   altEn: string
   className?: string
@@ -70,6 +84,17 @@ export function HalftonePortrait({
     const target = { x: -1e4, y: -1e4 }
     let pointerActive = false
 
+    // Color transition state
+    let colorT = 0 // 0 = monochrome, 1 = full color
+    let colorTarget = 0
+    let hovered = false
+
+    // Color source image (for sampling original colors)
+    let colorImage: HTMLImageElement | null = null
+    let colorData: ImageData | null = null
+    let colorCols = 0
+    let colorRows = 0
+
     const interactive =
       window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -89,6 +114,49 @@ export function HalftonePortrait({
       }
       if (img.complete && img.naturalWidth > 0) done()
       else img.addEventListener('load', done, { once: true })
+    }
+
+    function loadColorImage(src: string) {
+      const img = new Image()
+      img.crossOrigin = 'anonymous'
+      img.src = src
+      const done = () => {
+        colorImage = img
+        rebuildColorData()
+      }
+      if (img.complete && img.naturalWidth > 0) done()
+      else img.addEventListener('load', done, { once: true })
+    }
+
+    function rebuildColorData() {
+      if (!colorImage || cssW < 4) return
+      const cell = DESKTOP_CELL
+      colorCols = Math.max(1, Math.round(cssW / cell))
+      colorRows = Math.max(1, Math.round(cssH / cell))
+      const off = document.createElement('canvas')
+      off.width = colorCols
+      off.height = colorRows
+      const octx = off.getContext('2d', { willReadFrequently: true })
+      if (!octx) return
+      const scale = Math.max(colorCols / colorImage.naturalWidth, colorRows / colorImage.naturalHeight)
+      const dw = colorImage.naturalWidth * scale
+      const dh = colorImage.naturalHeight * scale
+      octx.drawImage(colorImage, (colorCols - dw) / 2, (colorRows - dh) / 2, dw, dh)
+      colorData = octx.getImageData(0, 0, colorCols, colorRows)
+
+      // Update cell colors in existing fields
+      for (const kind of ['light', 'dark'] as const) {
+        const field = fields[kind]
+        if (!field) continue
+        for (const cell of field.cells) {
+          const col = Math.min(colorCols - 1, Math.max(0, Math.round(cell.x / DESKTOP_CELL - 0.5)))
+          const row = Math.min(colorRows - 1, Math.max(0, Math.round(cell.y / DESKTOP_CELL - 0.5)))
+          const idx = (row * colorCols + col) * 4
+          cell.r = colorData.data[idx]
+          cell.g = colorData.data[idx + 1]
+          cell.b = colorData.data[idx + 2]
+        }
+      }
     }
 
     // sample an image cover-cropped into the square grid
@@ -136,18 +204,46 @@ export function HalftonePortrait({
             (kind === 'light' ? cssH - y : Math.min(y, cssH - y)) / (cssH * EDGE_FADE)
           const edge = Math.min(1, fx, fy)
           if (edge <= 0) continue
-          cells.push({ x, y, tone: tone * edge })
+
+          // Sample color from source image data
+          const j = (r * cols + c) * 4
+          let cr = data[j], cg = data[j + 1], cb = data[j + 2]
+
+          // If we have a dedicated color image, sample from that instead
+          if (colorData && colorCols > 0) {
+            const ccol = Math.min(colorCols - 1, Math.max(0, Math.round(c * (colorCols / cols))))
+            const crow = Math.min(colorRows - 1, Math.max(0, Math.round(r * (colorRows / rows))))
+            const cidx = (crow * colorCols + ccol) * 4
+            cr = colorData.data[cidx]
+            cg = colorData.data[cidx + 1]
+            cb = colorData.data[cidx + 2]
+          }
+
+          // Boost saturation of the sampled color for vivid dots
+          const max = Math.max(cr, cg, cb)
+          const min = Math.min(cr, cg, cb)
+          if (max > min) {
+            const mid = (max + min) / 2
+            const boost = 1.4
+            cr = Math.min(255, Math.round(mid + (cr - mid) * boost))
+            cg = Math.min(255, Math.round(mid + (cg - mid) * boost))
+            cb = Math.min(255, Math.round(mid + (cb - mid) * boost))
+          }
+
+          cells.push({ x, y, tone: tone * edge, r: cr, g: cg, b: cb })
         }
       }
-      fields[kind] = { cell, cells, ink: kind === 'light' ? INK_LIGHT : INK_DARK }
+      const inkRgb = kind === 'light' ? INK_LIGHT_RGB : INK_DARK_RGB
+      fields[kind] = { cell, cells, ink: kind === 'light' ? INK_LIGHT : INK_DARK, inkRgb }
     }
 
     function drawField(field: Field, alpha: number) {
       if (alpha <= 0.01) return false
       ctx.globalAlpha = alpha
-      ctx.fillStyle = field.ink
       const maxR = field.cell * 0.52
       let painted = false
+      const { inkRgb } = field
+
       for (const cell of field.cells) {
         let { x, y } = cell
         let r = cell.tone * maxR
@@ -165,6 +261,17 @@ export function HalftonePortrait({
           }
         }
         if (r < 0.3) continue
+
+        // Lerp between monochrome ink and original color based on colorT
+        if (colorT > 0.01) {
+          const lr = Math.round(inkRgb.r + (cell.r - inkRgb.r) * colorT)
+          const lg = Math.round(inkRgb.g + (cell.g - inkRgb.g) * colorT)
+          const lb = Math.round(inkRgb.b + (cell.b - inkRgb.b) * colorT)
+          ctx.fillStyle = `rgb(${lr},${lg},${lb})`
+        } else {
+          ctx.fillStyle = field.ink
+        }
+
         ctx.beginPath()
         ctx.arc(x, y, r, 0, Math.PI * 2)
         ctx.fill()
@@ -209,8 +316,25 @@ export function HalftonePortrait({
       const dy = target.y - pointer.y
       pointer.x += dx * 0.16
       pointer.y += dy * 0.16
+
+      // Animate colorT towards colorTarget
+      const colorSpeed = 0.06 // per frame lerp factor
+      const colorDiff = colorTarget - colorT
+      if (Math.abs(colorDiff) > 0.005) {
+        colorT += colorDiff * colorSpeed
+        colorT = Math.max(0, Math.min(1, colorT))
+      } else {
+        colorT = colorTarget
+      }
+
       draw()
-      if (pointerActive || fade || Math.hypot(dx, dy) > 0.5) raf = requestAnimationFrame(tick)
+
+      const needsRaf =
+        pointerActive ||
+        fade ||
+        Math.hypot(dx, dy) > 0.5 ||
+        Math.abs(colorTarget - colorT) > 0.005
+      if (needsRaf) raf = requestAnimationFrame(tick)
     }
 
     const wake = () => {
@@ -226,6 +350,7 @@ export function HalftonePortrait({
       canvas.height = Math.round(cssH * dpr)
       buildField('light')
       buildField('dark')
+      if (colorImage) rebuildColorData()
       draw()
     }
 
@@ -243,13 +368,30 @@ export function HalftonePortrait({
       wake()
     }
 
+    // Hover detection for color transition (on the wrapper, not just canvas)
+    const onWrapperEnter = () => {
+      hovered = true
+      colorTarget = 1
+      wake()
+    }
+    const onWrapperLeave = () => {
+      hovered = false
+      colorTarget = 0
+      wake()
+    }
+
     if (interactive) {
       canvas.addEventListener('pointermove', onMove)
       canvas.addEventListener('pointerleave', onLeave)
     }
 
+    // Listen for hover on the wrapper for color transition
+    wrapper.addEventListener('mouseenter', onWrapperEnter)
+    wrapper.addEventListener('mouseleave', onWrapperLeave)
+
     loadImage('light', srcLight)
     loadImage('dark', srcDark)
+    if (srcColor) loadColorImage(srcColor)
 
     const ro = new ResizeObserver(() => layout())
     ro.observe(canvas)
@@ -276,11 +418,13 @@ export function HalftonePortrait({
     return () => {
       canvas.removeEventListener('pointermove', onMove)
       canvas.removeEventListener('pointerleave', onLeave)
+      wrapper.removeEventListener('mouseenter', onWrapperEnter)
+      wrapper.removeEventListener('mouseleave', onWrapperLeave)
       ro.disconnect()
       mo.disconnect()
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [srcLight, srcDark])
+  }, [srcLight, srcDark, srcColor])
 
   return (
     <span ref={wrapperRef} className={className} data-halftone>
@@ -306,6 +450,18 @@ export function HalftonePortrait({
         hidden
         aria-hidden
       />
+      {srcColor && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={srcColor}
+          alt=""
+          width={1000}
+          height={1000}
+          crossOrigin="anonymous"
+          hidden
+          aria-hidden
+        />
+      )}
       <canvas
         ref={canvasRef}
         role="img"

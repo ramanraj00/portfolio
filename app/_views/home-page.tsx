@@ -3,12 +3,13 @@ import { Suspense } from 'react'
 
 import { Bookshelf } from '~/components/bookshelf'
 import { ExternalLabel } from '~/components/external-mark'
-import { HalftonePortrait } from '~/components/halftone-portrait'
 import { HomeIntroduction } from '~/components/home-introduction'
 import { NavCards, PhotoNavCard } from '~/components/nav-cards'
 import { PixelCluster } from '~/components/pixel-cluster'
-import { PostRow } from '~/components/post-row'
 import { PortraitHiddenStage } from '~/components/portrait-hidden-stage'
+import { PostRow } from '~/components/post-row'
+import { ProfileAvatar } from '~/components/profile-avatar'
+import { TimeOnEarth } from '~/components/time-on-earth'
 import { VinylShelf } from '~/components/vinyl-shelf'
 import { getAllPosts } from '~/lib/content'
 import { T } from '~/lib/i18n'
@@ -54,31 +55,41 @@ export async function HomePageView({ locale }: { locale: Locale }) {
 
   return (
     <div className="mx-auto w-full max-w-[37.5rem] px-6">
-      <div className="flex flex-col-reverse justify-between gap-10 sm:flex-row sm:items-start">
-        <div className="enter max-w-[19rem]">
-          <div className="flex items-center gap-2">
-            <h1 className="text-base font-semibold tracking-tight text-foreground">Cali Castle</h1>
-            <PixelCluster variant={2} className="shrink-0" />
+      <div className="flex flex-col gap-8 sm:gap-10 mt-6 sm:mt-10 mb-10 w-full">
+        {/* Top Row: Identity (Avatar + Name) */}
+        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 sm:gap-8">
+          <div className="w-28 shrink-0 sm:w-36">
+            <PortraitHiddenStage
+              label={
+                locale === 'en'
+                  ? "Reveal the hidden topographic field"
+                  : '显现隐藏的等高线场'
+              }
+            >
+              <ProfileAvatar
+                realSrc="/images/real-avatar.jpg"
+                animeSrc="/images/anime-avatar.jpg"
+                alt="Profile photo"
+              />
+            </PortraitHiddenStage>
           </div>
-          <div className="mt-4">
-            <HomeIntroduction social={social.x} github={github} />
+          
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-3">
+              <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-[2.75rem] leading-tight">
+                hi, Raman here
+              </h1>
+              <PixelCluster variant={2} className="shrink-0 scale-125 origin-left" />
+            </div>
+            <p className="mt-2 text-muted-foreground font-medium tracking-wide">
+              been here for <TimeOnEarth /> years
+            </p>
           </div>
         </div>
-        <div className="w-[9.35rem] shrink-0 sm:w-60">
-          <PortraitHiddenStage
-            label={
-              locale === 'en'
-                ? "Cali's halftone portrait. Reveal the hidden topographic field"
-                : 'Cali 的半调网点肖像。显现隐藏的等高线场'
-            }
-          >
-            <HalftonePortrait
-              srcLight="/images/headshot.jpg"
-              srcDark="/images/portrait-square.jpg"
-              alt="Cali 的半调网点肖像"
-              altEn="Cali's halftone portrait"
-            />
-          </PortraitHiddenStage>
+
+        {/* Bottom Section: Full Width Intro (with social links included) */}
+        <div className="enter opacity-95 leading-relaxed text-[1.05rem] max-w-full">
+          <HomeIntroduction social={social.x} github={github} />
         </div>
       </div>
 

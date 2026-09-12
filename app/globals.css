@@ -3296,6 +3296,96 @@ a:focus-visible .external-label .external-mark {
   animation: halftone-reveal 400ms var(--ease-swift) both;
 }
 
+/* ── Profile Avatar (real / anime switch) ─────────────────────────── */
+
+.profile-avatar-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.profile-avatar-image-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: var(--muted, #1a1a1a);
+  box-shadow:
+    0 0 0 1px var(--border, rgba(255 255 255 / 0.08)),
+    0 4px 24px rgba(0 0 0 / 0.4);
+  transition: box-shadow 300ms ease;
+}
+
+.profile-avatar-image-container:hover {
+  box-shadow:
+    0 0 0 1px var(--border, rgba(255 255 255 / 0.12)),
+    0 8px 32px rgba(0 0 0 / 0.5);
+}
+
+.profile-avatar-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.03);
+  transition:
+    opacity 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.profile-avatar-img--active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.profile-avatar-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border, rgba(255 255 255 / 0.1));
+  background: var(--muted, rgba(255 255 255 / 0.05));
+  color: var(--muted-foreground, rgba(255 255 255 / 0.5));
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    background 200ms ease,
+    border-color 200ms ease,
+    transform 200ms ease;
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.profile-avatar-switch:hover {
+  color: var(--foreground, #fff);
+  background: rgba(255 255 255 / 0.12);
+  border-color: rgba(255 255 255 / 0.2);
+  transform: scale(1.1);
+}
+
+.profile-avatar-switch:active {
+  transform: scale(0.95);
+}
+
+.profile-avatar-switch-icon {
+  transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.profile-avatar-switch:hover .profile-avatar-switch-icon {
+  transform: rotate(180deg);
+}
+
 /* The homepage portrait keeps its halftone print at rest. A bounded
    topographic field develops behind it only after deliberate attention. */
 [data-portrait-stage] {

@@ -153,13 +153,13 @@ function ZolplayLink({ children }: { children: React.ReactNode }) {
   )
 }
 
-function HomeContact({ social, github }: { social: SocialSnapshot; github: GitHubSnapshot }) {
+export function HomeContact({ social, github }: { social: SocialSnapshot; github: GitHubSnapshot }) {
   return (
     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
       <T
         zh={
           <>
-            可以在 <XCard data={social} trigger="@calicastle" triggerClassName="home-contact-link" />、
+            可以在 <XCard data={social} trigger="@r1zzdev" triggerClassName="home-contact-link" />、
             <GitHubCard data={github} triggerClassName="home-contact-link" /> 和
             <XiaohongshuCard triggerClassName="home-contact-link" />找到我，也可以发邮件到{' '}
             <EmailCard address="hi@cali.so" trigger="hi@cali.so" triggerClassName="home-contact-link" />。
@@ -167,7 +167,8 @@ function HomeContact({ social, github }: { social: SocialSnapshot; github: GitHu
         }
         en={
           <>
-            Find me at <XCard data={social} trigger="@calicastle" triggerClassName="home-contact-link" />,{' '}
+            Find me at <XCard data={social} trigger="@r1zzdev" triggerClassName="home-contact-link" />
+            {', '}
             <GitHubCard data={github} triggerClassName="home-contact-link" /> and{' '}
             <EmailCard address="hi@cali.so" trigger="hi@cali.so" triggerClassName="home-contact-link" />
           </>
@@ -184,55 +185,26 @@ export function HomeIntroduction({ social, github }: { social: SocialSnapshot; g
         <T
           zh={
             <>
-              我是 Cali，两个孩子的爸爸，也是一名
-              <DesignEngineerPhrase>设计工程师</DesignEngineerPhrase>。我也是 Agent 指挥官，热爱把细节做到
-              <DetailsPhrase>
-                <span className="home-detail-units">
-                  <span className="home-detail-unit">刚</span>
-                  <span className="home-detail-unit">刚</span>
-                  <span className="home-detail-unit">好</span>
-                </span>
-              </DetailsPhrase>
-              。
+              我是一名<DesignEngineerPhrase>全栈开发人员</DesignEngineerPhrase>，致力于通过精心的设计和结构良好的代码将想法转化为精美、可扩展的数字产品。
             </>
           }
           en={
             <>
-              I’m Cali, a father of two and a <DesignEngineerPhrase>design engineer</DesignEngineerPhrase>. I’m also an
-              agent orchestrator, and I love getting the{' '}
-              <DetailsPhrase>
-                <span className="home-detail-units home-detail-words">
-                  <span className="home-detail-unit">details</span>
-                  {' '}
-                  <span className="home-detail-unit">just</span>
-                  {' '}
-                  <span className="home-detail-unit">right</span>
-                  <span className="home-detail-period">.</span>
-                </span>
-              </DetailsPhrase>
+              I'm a <DesignEngineerPhrase>Full-Stack Developer</DesignEngineerPhrase> who enjoys turning ideas into polished, scalable digital products through thoughtful design and well-structured code.
             </>
           }
         />
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <T
-          zh={
-            <>
-              我创办了<ZolplayLink>佐玩</ZolplayLink>，一家打造产品、品牌与数字体验的 AI 原生设计工作室。
-            </>
-          }
-          en={
-            <>
-              I founded <ZolplayLink>Zolplay</ZolplayLink>, an AI-native design studio creating products, brands, and
-              digital experiences.
-            </>
-          }
+          zh="我构建现代、交互式的用户体验，同时在幕后开发可靠的后端系统和应用程序。从使用 React、Tailwind CSS 和 Motion 制作响应式界面，到构建驱动它们的逻辑和架构，我喜欢参与整个产品的开发。"
+          en="I build modern, interactive user experiences while also working behind the scenes to develop reliable backend systems and applications. From crafting responsive interfaces with React, Tailwind CSS, and Motion to building the logic and architecture that powers them, I enjoy working across the entire product."
         />
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <T
-          zh="我兴趣很杂，什么都爱试试。和团队一起做东西，我在意好点子、好细节，也在意玩得开心。"
-          en="Being a generalist is kind of my thing. I bring curiosity, craft, and a little fun to whatever the team is making."
+          zh="目前，我是一名专攻数据科学的大三计算机科学 B.Tech 学生。我喜欢探索新技术，解决复杂问题，完善细节，并将想法转化为直观、可靠和令人难忘的数字体验。"
+          en="Currently, I'm a third-year B.Tech Computer Science student specializing in Data Science. I enjoy exploring new technologies, solving complex problems, refining details, and turning ideas into intuitive, reliable, and memorable digital experiences."
         />
       </p>
       <HomeContact social={social} github={github} />
