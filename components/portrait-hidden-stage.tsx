@@ -220,6 +220,7 @@ export function PortraitHiddenStage({
             syncStage()
           }
         }}
+        onKeyDown={() => {
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault()
@@ -239,6 +240,7 @@ export function PortraitHiddenStage({
         }}
       >
         {children}
+      </button>
       </div>
     </span>
   )
