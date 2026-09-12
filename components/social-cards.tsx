@@ -217,7 +217,6 @@ export function YouTubeCardBody({ data }: { data: SocialSnapshot }) {
         data={data}
         avatar="/images/headshot.jpg"
         service="youtube"
-        withBio={false}
       />
       {data.followers && (
         <span className="service-card-stat">
@@ -359,11 +358,20 @@ export function LinkedInCard({
 
 export function MediumCardBody({ data }: { data: SocialSnapshot }) {
   return (
-    <Identity
-      data={data}
-      avatar="/images/real-avatar.jpg"
-      service="medium"
-    />
+    <>
+      <Identity
+        data={data}
+        avatar="/images/real-avatar.jpg"
+        service="medium"
+      />
+      {data.followers && (
+        <span className="service-card-stat">
+          <span>
+            <b>{data.followers}</b> <T zh="个故事" en={Number(data.followers) === 1 ? "Story" : "Stories"} />
+          </span>
+        </span>
+      )}
+    </>
   )
 }
 
