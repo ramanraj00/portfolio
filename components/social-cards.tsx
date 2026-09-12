@@ -289,20 +289,43 @@ export function XCard({
 
 export function LinkedInCardBody({ data }: { data: SocialSnapshot }) {
   return (
-    <>
-      <Identity
-        data={data}
-        avatar="/images/anime-avatar.jpg"
-        service="linkedin"
+    <div className="flex flex-col relative w-full">
+      {/* Header Banner - Negative margins to bleed to the edge of the card */}
+      <div 
+        className="w-[calc(100%+1.5rem)] h-[4.5rem] bg-[#a8b8c2] dark:bg-[#3d4b53] -mt-[0.625rem] -ml-[0.75rem] rounded-t-[2px] z-0 relative"
       />
-      {data.followers && (
-        <span className="service-card-stat">
-          <span>
-            <b>{data.followers}</b> <T zh="个联系人" en="connections" />
+      
+      {/* Container for everything else to overlap the banner */}
+      <div className="relative z-10 flex flex-col -mt-10">
+        <div className="flex justify-between items-start">
+          <Image
+            src="/images/anime-avatar.jpg"
+            alt={data.name}
+            width={72}
+            height={72}
+            style={{ backgroundColor: 'var(--surface-3)', borderColor: 'var(--surface-3)' }}
+            className="rounded-full border-[4px] object-cover"
+          />
+          <div className="mt-12 mr-1">
+            <Glyph service="linkedin" />
+          </div>
+        </div>
+
+        <div className="mt-1 flex flex-col leading-snug">
+          <span className="text-[1.05rem] font-bold text-foreground tracking-tight">
+            {data.name}
           </span>
-        </span>
-      )}
-    </>
+          <span className="text-[0.85rem] text-muted-foreground mt-[2px] whitespace-pre-line">
+            <T zh={data.bio} en={data.bioEn} />
+          </span>
+          {data.followers && (
+            <span className="text-[0.85rem] font-medium text-[#0a66c2] dark:text-[#70b5f9] mt-3 pb-1">
+              {data.followers} <T zh="个联系人" en="connections" />
+            </span>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 
