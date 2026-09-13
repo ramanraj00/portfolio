@@ -4,6 +4,7 @@ import { localeMetadata } from '~/lib/locale-metadata'
 import { type Locale } from '~/lib/locale-route'
 import { publicPageMetadata } from '~/lib/public-page-metadata'
 import { HoverVideo } from '~/components/ama/hover-video'
+import { ImageSlider } from '~/components/ama/image-slider'
 
 export function amaPageMetadata(locale: Locale): Metadata {
   const copy = publicPageMetadata.ama[locale]
@@ -14,6 +15,18 @@ export function amaPageMetadata(locale: Locale): Metadata {
     description: copy.description,
   })
 }
+
+
+const kickButtowskiImages = [
+  '/kick-buttowski/1.jpg',
+  '/kick-buttowski/2.jpg',
+  '/kick-buttowski/3.jpg',
+  '/kick-buttowski/4.jpg',
+  '/kick-buttowski/5.jpg',
+  '/kick-buttowski/6.jpg',
+  '/kick-buttowski/7.jpg',
+  '/kick-buttowski/8.jpg',
+]
 
 export function AmaPageView({ locale }: { locale: Locale }) {
   return (
@@ -44,9 +57,9 @@ export function AmaPageView({ locale }: { locale: Locale }) {
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
-        {/* Center Heartbeat (Wide Focus) */}
+        {/* Center Heartbeat (Image Slider) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-2 md:col-span-2 md:row-start-2 md:row-span-1">
-          <HoverVideo src="/videos/2022111_0.mp4" />
+          <ImageSlider images={kickButtowskiImages} />
         </div>
 
         {/* Center Top Left */}
@@ -74,6 +87,11 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         {/* SCENE 2: Grid continues below (Follows standard grid blocks) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-1 md:col-span-1 md:row-start-4 md:row-span-3">
           <HoverVideo src="/videos/8353197_0.mp4" />
+        </div>
+        
+        {/* The old center video pushed down */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-2 md:col-span-2 md:row-start-4 md:row-span-2">
+          <HoverVideo src="/videos/2022111_0.mp4" />
         </div>
 
       </div>
