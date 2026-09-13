@@ -7,9 +7,9 @@ import {
   GitHubCard,
   type GitHubSnapshot,
   type SocialSnapshot,
-  TelegramCard,
+  MediumCard,
   XCard,
-  YouTubeCard,
+  
 } from '~/components/social-cards'
 import { brailleText } from '~/lib/braille'
 import { T } from '~/lib/i18n'
@@ -49,7 +49,7 @@ export function SiteFooter({
   github,
   locale = 'zh',
 }: {
-  social: { x: SocialSnapshot; telegram: SocialSnapshot; youtube: SocialSnapshot }
+  social: { x: SocialSnapshot; medium: SocialSnapshot }
   github: GitHubSnapshot
   locale?: Locale
 }) {
@@ -61,10 +61,7 @@ export function SiteFooter({
             <XCard data={social.x} />
           </li>
           <li>
-            <TelegramCard data={social.telegram} />
-          </li>
-          <li>
-            <YouTubeCard data={social.youtube} />
+            <MediumCard data={social.medium} />
           </li>
           <li>
             <GitHubCard data={github} />
@@ -111,11 +108,11 @@ export function SiteFooter({
         <div className="footer-colophon col-span-2 sm:order-first sm:col-span-1">
           <div>
             <p>
-              © <CopyrightYear /> Cali Castle
+              © <CopyrightYear /> Raman Raj
             </p>
             {/* the name echoed in braille — a printer's mark on the sheet */}
             <p className="footer-braille" aria-hidden>
-              {brailleText('cali castle')}
+              {brailleText('raman raj')}
             </p>
           </div>
           <div className="flex flex-col gap-2.5">
@@ -128,8 +125,8 @@ export function SiteFooter({
                 <path d="M1 10h18M1.9 6h16.2M1.9 14h16.2" />
               </svg>
               <span className="footer-geo-lines">
-                <span>22.4820° N</span>
-                <span>113.9247° E</span>
+                <span>28.6139° N</span>
+                <span>77.2090° E</span>
               </span>
             </div>
           </div>

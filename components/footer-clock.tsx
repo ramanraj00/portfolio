@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 
 const taipeiClockTime = new Intl.DateTimeFormat('en-GB', {
-  timeZone: 'Asia/Taipei',
+  timeZone: 'Asia/Kolkata',
   hourCycle: 'h23',
   hour: '2-digit',
   minute: '2-digit',
@@ -11,7 +11,7 @@ const taipeiClockTime = new Intl.DateTimeFormat('en-GB', {
 })
 
 const taipeiTimeLabel = new Intl.DateTimeFormat('en-US', {
-  timeZone: 'Asia/Taipei',
+  timeZone: 'Asia/Kolkata',
   hour12: true,
   hour: 'numeric',
   minute: '2-digit',
@@ -109,11 +109,11 @@ export function FooterClock() {
         <circle className="footer-clock-pin" cx="16" cy="16" r="1" />
       </svg>
       <span className="footer-time-readout">
-        <span>UTC+8</span>
+        <span>IST</span>
         <time
           dateTime={now?.toISOString()}
           aria-label={
-            now ? `Current time in Taipei, UTC+8: ${label}` : 'Current time in Taipei, UTC+8'
+            now ? `Current time in India, IST: ${label}` : 'Current time in India, IST'
           }
         >
           {label}
