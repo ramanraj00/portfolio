@@ -1,32 +1,32 @@
 export const publicPageMetadata = {
   home: {
     zh: {
-      title: 'Cali Castle',
-      description: '设计工程师、Agent 指挥官、创意总监。',
-      ogDescription: '设计工程师、Agent 指挥官、创意总监。',
+      title: 'Raman Raj',
+      description: '软件工程师',
+      ogDescription: '软件工程师',
     },
     en: {
-      title: 'Cali Castle',
-      description: 'Design Engineer. Agent Orchestrator. Creative Director.',
-      ogDescription: 'Design Engineer. Agent Orchestrator. Creative Director.',
+      title: 'Raman Raj',
+      description: 'Software Engineer.',
+      ogDescription: 'Software Engineer.',
     },
   },
   blog: {
     zh: {
       title: '写作',
-      description: 'Cali 关于设计、工程、产品，以及一路上在意的人和事的文章。',
+      description: 'Raman 关于设计、工程、产品，以及一路上在意的人和事的文章。',
     },
     en: {
       title: 'Writing',
       description:
-        'Essays by Cali about design, engineering, products, and the people and ideas that matter along the way.',
+        'Essays by Raman about design, engineering, products, and the people and ideas that matter along the way.',
     },
   },
   photos: {
-    zh: { title: '照片', description: 'Cali 在工作、生活和旅途中留下的一些瞬间。' },
+    zh: { title: '照片', description: 'Raman 在工作、生活和旅途中留下的一些瞬间。' },
     en: {
       title: 'Photos',
-      description: 'Moments Cali has kept from work, life, and everywhere in between.',
+      description: 'Moments Raman has kept from work, life, and everywhere in between.',
     },
   },
   projects: {

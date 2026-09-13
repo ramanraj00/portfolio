@@ -18,7 +18,7 @@ import {
   type PublicSection,
 } from './public-page-metadata'
 
-const NAME = 'Cali Castle'
+const NAME = 'Raman Raj'
 const HOME_INTRODUCTIONS: Record<Locale, string> = {
   zh: publicPageMetadata.home.zh.ogDescription,
   en: publicPageMetadata.home.en.ogDescription,
@@ -368,7 +368,7 @@ function OgSectionMark({ section }: { section: PublicSection }) {
 
 async function renderSectionOgImage(section: PublicSection, locale: Locale) {
   const copy = publicPageMetadata[section][locale]
-  const signature = 'Cali Castle'
+  const signature = 'Raman Raj'
 
   return new ImageResponse(
     (
@@ -451,8 +451,8 @@ async function renderNewsletterOgImage(newsletter: NewsletterOgInput, locale: Lo
     locale === 'en' ? newsletter.descriptionEn : newsletter.description
   const archiveLabel =
     locale === 'en'
-      ? `Cali Castle · Archive ${newsletter.id.padStart(3, '0')}`
-      : `Cali Castle · 存档 ${newsletter.id.padStart(3, '0')}`
+      ? `Raman Raj · Archive ${newsletter.id.padStart(3, '0')}`
+      : `Raman Raj · 存档 ${newsletter.id.padStart(3, '0')}`
   const cover = await coverDataUri(
     `/content/newsletters/${newsletter.id}/cover.png`,
   )
