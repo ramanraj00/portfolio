@@ -18,14 +18,14 @@ export function amaPageMetadata(locale: Locale): Metadata {
 
 
 const kickButtowskiImages = [
-  '/kick-buttowski/1.jpg',
-  '/kick-buttowski/2.jpg',
-  '/kick-buttowski/3.jpg',
-  '/kick-buttowski/4.jpg',
-  '/kick-buttowski/5.jpg',
-  '/kick-buttowski/6.jpg',
-  '/kick-buttowski/7.jpg',
-  '/kick-buttowski/8.jpg',
+  '/images/kick-buttowski/1.jpg',
+  '/images/kick-buttowski/2.jpg',
+  '/images/kick-buttowski/3.jpg',
+  '/images/kick-buttowski/4.jpg',
+  '/images/kick-buttowski/5.jpg',
+  '/images/kick-buttowski/6.jpg',
+  '/images/kick-buttowski/7.jpg',
+  '/images/kick-buttowski/8.jpg',
 ]
 
 export function AmaPageView({ locale }: { locale: Locale }) {
