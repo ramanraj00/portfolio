@@ -12,29 +12,12 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
 
     video.volume = 1.0
 
-    const syncVideo = () => {
-      if (!video.duration || video.duration === Infinity) return
-      
-      // Use absolute system time to calculate the expected frame.
-      // This locks all videos on the page to the exact same universal clock!
-      const nowSec = Date.now() / 1000
-      const expectedTime = (nowSec + startTime) % video.duration
-      
-      let diff = expectedTime - video.currentTime
-      
-      // Handle loop boundary wrap-around logic
-      if (diff > video.duration / 2) diff -= video.duration
-      if (diff < -video.duration / 2) diff += video.duration
-      
-      // If it drifts by more than 0.15 seconds, forcefully snap it back into perfect sync
-      if (Math.abs(diff) > 0.15) {
-        video.currentTime = expectedTime
-      }
-    }
-
-    // Attempt to play and start syncing
     const attemptPlay = () => {
-      syncVideo()
+      // Set the offset once when the video loads to guarantee the initial stagger
+      if (startTime > 0 && video.currentTime === 0) {
+        video.currentTime = startTime
+      }
+
       const p = video.play()
       if (p !== undefined) {
         p.catch(() => {
@@ -48,13 +31,6 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
       attemptPlay()
     } else {
       video.addEventListener('loadedmetadata', attemptPlay, { once: true })
-    }
-
-    // Check sync frequently during playback
-    video.addEventListener('timeupdate', syncVideo)
-
-    return () => {
-      video.removeEventListener('timeupdate', syncVideo)
     }
   }, [src, startTime])
 
