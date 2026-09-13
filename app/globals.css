@@ -3963,7 +3963,7 @@ a:focus-visible .external-label .external-mark {
 /* ── Vinyl shelf (components/vinyl-shelf.tsx) ─────────────────────── */
 
 .vinyl-room {
-  --vinyl-depth: 3px;
+  --vinyl-depth: 5px;
   --vinyl-motion-duration: 330ms;
   --vinyl-shadow-rgb: var(--room-shelf-shadow-rgb);
 
@@ -3989,7 +3989,7 @@ a:focus-visible .external-label .external-mark {
 }
 
 .vinyl-shelf {
-  --vinyl-spread: 48%;
+  --vinyl-spread: 32%;
 
   display: grid;
   place-items: end center;
@@ -3998,14 +3998,14 @@ a:focus-visible .external-label .external-mark {
   list-style: none;
   overflow: visible;
   isolation: isolate;
-  perspective: 900px;
+  perspective: 600px;
   perspective-origin: center bottom;
 }
 
 .vinyl {
   position: relative;
   grid-area: 1 / 1;
-  width: clamp(7.25rem, 27vw, 9.5rem);
+  width: clamp(6rem, 22vw, 8rem);
   z-index: var(--vinyl-stack-order);
   pointer-events: none;
 }
@@ -4136,7 +4136,7 @@ a:focus-visible .external-label .external-mark {
   position: relative;
   z-index: 2;
   display: block;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   background: var(--paper);
   box-shadow:
     0 0 0 var(--border-hairline) rgb(0 0 0 / 0.09),
