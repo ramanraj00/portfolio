@@ -2,43 +2,41 @@
 
 import { useRef, useState, useEffect } from 'react'
 
-export function HoverVideo({ src, delay = 0 }: { src: string, delay?: number }) {
+export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: number }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isHovered, setIsHovered] = useState(false)
 
   useEffect(() => {
-    let timeoutId: NodeJS.Timeout
+    if (!videoRef.current) return
+    const video = videoRef.current
 
-    if (videoRef.current) {
-      videoRef.current.volume = 1.0 // Ensure volume is up
-      
-      const attemptPlay = () => {
-        if (!videoRef.current) return
-        const p = videoRef.current.play()
-        if (p !== undefined) {
-          p.catch(() => {
-            // Fallback to muted so it at least continues playing visually
-            if (videoRef.current) {
-              videoRef.current.muted = true
-              videoRef.current.play().catch(console.error)
-            }
-          })
-        }
+    video.volume = 1.0 // Ensure volume is up
+
+    const attemptPlay = () => {
+      // Force the specific start time to guarantee offset, regardless of buffering
+      if (startTime > 0 && video.currentTime === 0) {
+        video.currentTime = startTime
       }
 
-      if (delay > 0) {
-        timeoutId = setTimeout(attemptPlay, delay)
-      } else {
-        attemptPlay()
+      const p = video.play()
+      if (p !== undefined) {
+        p.catch(() => {
+          // Fallback to muted if autoplay blocked
+          video.muted = true
+          video.play().catch(console.error)
+        })
       }
     }
 
-    return () => {
-      if (timeoutId) clearTimeout(timeoutId)
+    // If video is already loaded, play immediately. Otherwise wait for it.
+    if (video.readyState >= 1) { // HAVE_METADATA
+      attemptPlay()
+    } else {
+      video.addEventListener('loadedmetadata', attemptPlay, { once: true })
     }
-  }, [src, delay])
+  }, [src, startTime])
 
-  // Effect to handle hover unmuting without disrupting the initial delay play
+  // Handle unmute on hover
   useEffect(() => {
     if (videoRef.current && isHovered) {
       videoRef.current.muted = false

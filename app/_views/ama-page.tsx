@@ -40,14 +40,14 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         
         {/* --- SCENE 1: THE FOLD --- */}
 
-        {/* Left Pillar */}
+        {/* Left Pillar (Started 0.3s ahead for consistent transition wave) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
-          <HoverVideo src="/videos/3258679_0.mp4" />
+          <HoverVideo src="/videos/3258679_0.mp4" startTime={0.3} />
         </div>
 
-        {/* Right Pillar (Delayed to create transition effect) */}
+        {/* Right Pillar */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-3">
-          <HoverVideo src="/videos/3258679_0.mp4" delay={300} />
+          <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
         {/* Center left intentionally blank */}
