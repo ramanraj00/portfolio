@@ -10,29 +10,51 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
     if (!videoRef.current) return
     const video = videoRef.current
 
-    video.volume = 1.0 // Ensure volume is up
+    video.volume = 1.0
 
-    const attemptPlay = () => {
-      // Force the specific start time to guarantee offset, regardless of buffering
-      if (startTime > 0 && video.currentTime === 0) {
-        video.currentTime = startTime
+    const syncVideo = () => {
+      if (!video.duration || video.duration === Infinity) return
+      
+      // Use absolute system time to calculate the expected frame.
+      // This locks all videos on the page to the exact same universal clock!
+      const nowSec = Date.now() / 1000
+      const expectedTime = (nowSec + startTime) % video.duration
+      
+      let diff = expectedTime - video.currentTime
+      
+      // Handle loop boundary wrap-around logic
+      if (diff > video.duration / 2) diff -= video.duration
+      if (diff < -video.duration / 2) diff += video.duration
+      
+      // If it drifts by more than 0.15 seconds, forcefully snap it back into perfect sync
+      if (Math.abs(diff) > 0.15) {
+        video.currentTime = expectedTime
       }
+    }
 
+    // Attempt to play and start syncing
+    const attemptPlay = () => {
+      syncVideo()
       const p = video.play()
       if (p !== undefined) {
         p.catch(() => {
-          // Fallback to muted if autoplay blocked
           video.muted = true
           video.play().catch(console.error)
         })
       }
     }
 
-    // If video is already loaded, play immediately. Otherwise wait for it.
-    if (video.readyState >= 1) { // HAVE_METADATA
+    if (video.readyState >= 1) {
       attemptPlay()
     } else {
       video.addEventListener('loadedmetadata', attemptPlay, { once: true })
+    }
+
+    // Check sync frequently during playback
+    video.addEventListener('timeupdate', syncVideo)
+
+    return () => {
+      video.removeEventListener('timeupdate', syncVideo)
     }
   }, [src, startTime])
 
