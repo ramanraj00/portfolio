@@ -476,14 +476,14 @@ export function EmailCard({
           <span className="email-envelope-flap" />
           <span className="email-envelope-return">
             <span>FROM</span>
-            CALI CASTLE
+            RAMAN RAJ
             <br />
-            TAIPEI
+            INDIA
           </span>
           <span className="email-envelope-stamps">
             <span className="email-envelope-stamp email-envelope-stamp-portrait">
               <Image src="/images/avatar.png" alt="" width={32} height={32} />
-              <span>CALI · 20</span>
+              <span>RAMAN · 20</span>
             </span>
             <span className="email-envelope-stamp email-envelope-stamp-mark">
               <span className="email-envelope-stamp-star">✦</span>
