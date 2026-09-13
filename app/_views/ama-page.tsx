@@ -58,13 +58,23 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         {/* --- SCENE 2: SCROLL DOWN --- */}
 
-        {/* Nested 5-Column Grid to fit exactly 5 vertical assets with zero cropping and perfect symmetry */}
-        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-5 gap-[2px] md:gap-[1px] w-full h-full">
+        {/* 2-Pillar Grid for the Left Video and New Video */}
+        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-2 gap-[2px] md:gap-[1px] w-full h-full">
           
           <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
             <HoverVideo src="/videos/5485403_0.mp4" />
           </div>
           
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/5119559_0.mp4" />
+          </div>
+
+        </div>
+
+        {/* --- SCENE 3: MORE CONTENT --- */}
+        {/* Pushed down content into a 4-Pillar Grid to keep the structure intact */}
+        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-4 gap-[2px] md:gap-[1px] w-full h-full">
+
           <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
             <HoverVideo src="/videos/2022111_0.mp4" />
           </div>
