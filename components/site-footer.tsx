@@ -71,7 +71,7 @@ export function SiteFooter({
             <GitHubCard data={github} />
           </li>
           <li>
-            <EmailCard address="hi@cali.so" />
+            <EmailCard address="r02519625@gmail.com" />
           </li>
         </Tree>
         <Tree zh="索引" en="index">
