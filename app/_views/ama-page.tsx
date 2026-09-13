@@ -4,6 +4,7 @@ import { localeMetadata } from '~/lib/locale-metadata'
 import { type Locale } from '~/lib/locale-route'
 import { publicPageMetadata } from '~/lib/public-page-metadata'
 
+import { HoverVideo } from '~/components/ama/hover-video'
 export function amaPageMetadata(locale: Locale): Metadata {
   const copy = publicPageMetadata.ama[locale]
   return localeMetadata({
@@ -49,6 +50,20 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         - grid-cols-2 on mobile, grid-cols-4 on tablet, grid-cols-6 on desktop 
       */}
       <div className="w-full min-h-screen bg-black -mt-14 -mb-20 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 auto-rows-[150px] md:auto-rows-[250px] grid-flow-dense gap-[1px]">
+        
+        {/* Center Video (Forced placement) */}
+        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-2 md:row-start-2 lg:col-start-3 lg:row-start-2">
+          <HoverVideo src="/videos/2022111_0.mp4" />
+          
+          {/* Reel Icon Overlay */}
+          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
+            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
+              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+            </svg>
+          </div>
+        </div>
+
+        {/* Dynamic Items */}
         {items.map((item) => (
           <div 
             key={item.id} 
