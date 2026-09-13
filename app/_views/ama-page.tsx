@@ -58,16 +58,24 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         {/* --- SCENE 2: SCROLL DOWN --- */}
 
-        {/* 2-Pillar Grid for the Left Video and New Video */}
-        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-2 gap-[2px] md:gap-[1px] w-full h-full">
+        {/* 4-Pillar Grid as per sketch (2 videos + 2 empty slots for future) */}
+        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-4 gap-[2px] md:gap-[1px] w-full h-full">
           
+          {/* Pillar 1: Left Video */}
           <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
             <HoverVideo src="/videos/5485403_0.mp4" />
           </div>
           
+          {/* Pillar 2: New Video */}
           <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
             <HoverVideo src="/videos/5119559_0.mp4" />
           </div>
+
+          {/* Pillar 3: Blank Space for future video */}
+          <div className="relative bg-black w-full h-full"></div>
+
+          {/* Pillar 4: Blank Space for future video */}
+          <div className="relative bg-black w-full h-full"></div>
 
         </div>
 
