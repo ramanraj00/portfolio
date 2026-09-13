@@ -1,28 +1,19 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 export function HoverVideo({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
 
-  // Force play on mount to ensure it plays even if autoPlay prop fails
   useEffect(() => {
     if (videoRef.current) {
-      // Sometimes setting muted in useEffect helps with strict browsers
-      videoRef.current.muted = true;
-      videoRef.current.play().catch(console.error)
-    }
-  }, [])
-
-  const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = false
-      // Explicitly call play() because browsers like Safari will pause an unmuted video
-      // if the user hasn't clicked on the page yet.
-      const playPromise = videoRef.current.play()
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          // If browser blocks unmuted playback (Autoplay Policy), fallback to muted playback
+      videoRef.current.volume = 1.0 // Ensure volume is up
+      const p = videoRef.current.play()
+      if (p !== undefined) {
+        p.catch(() => {
+          // If play fails (e.g. because we unmuted without user interaction),
+          // fallback to muted so it at least continues playing visually
           if (videoRef.current) {
             videoRef.current.muted = true
             videoRef.current.play().catch(console.error)
@@ -30,27 +21,30 @@ export function HoverVideo({ src }: { src: string }) {
         })
       }
     }
-  }
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = true
-      // Just in case muting it paused it
-      videoRef.current.play().catch(console.error)
-    }
-  }
+  }, [isHovered, src])
 
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-      autoPlay
-      loop
-      muted
-      playsInline
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    />
+    <div 
+      className="absolute inset-0 w-full h-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      // Optional click handler to force interaction and unmute
+      onClick={() => {
+        if (videoRef.current) {
+          videoRef.current.muted = false
+          videoRef.current.play().catch(console.error)
+        }
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        autoPlay
+        loop
+        muted={!isHovered}
+        playsInline
+      />
+    </div>
   )
 }
