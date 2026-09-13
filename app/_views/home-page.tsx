@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
@@ -118,41 +119,50 @@ export async function HomePageView({ locale }: { locale: Locale }) {
 
       <section className="mt-16">
         <SectionTitle index={nextSectionIndex()} delay={120}>
-          <T zh="经历" en="Experience" />
+          <T zh="项目" en="Projects" />
         </SectionTitle>
         <ul className="mt-4 flex flex-col">
-          {experience.map((job, i) => (
+          {projects.map((project, i) => (
             <li
-              key={job.company}
+              key={project.name}
               className="enter-swing hairline-top"
               style={{ '--enter-delay': `${150 + i * 40}ms` } as React.CSSProperties}
             >
-              <div className="experience-row text-sm">
-                <div className="experience-details">
-                  {job.url ? (
-                    <a
-                      href={job.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="experience-company font-medium transition-colors duration-150 ease-[ease] hover:text-foreground"
-                    >
-                      <ExternalLabel>
-                        <T zh={job.company} en={job.companyEn} />
-                      </ExternalLabel>
-                    </a>
-                  ) : (
-                    <span className="experience-company font-medium">
-                      <T zh={job.company} en={job.companyEn} />
-                    </span>
-                  )}
-                  <span className="experience-role text-muted-foreground">
-                    <T zh={job.role} en={job.roleEn ?? job.role} />
-                  </span>
-                </div>
-                <span className="experience-date text-muted-foreground tabular-nums">
-                  {job.from}—{job.to ?? <T zh="现在" en="now" />}
+              <Link
+                href={
+                  project.url.startsWith('/')
+                    ? localePath(locale, project.url)
+                    : project.url
+                }
+                target={project.url.startsWith('/') ? undefined : '_blank'}
+                rel={project.url.startsWith('/') ? undefined : 'noreferrer'}
+                className="project-row group"
+              >
+                <span className="project-icon-frame" aria-hidden="true">
+                  <Image
+                    src={project.icon}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="project-icon"
+                  />
                 </span>
-              </div>
+                <span className="project-identity">
+                  <span className="project-name font-medium">
+                    {project.url.startsWith('/') ? (
+                      <T zh={project.name} en={project.nameEn} />
+                    ) : (
+                      <ExternalLabel>
+                        <T zh={project.name} en={project.nameEn} />
+                      </ExternalLabel>
+                    )}
+                  </span>
+                  <span className="project-domain text-muted-foreground">{project.domain}</span>
+                </span>
+                <span className="project-description text-muted-foreground">
+                  <T zh={project.description} en={project.descriptionEn ?? project.description} />
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
