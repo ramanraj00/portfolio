@@ -71,8 +71,8 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         {/* --- SCENE 2: THE DROP (SCROLL DOWN) --- */}
 
-        {/* The old left video, now placed below as a massive cinematic continuation */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-1 md:col-span-4 md:row-start-4 md:row-span-3">
+        {/* SCENE 2: Grid continues below (Follows standard grid blocks) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-1 md:col-span-1 md:row-start-4 md:row-span-3">
           <HoverVideo src="/videos/8353197_0.mp4" />
         </div>
 
