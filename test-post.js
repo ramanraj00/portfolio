@@ -1,7 +1,0 @@
-const fs = require('fs')
-const matter = require('gray-matter')
-const raw = fs.readFileSync('content/blog/how-i-built-a-zero-knowledge-e2ee-web-app/index.mdx', 'utf8')
-const translatedRaw = fs.readFileSync('content/blog/how-i-built-a-zero-knowledge-e2ee-web-app/index.en.mdx', 'utf8')
-const parsed1 = matter(raw)
-const parsed2 = matter(translatedRaw)
-console.log(parsed1.data, parsed2.data)
