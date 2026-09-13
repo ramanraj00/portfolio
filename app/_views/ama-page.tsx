@@ -20,26 +20,26 @@ export function AmaPageView({ locale }: { locale: Locale }) {
     <>
       <style>{`
         footer { display: none !important; }
-        html, body { background-color: black !important; overscroll-behavior: none; }
-        /* Hide scrollbar for a perfectly clean view */
+        html, body { background-color: black !important; }
+        /* Keep scrolling functionality but hide the ugly scrollbar for a clean UI */
         ::-webkit-scrollbar { display: none; }
       `}</style>
       
       {/* 
-        Perfect Symmetrical 7-Video Grid:
-        - 4 Columns, 3 Rows on Desktop
-        - 2 Side Pillars (Tall)
-        - 1 Center Heartbeat (Wide)
-        - 4 Supporting Blocks (Squares)
+        Scrollable Story Grid:
+        - md:auto-rows-[33.33vh] means 3 rows = 1 full screen. 
+        - As we add rows, the page naturally becomes scrollable.
       */}
-      <div className="w-full min-h-[calc(100vh+3.5rem)] bg-black -mt-14 -mb-20 grid grid-cols-2 md:grid-cols-4 grid-rows-[repeat(4,25vh)] md:grid-rows-3 gap-[2px] md:gap-[1px] p-[1px]">
+      <div className="w-full bg-black -mt-14 grid grid-cols-2 md:grid-cols-4 auto-rows-[50vh] md:auto-rows-[33.33vh] gap-[2px] md:gap-[1px] p-[1px]">
         
-        {/* Left Pillar (Tall) */}
+        {/* --- SCENE 1: THE SYMMETRICAL FRAME --- */}
+
+        {/* Left Pillar (Now mirrored with the right video) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
-          <HoverVideo src="/videos/8353197_0.mp4" />
+          <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
-        {/* Right Pillar (Tall) */}
+        {/* Right Pillar (Original right video) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-3">
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
@@ -67,6 +67,13 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         {/* Center Bottom Right */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-3 md:col-span-1 md:row-start-3 md:row-span-1">
           <HoverVideo src="/videos/3578213_0.mp4" />
+        </div>
+
+        {/* --- SCENE 2: THE DROP (SCROLL DOWN) --- */}
+
+        {/* The old left video, now placed below as a massive cinematic continuation */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-1 md:col-span-4 md:row-start-4 md:row-span-3">
+          <HoverVideo src="/videos/8353197_0.mp4" />
         </div>
 
       </div>
