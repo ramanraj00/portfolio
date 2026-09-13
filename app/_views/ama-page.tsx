@@ -58,43 +58,30 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         {/* --- SCENE 2: SCROLL DOWN --- */}
 
-        {/* The old left video pillar */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-1 md:col-span-1 md:row-start-4 md:row-span-3">
-          <HoverVideo src="/videos/8353197_0.mp4" />
-        </div>
+        {/* Col 1 is completely empty in Scene 2 */}
 
-        {/* Pushed Center Heartbeat */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-2 md:col-span-2 md:row-start-5 md:row-span-1">
-          <HoverVideo src="/videos/2022111_0.mp4" />
-        </div>
-
-        {/* Pushed Center Top Left */}
+        {/* Top Left Square (Suitcase Man) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-2 md:col-span-1 md:row-start-4 md:row-span-1">
           <HoverVideo src="/videos/5485403_0.mp4" />
         </div>
 
-        {/* Pushed Center Top Right */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-3 md:col-span-1 md:row-start-4 md:row-span-1">
-          <HoverVideo src="/videos/7058732_0.mp4" />
+        {/* Center Wide (Sunset Character) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-2 md:col-span-2 md:row-start-5 md:row-span-1">
+          <HoverVideo src="/videos/2022111_0.mp4" />
         </div>
 
-        {/* Pushed Center Bottom Left */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-2 md:col-span-1 md:row-start-6 md:row-span-1">
-          <HoverVideo src="/videos/3086007_0.mp4" />
-        </div>
-
-        {/* Pushed Center Bottom Right */}
+        {/* Bottom Right Square (Clouds with text) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-3 md:col-span-1 md:row-start-6 md:row-span-1">
           <HoverVideo src="/videos/3578213_0.mp4" />
         </div>
 
-        {/* SMALL IMAGE SLIDER (Moved to 2nd screen, occupying right side) */}
+        {/* Kick Buttowski Slider (Top Right Tall) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-4 md:col-span-1 md:row-start-4 md:row-span-2">
           <ImageSlider images={kickButtowskiImages} />
         </div>
 
-        {/* The pushed down massive center video */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-4 md:col-span-1 md:row-start-6 md:row-span-1">
+        {/* Batmobile Video (Bottom Right Square) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-4 md:col-span-1 md:row-start-6 md:row-span-1">
           <HoverVideo src="/videos/4222035_0.mp4" />
         </div>
 
