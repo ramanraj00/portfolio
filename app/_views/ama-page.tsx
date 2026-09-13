@@ -45,9 +45,9 @@ export function AmaPageView({ locale }: { locale: Locale }) {
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
-        {/* Right Pillar */}
+        {/* Right Pillar (Delayed to create transition effect) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-3">
-          <HoverVideo src="/videos/3258679_0.mp4" />
+          <HoverVideo src="/videos/3258679_0.mp4" delay={300} />
         </div>
 
         {/* Center left intentionally blank */}
