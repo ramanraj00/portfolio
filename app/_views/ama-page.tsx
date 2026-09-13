@@ -50,13 +50,13 @@ export function AmaPageView({ locale }: { locale: Locale }) {
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
-        {/* MASSIVE CENTER SLIDER (Replaces the entire center cluster on Screen 1) */}
+        {/* MASSIVE CENTER VIDEO (New Video) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-2 md:col-span-2 md:row-start-1 md:row-span-3">
-          <ImageSlider images={kickButtowskiImages} />
+          <HoverVideo src="/videos/4222035_0.mp4" />
         </div>
 
 
-        {/* --- SCENE 2: SCROLL DOWN (The Pushed Center Cluster) --- */}
+        {/* --- SCENE 2: SCROLL DOWN --- */}
 
         {/* The old left video pillar */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-1 md:col-span-1 md:row-start-4 md:row-span-3">
@@ -86,6 +86,11 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         {/* Pushed Center Bottom Right */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-3 md:col-span-1 md:row-start-6 md:row-span-1">
           <HoverVideo src="/videos/3578213_0.mp4" />
+        </div>
+
+        {/* SMALL IMAGE SLIDER (Moved to 2nd screen, occupying right side) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-4 md:col-span-1 md:row-start-4 md:row-span-2">
+          <ImageSlider images={kickButtowskiImages} />
         </div>
 
       </div>
