@@ -50,9 +50,9 @@ export function AmaPageView({ locale }: { locale: Locale }) {
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
-        {/* MASSIVE CENTER VIDEO (New Video) */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-2 md:col-span-2 md:row-start-1 md:row-span-3">
-          <HoverVideo src="/videos/4222035_0.mp4" />
+        {/* Center left intentionally blank */}
+        <div className="z-10 col-span-2 row-span-2 md:col-start-2 md:col-span-2 md:row-start-1 md:row-span-3">
+           {/* Blank space */}
         </div>
 
 
@@ -91,6 +91,11 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         {/* SMALL IMAGE SLIDER (Moved to 2nd screen, occupying right side) */}
         <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-start-4 md:col-span-1 md:row-start-4 md:row-span-2">
           <ImageSlider images={kickButtowskiImages} />
+        </div>
+
+        {/* The pushed down massive center video */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-4 md:col-span-1 md:row-start-6 md:row-span-1">
+          <HoverVideo src="/videos/4222035_0.mp4" />
         </div>
 
       </div>
