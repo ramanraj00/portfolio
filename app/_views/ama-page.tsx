@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { localeMetadata } from '~/lib/locale-metadata'
 import { type Locale } from '~/lib/locale-route'
 import { publicPageMetadata } from '~/lib/public-page-metadata'
-
 import { HoverVideo } from '~/components/ama/hover-video'
+
 export function amaPageMetadata(locale: Locale): Metadata {
   const copy = publicPageMetadata.ama[locale]
   return localeMetadata({
@@ -15,155 +15,60 @@ export function amaPageMetadata(locale: Locale): Metadata {
   })
 }
 
-// Pre-defined shapes for the Bento/Masonry grid
-const shapes = [
-  'col-span-1 row-span-2', // Vertical / Reel
-  'col-span-2 row-span-1', // Horizontal / Wide
-  'col-span-2 row-span-2', // Large Feature
-  'col-span-1 row-span-1', // Small Square
-  'col-span-2 row-span-1', // Horizontal / Wide
-  'col-span-1 row-span-2', // Vertical / Reel
-  'col-span-3 row-span-2', // Extra Wide Feature
-  'col-span-1 row-span-1', // Small Square
-  'col-span-1 row-span-2', // Vertical / Reel
-  'col-span-2 row-span-2', // Large Feature
-]
-
 export function AmaPageView({ locale }: { locale: Locale }) {
-  // Generate a large array of items looping through the shapes
-  const items = Array.from({ length: 40 }).map((_, i) => ({
-    id: i,
-    shape: shapes[i % shapes.length],
-  }))
-
   return (
     <>
       <style>{`
         footer { display: none !important; }
         html, body { background-color: black !important; overscroll-behavior: none; }
+        /* Hide scrollbar for a perfectly clean view */
+        ::-webkit-scrollbar { display: none; }
       `}</style>
       
       {/* 
-        Grid setup:
-        - grid-flow-dense allows items to pack tightly and fill empty spaces automatically.
-        - auto-rows-[200px] sets a base height for the rows. A row-span-2 will be ~400px tall.
-        - grid-cols-2 on mobile, grid-cols-4 on tablet, grid-cols-6 on desktop 
+        Perfect Symmetrical 7-Video Grid:
+        - 4 Columns, 3 Rows on Desktop
+        - 2 Side Pillars (Tall)
+        - 1 Center Heartbeat (Wide)
+        - 4 Supporting Blocks (Squares)
       */}
-      <div className="w-full min-h-screen bg-black -mt-14 -mb-20 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 auto-rows-[150px] md:auto-rows-[250px] grid-flow-dense gap-[1px]">
+      <div className="w-full min-h-[calc(100vh+3.5rem)] bg-black -mt-14 -mb-20 grid grid-cols-2 md:grid-cols-4 grid-rows-[repeat(4,25vh)] md:grid-rows-3 gap-[2px] md:gap-[1px] p-[1px]">
         
-        {/* Second Video (Side placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-1 lg:row-span-3">
+        {/* Left Pillar (Tall) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
           <HoverVideo src="/videos/8353197_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
         </div>
 
-        {/* Third Video (Flow placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-2 lg:row-span-2">
-          <HoverVideo src="/videos/5485403_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Fourth Video (Flow placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-3">
-          <HoverVideo src="/videos/7058732_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Fifth Video (Flow placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-span-2 md:row-span-2 lg:col-span-2 lg:row-span-2">
-          <HoverVideo src="/videos/3086007_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Sixth Video (Flow placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-span-2 md:row-span-1 lg:col-span-2 lg:row-span-1">
-          <HoverVideo src="/videos/3578213_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
-        </div>
-
-        {/* Seventh Video (Flow placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-1 row-span-2 md:col-span-1 md:row-span-2 lg:col-span-1 lg:row-span-3">
+        {/* Right Pillar (Tall) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-3">
           <HoverVideo src="/videos/3258679_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
         </div>
 
-        {/* Center Video (Forced placement) */}
-        <div className="relative bg-black overflow-hidden group cursor-pointer z-10 col-span-2 row-span-2 md:col-start-2 md:row-start-2 lg:col-start-3 lg:row-start-2">
+        {/* Center Heartbeat (Wide Focus) */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-2 md:col-span-2 md:row-start-2 md:row-span-1">
           <HoverVideo src="/videos/2022111_0.mp4" />
-          
-          {/* Reel Icon Overlay */}
-          <div className="absolute top-4 right-4 text-white opacity-80 drop-shadow-md pointer-events-none">
-            <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-              <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-            </svg>
-          </div>
         </div>
 
-        {/* Dynamic Items */}
-        {items.map((item) => (
-          <div 
-            key={item.id} 
-            className={`relative bg-zinc-900 overflow-hidden group cursor-pointer ${item.shape}`}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-zinc-800 to-zinc-950 group-hover:scale-105 transition-transform duration-700 ease-out" />
-            
-            {/* Visual indicator of the shape/content type for now */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-10 group-hover:opacity-20 transition-opacity">
-               <span className="text-white font-mono text-xs md:text-sm">{item.shape}</span>
-            </div>
+        {/* Center Top Left */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-2 md:col-span-1 md:row-start-1 md:row-span-1">
+          <HoverVideo src="/videos/5485403_0.mp4" />
+        </div>
 
-            {/* Icon indicating media type */}
-            <div className="absolute top-4 right-4 text-white opacity-50 drop-shadow-md">
-              {item.shape.includes('row-span-2') && !item.shape.includes('col-span-2') ? (
-                // Video/Reel Icon for tall items
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-                  <path d="M5.828 7.071l2.829-2.829a2 2 0 0 1 2.828 0l2.829 2.829h5.686A2 2 0 0 1 22 9.071v9.858a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.071a2 2 0 0 1 2-2h1.828zm2.829-1.414L5.828 8.485H4v9.858h16V8.485h-1.828l-2.829-2.828H8.657zM12 16.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-2a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                </svg>
-              ) : (
-                // Image/Gallery Icon for wide/square items
-                <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 md:w-6 md:h-6">
-                  <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
-                </svg>
-              )}
-            </div>
-          </div>
-        ))}
+        {/* Center Top Right */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-3 md:col-span-1 md:row-start-1 md:row-span-1">
+          <HoverVideo src="/videos/7058732_0.mp4" />
+        </div>
+
+        {/* Center Bottom Left */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-2 md:col-span-1 md:row-start-3 md:row-span-1">
+          <HoverVideo src="/videos/3086007_0.mp4" />
+        </div>
+
+        {/* Center Bottom Right */}
+        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-3 md:col-span-1 md:row-start-3 md:row-span-1">
+          <HoverVideo src="/videos/3578213_0.mp4" />
+        </div>
+
       </div>
     </>
   )
