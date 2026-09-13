@@ -7,6 +7,7 @@ import {
   GitHubCard,
   type GitHubSnapshot,
   type SocialSnapshot,
+  LinkedInCard,
   MediumCard,
   XCard,
   
@@ -49,7 +50,7 @@ export function SiteFooter({
   github,
   locale = 'zh',
 }: {
-  social: { x: SocialSnapshot; medium: SocialSnapshot }
+  social: { x: SocialSnapshot; linkedin: SocialSnapshot; medium: SocialSnapshot }
   github: GitHubSnapshot
   locale?: Locale
 }) {
@@ -59,6 +60,9 @@ export function SiteFooter({
         <Tree zh="联系" en="contact">
           <li>
             <XCard data={social.x} />
+          </li>
+          <li>
+            <LinkedInCard data={social.linkedin} />
           </li>
           <li>
             <MediumCard data={social.medium} />
