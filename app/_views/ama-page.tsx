@@ -58,29 +58,29 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         {/* --- SCENE 2: SCROLL DOWN --- */}
 
-        {/* Epic Top Divider (Sunset Wide Video) */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-1 md:col-span-4 md:row-start-4 md:row-span-1">
-          <HoverVideo src="/videos/2022111_0.mp4" />
-        </div>
+        {/* Nested 5-Column Grid to fit exactly 5 vertical assets with zero cropping and perfect symmetry */}
+        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-5 gap-[2px] md:gap-[1px] w-full h-full">
+          
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/5485403_0.mp4" />
+          </div>
+          
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/2022111_0.mp4" />
+          </div>
+          
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <ImageSlider images={kickButtowskiImages} />
+          </div>
+          
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/3578213_0.mp4" />
+          </div>
+          
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/4222035_0.mp4" />
+          </div>
 
-        {/* Left Pillar */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-1 md:col-span-1 md:row-start-5 md:row-span-2">
-          <HoverVideo src="/videos/5485403_0.mp4" />
-        </div>
-
-        {/* Right Pillar */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-1 row-span-1 md:col-start-4 md:col-span-1 md:row-start-5 md:row-span-2">
-          <HoverVideo src="/videos/3578213_0.mp4" />
-        </div>
-
-        {/* Center Mid (Batmobile) */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-2 md:col-span-2 md:row-start-5 md:row-span-1">
-          <HoverVideo src="/videos/4222035_0.mp4" />
-        </div>
-
-        {/* Center Bottom (Slider) */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-2 md:col-span-2 md:row-start-6 md:row-span-1">
-          <ImageSlider images={kickButtowskiImages} />
         </div>
 
       </div>
