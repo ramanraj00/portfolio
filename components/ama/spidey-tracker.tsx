@@ -16,12 +16,17 @@ const FRONT_ASCII = [
   "13331213333331213331",
   "01331221111112213310",
   "00112222222222221100",
+  "00112222222222221100",
+  "00112222222222221100",
   "00011111111111111000",
   "00122222222222222100",
+  "01222222222222222210",
   "01222222222222222210",
   "12211112222221111221",
   "12214441222214441221",
   "12144444111144444121",
+  "12144444411444444121",
+  "12144444411444444121",
   "12144444411444444121",
   "12144444411444444121",
   "12144444411444444121",
@@ -46,12 +51,17 @@ const SIDE_ASCII = [
   "13331213333331213331",
   "01331221111112213310",
   "00112222222222221100",
+  "00112222222222221100",
+  "00112222222222221100",
   "00011111111111111000",
   "00122222222222222100",
+  "01222222222222222210",
   "01222222222222222210",
   "12222222222221111221",
   "12222222222214441221",
   "12222222221144444121",
+  "12222222221444444121",
+  "12222222221444444121",
   "12222222221444444121",
   "12222222221444444121",
   "12222222221444444121",
@@ -60,7 +70,7 @@ const SIDE_ASCII = [
   "01222222222211122210",
   "00122222222222222100",
   "00012222222222221000",
-  "00001111111111110000"
+  "00001222221111110000"
 ]
 
 const COLOR_MAP: Record<string, string> = {
@@ -74,16 +84,29 @@ const COLOR_MAP: Record<string, string> = {
 function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?: boolean }) {
   const width = ascii[0].length
   const height = ascii.length
+  
+  // The original image uses non-square, rectangular pixels (taller than they are wide).
+  // Applying a stretch factor to exactly match the "unconjusted" tall look.
+  const stretchY = 1.0
 
   return (
     <svg 
-      viewBox={`0 0 ${width} ${height}`} 
-      className="w-[100px] h-[135px]"
+      viewBox={`0 0 ${width} ${height * stretchY}`} 
+      className="w-[100px] h-auto"
       style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
     >
       {ascii.map((row, y) => 
         row.split('').map((char, x) => 
-          char !== '0' && <rect key={`${x}-${y}`} x={x} y={y} width="1.05" height="1.05" fill={COLOR_MAP[char]} />
+          char !== '0' && (
+            <rect 
+              key={`${x}-${y}`} 
+              x={x} 
+              y={y * stretchY} 
+              width="1.05" 
+              height={stretchY + 0.05} 
+              fill={COLOR_MAP[char]} 
+            />
+          )
         )
       )}
     </svg>
