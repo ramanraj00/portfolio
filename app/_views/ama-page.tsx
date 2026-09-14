@@ -58,30 +58,32 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         {/* --- SCENE 2: SCROLL DOWN --- */}
 
-        {/* 4-Pillar Grid as per sketch (2 videos + 2 empty slots for future) */}
+        {/* 4-Pillar Grid (1 video + 3 empty slots for future) */}
         <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-4 gap-[2px] md:gap-[1px] w-full h-full">
           
-          {/* Pillar 1: Left Video */}
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <HoverVideo src="/videos/5485403_0.mp4" />
-          </div>
-          
-          {/* Pillar 2: New Video */}
+          {/* Pillar 1: New Video */}
           <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
             <HoverVideo src="/videos/5119559_0.mp4" />
           </div>
-
-          {/* Pillar 3: Blank Space for future video */}
+          
+          {/* Pillar 2: Blank Space */}
           <div className="relative bg-black w-full h-full"></div>
 
-          {/* Pillar 4: Blank Space for future video */}
+          {/* Pillar 3: Blank Space */}
+          <div className="relative bg-black w-full h-full"></div>
+
+          {/* Pillar 4: Blank Space */}
           <div className="relative bg-black w-full h-full"></div>
 
         </div>
 
         {/* --- SCENE 3: MORE CONTENT --- */}
-        {/* Pushed down content into a 4-Pillar Grid to keep the structure intact */}
-        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-4 gap-[2px] md:gap-[1px] w-full h-full">
+        {/* 5-Pillar Grid to perfectly accommodate the 5 assets with no cropping */}
+        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-5 gap-[2px] md:gap-[1px] w-full h-full">
+
+          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/5485403_0.mp4" />
+          </div>
 
           <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
             <HoverVideo src="/videos/2022111_0.mp4" />
