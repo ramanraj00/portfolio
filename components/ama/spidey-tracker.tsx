@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 
-// Exact 1:1 mapped ASCII from user's uploaded images
 const FRONT_ASCII = [
   "00000000055000000000",
   "00000000055000000000",
@@ -16,17 +15,12 @@ const FRONT_ASCII = [
   "13331213333331213331",
   "01331221111112213310",
   "00112222222222221100",
-  "00112222222222221100",
-  "00112222222222221100",
   "00011111111111111000",
   "00122222222222222100",
-  "01222222222222222210",
   "01222222222222222210",
   "12211112222221111221",
   "12214441222214441221",
   "12144444111144444121",
-  "12144444411444444121",
-  "12144444411444444121",
   "12144444411444444121",
   "12144444411444444121",
   "12144444411444444121",
@@ -51,17 +45,12 @@ const SIDE_ASCII = [
   "13331213333331213331",
   "01331221111112213310",
   "00112222222222221100",
-  "00112222222222221100",
-  "00112222222222221100",
   "00011111111111111000",
   "00122222222222222100",
-  "01222222222222222210",
   "01222222222222222210",
   "12222222222221111221",
   "12222222222214441221",
   "12222222221144444121",
-  "12222222221444444121",
-  "12222222221444444121",
   "12222222221444444121",
   "12222222221444444121",
   "12222222221444444121",
@@ -75,20 +64,24 @@ const SIDE_ASCII = [
 
 const COLOR_MAP: Record<string, string> = {
   '1': '#111111', // Black
-  '2': '#e53935', // Red (matching image tone)
-  '3': '#1976d2', // Blue (matching image tone)
-  '4': '#eeeeee', // White/Light gray
+  '2': '#e53935', // Red
+  '3': '#1976d2', // Blue
+  '4': '#eeeeee', // White
   '5': '#bdbdbd'  // Gray web string
 }
 
 function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?: boolean }) {
   const width = ascii[0].length
   const height = ascii.length
+  
+  // Stretch factor makes the pixels rectangular (taller than they are wide)
+  // This perfectly preserves the 1:1 trace while matching the tall look of the original image!
+  const stretchY = 1.35
 
   return (
     <svg 
-      viewBox={`0 0 ${width} ${height}`} 
-      className="w-[120px] h-auto drop-shadow-xl"
+      viewBox={`0 0 ${width} ${height * stretchY}`} 
+      className="w-[120px] h-auto drop-shadow-2xl"
       style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
     >
       {ascii.map((row, y) => 
@@ -97,12 +90,12 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
             <rect 
               key={`${x}-${y}`} 
               x={x} 
-              y={y} 
+              y={y * stretchY} 
               width="1" 
-              height="1" 
+              height={stretchY} 
               fill={COLOR_MAP[char]}
-              stroke={char === '5' ? 'none' : "rgba(0, 0, 0, 0.5)"}
-              strokeWidth={char === '5' ? '0' : "0.1"}
+              stroke={char === '5' ? 'none' : "rgba(0, 0, 0, 0.4)"}
+              strokeWidth={char === '5' ? '0' : "0.12"}
               rx={char === '5' ? '0' : "0.05"}
             />
           )
@@ -116,8 +109,6 @@ export function SpideyTracker() {
   const [facing, setFacing] = useState<'front' | 'left' | 'right'>('left')
 
   useEffect(() => {
-    // spidey-swing is 4s: 0% (+10deg, left), 50% (-10deg, right), 100% (+10deg, left)
-    // 0s: left, 1s: front (moving right), 2s: right, 3s: front (moving left)
     let tick = 0
     const interval = setInterval(() => {
       tick++
@@ -126,39 +117,32 @@ export function SpideyTracker() {
       else if (tick % 4 === 2) setFacing('right')
       else if (tick % 4 === 3) setFacing('front')
     }, 1000)
-
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="relative w-full h-full bg-[#1c2128] flex flex-col items-center overflow-hidden font-mono">
-      {/* 1. Background Spider Logo (Faint & Massive) */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
         <svg viewBox="0 0 100 100" className="w-[150%] h-[150%] md:w-[100%] md:h-[100%] text-white fill-current stroke-current" strokeWidth="1">
           <path d="M45,25 C45,20 55,20 55,25 C58,35 55,45 55,45 C60,40 65,35 70,30 C72,25 78,22 85,25 L83,28 C78,25 74,28 72,32 C67,38 61,43 55,48 C55,55 55,60 55,60 C65,55 75,50 85,55 L83,58 C75,53 65,58 55,64 C55,70 53,75 53,75 C60,80 65,85 70,95 L67,97 C62,87 56,82 50,78 C44,82 38,87 33,97 L30,95 C35,85 40,80 47,75 C47,75 45,70 45,64 C35,58 25,53 17,58 L15,55 C25,50 35,55 45,60 C45,60 45,55 45,48 C39,43 33,38 28,32 C26,28 22,25 17,28 L15,25 C22,22 28,25 30,30 C35,35 40,40 45,45 C45,45 42,35 45,25 Z" />
         </svg>
       </div>
 
-      {/* Grid Scanlines Overlay for retro feel */}
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay" 
         style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px)', backgroundSize: '4px 4px' }}
       ></div>
 
-      {/* 2. Top Banner / Header (SPIDEY TRACKER) */}
       <div className="relative mt-8 z-20 border-[3px] border-[#3178c6] bg-[#0d1621] px-6 py-2 rounded-sm shadow-[0_0_15px_rgba(49,120,198,0.5)]">
         <h1 className="text-[#89d5ff] text-2xl md:text-3xl font-bold tracking-[0.25em] flex items-center gap-3" style={{ textShadow: '2px 2px 0 #000' }}>
           SPIDEY <SpiderEyes /> TRACKER
         </h1>
       </div>
 
-      {/* 3. Sticky Hanging Spiderman (Swinging from top) */}
-      <div className="relative flex flex-col items-center z-10 mt-[-4px] animate-[spidey-swing_4s_ease-in-out_infinite] origin-top drop-shadow-[0_0_10px_rgba(229,37,33,0.3)]">
-        {/* Web String Extender (Matches pixel art gray string) */}
-        <div className="w-[12px] h-[30vh] md:h-[40vh] bg-[#bdbdbd]"></div>
+      <div className="relative flex flex-col items-center z-10 animate-[spidey-swing_4s_ease-in-out_infinite] origin-top drop-shadow-[0_0_10px_rgba(229,37,33,0.3)]">
+        <div className="w-[12px] h-[30vh] md:h-[40vh] bg-[#bdbdbd] shadow-sm"></div>
         
-        {/* Pixel Art Body + Head */}
-        <div className="mt-[-2px]">
+        <div className="mt-0">
           {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
           {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
           {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
