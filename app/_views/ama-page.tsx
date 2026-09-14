@@ -3,7 +3,8 @@ import type { Metadata } from 'next'
 import { localeMetadata } from '~/lib/locale-metadata'
 import { type Locale } from '~/lib/locale-route'
 import { publicPageMetadata } from '~/lib/public-page-metadata'
-import { HoverVideo } from '~/components/ama/hover-video'
+import { HoverVideo } from "~/components/ama/hover-video"
+import { SpideyTracker } from "~/components/ama/spidey-tracker"
 import { ImageSlider } from '~/components/ama/image-slider'
 
 export function amaPageMetadata(locale: Locale): Metadata {
@@ -50,9 +51,9 @@ export function AmaPageView({ locale }: { locale: Locale }) {
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
-        {/* Center left intentionally blank */}
+        {/* Center Spidey Tracker */}
         <div className="z-10 col-span-2 row-span-2 md:col-start-2 md:col-span-2 md:row-start-1 md:row-span-3">
-           {/* Blank space */}
+           <SpideyTracker />
         </div>
 
 
