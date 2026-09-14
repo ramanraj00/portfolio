@@ -81,7 +81,7 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
   return (
     <svg 
       viewBox={`0 0 ${width} ${height * stretchY}`} 
-      className="w-[120px] h-auto drop-shadow-2xl"
+      className="w-[120px] h-auto"
       style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
     >
       {ascii.map((row, y) => 
