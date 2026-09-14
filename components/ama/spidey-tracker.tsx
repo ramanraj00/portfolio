@@ -84,15 +84,11 @@ const COLOR_MAP: Record<string, string> = {
 function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?: boolean }) {
   const width = ascii[0].length
   const height = ascii.length
-  
-  // The original image uses non-square, rectangular pixels (taller than they are wide).
-  // Applying a stretch factor to exactly match the "unconjusted" tall look.
-  const stretchY = 1.0
 
   return (
     <svg 
-      viewBox={`0 0 ${width} ${height * stretchY}`} 
-      className="w-[100px] h-auto"
+      viewBox={`0 0 ${width} ${height}`} 
+      className="w-[120px] h-auto drop-shadow-xl"
       style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
     >
       {ascii.map((row, y) => 
@@ -101,10 +97,12 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
             <rect 
               key={`${x}-${y}`} 
               x={x} 
-              y={y * stretchY} 
-              width="1.05" 
-              height={stretchY + 0.05} 
-              fill={COLOR_MAP[char]} 
+              y={y} 
+              width="1" 
+              height="1" 
+              fill={COLOR_MAP[char]}
+              stroke="rgba(0, 0, 0, 0.5)" rx="0.05"
+              strokeWidth="0.1"
             />
           )
         )
@@ -156,7 +154,7 @@ export function SpideyTracker() {
       {/* 3. Sticky Hanging Spiderman (Swinging from top) */}
       <div className="relative flex flex-col items-center z-10 mt-[-4px] animate-[spidey-swing_4s_ease-in-out_infinite] origin-top drop-shadow-[0_0_10px_rgba(229,37,33,0.3)]">
         {/* Web String Extender (Matches pixel art gray string) */}
-        <div className="w-[10px] h-[30vh] md:h-[40vh] bg-[#bdbdbd]"></div>
+        <div className="w-[12px] h-[30vh] md:h-[40vh] bg-[#bdbdbd]"></div>
         
         {/* Pixel Art Body + Head */}
         <div className="mt-[-2px]">
