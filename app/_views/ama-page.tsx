@@ -57,49 +57,32 @@ export function AmaPageView({ locale }: { locale: Locale }) {
         </div>
 
 
-        {/* --- SCENE 2: SCROLL DOWN --- */}
+        {/* --- SCENE 3: 3-COLUMN GRID --- */}
+        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-[2px] md:gap-[1px] w-full h-full relative z-20">
 
-        {/* 4-Pillar Grid (1 video + 3 empty slots for future) */}
-        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-4 gap-[2px] md:gap-[1px] w-full h-full">
-          
-          {/* Pillar 1: New Video */}
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <HoverVideo src="/videos/5119559_0.mp4" />
-          </div>
-          
-          {/* Pillar 2: Blank Space */}
-          <div className="relative bg-black w-full h-full"></div>
-
-          {/* Pillar 3: Blank Space */}
-          <div className="relative bg-black w-full h-full"></div>
-
-          {/* Pillar 4: Blank Space */}
-          <div className="relative bg-black w-full h-full"></div>
-
-        </div>
-
-        {/* --- SCENE 3: MORE CONTENT --- */}
-        {/* 5-Pillar Grid to perfectly accommodate the 5 assets with no cropping */}
-        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-5 gap-[2px] md:gap-[1px] w-full h-full">
-
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <HoverVideo src="/videos/5485403_0.mp4" />
+          {/* SLOT 1: Left Column (Spans full vertical height) */}
+          <div className="relative bg-zinc-900 group cursor-pointer w-full h-full row-span-2">
+            <HoverVideo src="/videos/3561287_0.mp4" layout="absolute" pauseOthersOnHover />
           </div>
 
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <HoverVideo src="/videos/2022111_0.mp4" />
+          {/* SLOT 2: Top Middle */}
+          <div className="relative bg-zinc-900 group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/8546892_0.mp4" layout="absolute" pauseOthersOnHover />
           </div>
           
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <ImageSlider images={kickButtowskiImages} />
+          {/* SLOT 3: Top Right */}
+          <div className="relative bg-zinc-900 group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/1342238_0.mp4?v=2" layout="absolute" pauseOthersOnHover />
           </div>
           
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <HoverVideo src="/videos/3578213_0.mp4" />
+          {/* SLOT 4: Bottom Middle */}
+          <div className="relative bg-zinc-900 group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/4448828_0.mp4" layout="absolute" pauseOthersOnHover />
           </div>
-          
-          <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer w-full h-full">
-            <HoverVideo src="/videos/4222035_0.mp4" />
+
+          {/* SLOT 5: Bottom Right */}
+          <div className="relative bg-zinc-900 group cursor-pointer w-full h-full">
+            <HoverVideo src="/videos/1002601241579_0.mp4?v=2" layout="absolute" pauseOthersOnHover />
           </div>
 
         </div>

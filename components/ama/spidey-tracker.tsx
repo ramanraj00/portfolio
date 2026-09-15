@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useEffect, useRef } from 'react'
-import { motion, useMotionValue, useMotionValueEvent, animate } from 'framer-motion'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+import { motion, useMotionValue, animate } from 'framer-motion'
 
 const FRONT_ASCII = [
   "00000000055000000000",
@@ -64,11 +64,11 @@ const SIDE_ASCII = [
 ]
 
 const COLOR_MAP: Record<string, string> = {
-  '1': '#222222', // Soft black for 3D shadows
-  '2': '#e53935', // Deep red
-  '3': '#1e88e5', // Vibrant blue
-  '4': '#ffffff', // Pure white
-  '5': '#bdbdbd'  // Gray (handled dynamically)
+  '1': '#222222',
+  '2': '#e53935',
+  '3': '#1e88e5',
+  '4': '#ffffff',
+  '5': '#bdbdbd'
 }
 
 function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?: boolean }) {
@@ -79,7 +79,7 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
   return (
     <svg 
       viewBox={`0 0 ${width} ${height * stretchY}`} 
-      className="w-[40px] md:w-[50px] h-auto overflow-visible"
+      className="w-[45px] md:w-[55px] h-auto overflow-visible"
       style={{ transform: flipped ? 'scaleX(-1)' : 'none' }}
     >
       {ascii.map((row, y) => 
@@ -88,7 +88,6 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
           const isString = char === '5';
           return (
             <g key={`${x}-${y}`}>
-              {/* Base Color with Rounded Corners for Voxel feel */}
               <rect 
                 x={x} 
                 y={y * stretchY} 
@@ -98,17 +97,11 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
                 opacity={isString ? "0.8" : "1"}
                 rx={isString ? "0" : "0.1"}
               />
-              
-              {/* 3D Voxel Bevels (Highlights and Shadows) */}
               {!isString && (
                 <>
-                  {/* Top Highlight */}
                   <rect x={x} y={y * stretchY} width="1" height={0.15} fill="#ffffff" opacity="0.4" rx="0.05" />
-                  {/* Bottom Shadow */}
                   <rect x={x} y={y * stretchY + stretchY - 0.15} width="1" height={0.15} fill="#000000" opacity="0.5" rx="0.05" />
-                  {/* Left Highlight */}
                   <rect x={x} y={y * stretchY} width={0.15} height={stretchY} fill="#ffffff" opacity="0.2" rx="0.05" />
-                  {/* Right Shadow */}
                   <rect x={x + 1 - 0.15} y={y * stretchY} width={0.15} height={stretchY} fill="#000000" opacity="0.4" rx="0.05" />
                 </>
               )}
@@ -123,33 +116,117 @@ function SpideyPixelArt({ ascii, flipped = false }: { ascii: string[], flipped?:
 export function SpideyTracker() {
   const [facing, setFacing] = useState<'front' | 'left' | 'right'>('left')
 
-  // Interactive Drag Physics
-  const dragX = useMotionValue(0);
-  const dragY = useMotionValue(-140); // Start hidden for drop-in
-  const webRef = useRef<HTMLDivElement>(null);
-  const H = 150; // Base rest height of the web
+  // Refs for measuring real DOM positions
+  const containerRef = useRef<HTMLDivElement>(null)
+  const anchorRef = useRef<HTMLDivElement>(null)
+  const webSvgRef = useRef<SVGSVGElement>(null)
+  const spideyRef = useRef<HTMLDivElement>(null)
 
+  // Motion values for Spidey's drag offset
+  const dragX = useMotionValue(0)
+  const dragY = useMotionValue(0)
+
+  // Draw the web line from anchor to Spiderman
+  const updateWebLine = useCallback(() => {
+    if (!containerRef.current || !anchorRef.current || !webSvgRef.current || !spideyRef.current) return
+
+    const containerRect = containerRef.current.getBoundingClientRect()
+    const anchorRect = anchorRef.current.getBoundingClientRect()
+    const spideyRect = spideyRef.current.getBoundingClientRect()
+
+    // Anchor point = bottom-center of the title box
+    const ax = anchorRect.left + anchorRect.width / 2 - containerRect.left
+    const ay = anchorRect.bottom - containerRect.top
+
+    // Spidey point = top-center of spiderman
+    const sx = spideyRect.left + spideyRect.width / 2 - containerRect.left
+    const sy = spideyRect.top - containerRect.top
+
+    // Update the SVG to cover the full container
+    const svg = webSvgRef.current
+    svg.setAttribute('viewBox', `0 0 ${containerRect.width} ${containerRect.height}`)
+
+    // Draw multiple strands (funnel web effect)
+    const strands = svg.querySelectorAll('line')
+    const spreadTop = 35 // How wide the web fans out at the anchor
+    const spreadBottom = 3 // How tight at Spidey's end
+
+    strands.forEach((strand, i) => {
+      const t = (i - (strands.length - 1) / 2) / ((strands.length - 1) / 2) // -1 to 1
+      const topX = ax + t * spreadTop
+      const bottomX = sx + t * spreadBottom
+      strand.setAttribute('x1', String(topX))
+      strand.setAttribute('y1', String(ay))
+      strand.setAttribute('x2', String(bottomX))
+      strand.setAttribute('y2', String(sy))
+    })
+
+    // Draw cross rings
+    const rings = svg.querySelectorAll('path')
+    rings.forEach((ring, i) => {
+      const progress = (i + 1) / (rings.length + 1)
+      const midX = ax + (sx - ax) * progress
+      const midY = ay + (sy - ay) * progress
+      const currentSpread = spreadTop * (1 - progress) + spreadBottom * progress
+      const sag = 8 * (1 - progress) // More sag near the top
+
+      const leftX = midX - currentSpread
+      const rightX = midX + currentSpread
+      const controlY = midY + sag
+
+      ring.setAttribute('d', `M ${leftX} ${midY} Q ${midX} ${controlY} ${rightX} ${midY}`)
+    })
+  }, [])
+
+  // Subscribe to drag motion values
   useEffect(() => {
-    // Drop-in Entrance Animation
-    animate(dragY, 0, { type: "spring", damping: 12, stiffness: 80 });
-  }, []);
-
-  const updateWeb = () => {
-    const x = dragX.get();
-    const y = dragY.get();
-    const dist = Math.sqrt(x * x + (H + y) * (H + y));
-    const scale = dist / H;
-    const angle = -Math.atan2(x, H + y);
+    const unsubX = dragX.on('change', updateWebLine)
+    const unsubY = dragY.on('change', updateWebLine)
     
-    // Completely bypass Framer Motion for the web to guarantee transformOrigin: top center
-    if (webRef.current) {
-      webRef.current.style.transform = `rotate(${angle}rad) scaleY(${scale})`;
+    // Initial draw + on resize
+    const timer = setTimeout(updateWebLine, 50)
+    window.addEventListener('resize', updateWebLine)
+    
+    return () => {
+      unsubX()
+      unsubY()
+      clearTimeout(timer)
+      window.removeEventListener('resize', updateWebLine)
     }
-  };
+  }, [dragX, dragY, updateWebLine])
 
-  useMotionValueEvent(dragX, "change", updateWeb);
-  useMotionValueEvent(dragY, "change", updateWeb);
+  // Drop-in entrance animation — bungee style
+  useEffect(() => {
+    // Stage 1: Slowly drop from behind the title box way down
+    const dropSequence = async () => {
+      // Start hidden behind the title
+      dragY.set(-80)
+      dragX.set(0)
+      
+      // Wait a moment for layout
+      await new Promise(r => setTimeout(r, 300))
+      
+      // Stage 1: Slowly drop far below (1.5s ease-in)
+      await animate(dragY, 180, { duration: 1.5, ease: [0.32, 0, 0.67, 0] }).then(() => {})
+      
+      // Stage 2: Spring back up to slightly above final position
+      await animate(dragY, -30, { duration: 0.4, ease: 'easeOut' }).then(() => {})
+      
+      // Stage 3: Jiggle left-right
+      await animate(dragX, 25, { duration: 0.15, ease: 'easeOut' }).then(() => {})
+      await animate(dragX, -20, { duration: 0.15, ease: 'easeInOut' }).then(() => {})
+      await animate(dragX, 12, { duration: 0.12, ease: 'easeInOut' }).then(() => {})
+      await animate(dragX, -8, { duration: 0.1, ease: 'easeInOut' }).then(() => {})
+      
+      // Stage 4: Settle into final position
+      await animate(dragX, 0, { duration: 0.3, ease: 'easeOut' }).then(() => {})
+      await animate(dragY, 0, { duration: 0.5, ease: 'easeInOut' }).then(() => {})
+    }
+    
+    dropSequence()
+  }, [])
 
+  // Face rotation
   useEffect(() => {
     let tick = 0
     const interval = setInterval(() => {
@@ -163,111 +240,187 @@ export function SpideyTracker() {
   }, [])
 
   return (
-    <div className="relative w-full h-full bg-black flex flex-col items-center overflow-hidden font-mono">
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
-        <svg viewBox="0 0 100 100" className="w-[150%] h-[150%] md:w-[100%] md:h-[100%] text-white fill-current stroke-current" strokeWidth="1">
-          <path d="M45,25 C45,20 55,20 55,25 C58,35 55,45 55,45 C60,40 65,35 70,30 C72,25 78,22 85,25 L83,28 C78,25 74,28 72,32 C67,38 61,43 55,48 C55,55 55,60 55,60 C65,55 75,50 85,55 L83,58 C75,53 65,58 55,64 C55,70 53,75 53,75 C60,80 65,85 70,95 L67,97 C62,87 56,82 50,78 C44,82 38,87 33,97 L30,95 C35,85 40,80 47,75 C47,75 45,70 45,64 C35,58 25,53 17,58 L15,55 C25,50 35,55 45,60 C45,60 45,55 45,48 C39,43 33,38 28,32 C26,28 22,25 17,28 L15,25 C22,22 28,25 30,30 C35,35 40,40 45,45 C45,45 42,35 45,25 Z" />
+    <div ref={containerRef} className="relative w-full h-full bg-black flex flex-col items-center overflow-hidden font-mono">
+      {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ top: '8%' }}>
+        <svg 
+          viewBox="0 0 400 500" 
+          className="w-[75%] md:w-[50%] h-auto pointer-events-auto cursor-pointer transition-all duration-700 ease-out opacity-[0.15] hover:opacity-[0.25] [filter:drop-shadow(2px_4px_0px_rgba(0,0,0,0.8))_drop-shadow(4px_8px_0px_rgba(0,0,0,0.5))] hover:[filter:drop-shadow(2px_4px_0px_rgba(0,0,0,0.8))_drop-shadow(4px_8px_0px_rgba(0,0,0,0.5))_drop-shadow(0_0_20px_rgba(229,57,53,0.15))_drop-shadow(0_0_40px_rgba(49,120,198,0.1))]"
+        >
+          <defs>
+            {/* Gradient for hover state */}
+            <linearGradient id="spiderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#e53935" />
+              <stop offset="45%" stopColor="#ff5252" />
+              <stop offset="55%" stopColor="#3178c6" />
+              <stop offset="100%" stopColor="#1565c0" />
+            </linearGradient>
+            {/* 3D bevel highlight */}
+            <linearGradient id="spiderHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#ffffff" stopOpacity="0.3" />
+              <stop offset="50%" stopColor="#ffffff" stopOpacity="0" />
+              <stop offset="100%" stopColor="#000000" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+
+          {/* Shadow/depth layer (offset down-right for 3D extrusion) */}
+          <g fill="#0a0a0a" transform="translate(3, 5)">
+            <path d="M 200 52 C 208 52 214 58 214 66 C 214 74 208 80 200 80 C 192 80 186 74 186 66 C 186 58 192 52 200 52 Z" />
+            <path d="M 185 78 L 175 105 L 165 140 L 175 150 L 200 158 L 225 150 L 235 140 L 225 105 L 215 78 Z" />
+            <path d="M 178 148 L 172 175 L 170 210 L 172 250 L 178 290 L 185 320 L 192 345 L 200 360 L 208 345 L 215 320 L 222 290 L 228 250 L 230 210 L 228 175 L 222 148 Z" />
+            <path d="M 178 90 C 160 70 130 40 100 15 C 95 11 88 12 85 18 C 82 24 90 28 95 25 C 120 48 148 72 170 98 Z" />
+            <path d="M 172 115 C 148 95 110 65 70 45 C 64 42 58 45 57 52 C 56 58 62 60 68 57 C 105 75 142 100 168 125 Z" />
+            <path d="M 168 148 C 140 138 95 120 45 115 C 38 114 34 120 36 126 C 38 132 44 132 50 130 C 95 132 138 145 165 155 Z" />
+            <path d="M 172 175 C 148 185 105 210 60 260 C 55 266 48 310 50 350 C 50 380 55 420 58 450 C 59 458 66 460 68 452 C 66 420 62 380 62 350 C 64 315 70 280 80 260 C 105 225 145 195 170 182 Z" />
+            <path d="M 222 90 C 240 70 270 40 300 15 C 305 11 312 12 315 18 C 318 24 310 28 305 25 C 280 48 252 72 230 98 Z" />
+            <path d="M 228 115 C 252 95 290 65 330 45 C 336 42 342 45 343 52 C 344 58 338 60 332 57 C 295 75 258 100 232 125 Z" />
+            <path d="M 232 148 C 260 138 305 120 355 115 C 362 114 366 120 364 126 C 362 132 356 132 350 130 C 305 132 262 145 235 155 Z" />
+            <path d="M 228 175 C 252 185 295 210 340 260 C 345 266 352 310 350 350 C 350 380 345 420 342 450 C 341 458 334 460 332 452 C 334 420 338 380 338 350 C 336 315 330 280 320 260 C 295 225 255 195 230 182 Z" />
+          </g>
+
+          {/* Main colored layer */}
+          <g fill="url(#spiderGrad)">
+            <path d="M 200 52 C 208 52 214 58 214 66 C 214 74 208 80 200 80 C 192 80 186 74 186 66 C 186 58 192 52 200 52 Z" />
+            <path d="M 185 78 L 175 105 L 165 140 L 175 150 L 200 158 L 225 150 L 235 140 L 225 105 L 215 78 Z" />
+            <path d="M 178 148 L 172 175 L 170 210 L 172 250 L 178 290 L 185 320 L 192 345 L 200 360 L 208 345 L 215 320 L 222 290 L 228 250 L 230 210 L 228 175 L 222 148 Z" />
+            <path d="M 178 90 C 160 70 130 40 100 15 C 95 11 88 12 85 18 C 82 24 90 28 95 25 C 120 48 148 72 170 98 Z" />
+            <path d="M 172 115 C 148 95 110 65 70 45 C 64 42 58 45 57 52 C 56 58 62 60 68 57 C 105 75 142 100 168 125 Z" />
+            <path d="M 168 148 C 140 138 95 120 45 115 C 38 114 34 120 36 126 C 38 132 44 132 50 130 C 95 132 138 145 165 155 Z" />
+            <path d="M 172 175 C 148 185 105 210 60 260 C 55 266 48 310 50 350 C 50 380 55 420 58 450 C 59 458 66 460 68 452 C 66 420 62 380 62 350 C 64 315 70 280 80 260 C 105 225 145 195 170 182 Z" />
+            <path d="M 222 90 C 240 70 270 40 300 15 C 305 11 312 12 315 18 C 318 24 310 28 305 25 C 280 48 252 72 230 98 Z" />
+            <path d="M 228 115 C 252 95 290 65 330 45 C 336 42 342 45 343 52 C 344 58 338 60 332 57 C 295 75 258 100 232 125 Z" />
+            <path d="M 232 148 C 260 138 305 120 355 115 C 362 114 366 120 364 126 C 362 132 356 132 350 130 C 305 132 262 145 235 155 Z" />
+            <path d="M 228 175 C 252 185 295 210 340 260 C 345 266 352 310 350 350 C 350 380 345 420 342 450 C 341 458 334 460 332 452 C 334 420 338 380 338 350 C 336 315 330 280 320 260 C 295 225 255 195 230 182 Z" />
+          </g>
+
+          {/* 3D Highlight/bevel overlay */}
+          <g fill="url(#spiderHighlight)">
+            <path d="M 200 52 C 208 52 214 58 214 66 C 214 74 208 80 200 80 C 192 80 186 74 186 66 C 186 58 192 52 200 52 Z" />
+            <path d="M 185 78 L 175 105 L 165 140 L 175 150 L 200 158 L 225 150 L 235 140 L 225 105 L 215 78 Z" />
+            <path d="M 178 148 L 172 175 L 170 210 L 172 250 L 178 290 L 185 320 L 192 345 L 200 360 L 208 345 L 215 320 L 222 290 L 228 250 L 230 210 L 228 175 L 222 148 Z" />
+            <path d="M 178 90 C 160 70 130 40 100 15 C 95 11 88 12 85 18 C 82 24 90 28 95 25 C 120 48 148 72 170 98 Z" />
+            <path d="M 172 115 C 148 95 110 65 70 45 C 64 42 58 45 57 52 C 56 58 62 60 68 57 C 105 75 142 100 168 125 Z" />
+            <path d="M 168 148 C 140 138 95 120 45 115 C 38 114 34 120 36 126 C 38 132 44 132 50 130 C 95 132 138 145 165 155 Z" />
+            <path d="M 172 175 C 148 185 105 210 60 260 C 55 266 48 310 50 350 C 50 380 55 420 58 450 C 59 458 66 460 68 452 C 66 420 62 380 62 350 C 64 315 70 280 80 260 C 105 225 145 195 170 182 Z" />
+            <path d="M 222 90 C 240 70 270 40 300 15 C 305 11 312 12 315 18 C 318 24 310 28 305 25 C 280 48 252 72 230 98 Z" />
+            <path d="M 228 115 C 252 95 290 65 330 45 C 336 42 342 45 343 52 C 344 58 338 60 332 57 C 295 75 258 100 232 125 Z" />
+            <path d="M 232 148 C 260 138 305 120 355 115 C 362 114 366 120 364 126 C 362 132 356 132 350 130 C 305 132 262 145 235 155 Z" />
+            <path d="M 228 175 C 252 185 295 210 340 260 C 345 266 352 310 350 350 C 350 380 345 420 342 450 C 341 458 334 460 332 452 C 334 420 338 380 338 350 C 336 315 330 280 320 260 C 295 225 255 195 230 182 Z" />
+          </g>
         </svg>
       </div>
 
+      {/* Pixel grid overlay */}
       <div 
         className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay" 
         style={{ backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px)', backgroundSize: '4px 4px' }}
-      ></div>
+      />
 
-      <div className="relative mt-8 z-20 border border-[#3178c6]/50 bg-gradient-to-b from-[#0d1621] to-[#050a0f] px-8 py-3 rounded-2xl shadow-[0_10px_30px_rgba(49,120,198,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)] backdrop-blur-md">
-        <h1 className="text-transparent bg-clip-text bg-gradient-to-b from-[#89d5ff] to-[#3178c6] text-2xl md:text-3xl font-extrabold tracking-[0.25em] flex items-center gap-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-          SPIDEY <SpiderEyes /> TRACKER
-        </h1>
+      {/* Title Box — Exact pixel art PNG */}
+      <div ref={anchorRef} className="relative mt-8 z-20">
+        <img 
+          src="/images/spidey-verse-title.png" 
+          alt="Spidey Verse" 
+          className="w-[300px] md:w-[400px] h-auto drop-shadow-[0_4px_20px_rgba(49,120,198,0.5)]"
+        />
       </div>
 
-      {/* Interactive Physics Container */}
-      <div className="w-full flex-1 overflow-hidden flex justify-center relative -mt-[40px] pt-[40px] z-10">
-        
-        {/* Zero-width center anchor for absolute positioning */}
-        <div className="relative w-0 h-full flex flex-col items-center">
-          
-          {/* 1. Elastic Funnel Web (Math driven, completely bypassing Framer Motion for perfect anchor) */}
+      {/* Dynamic Web SVG — covers the full container, always connects anchor to Spidey */}
+      <svg ref={webSvgRef} className="absolute inset-0 w-full h-full z-10 pointer-events-none">
+        {/* 9 radial strands */}
+        {Array.from({ length: 9 }).map((_, i) => (
+          <line
+            key={`strand-${i}`}
+            x1="0" y1="0" x2="0" y2="0"
+            stroke="white"
+            strokeWidth={i === 4 ? 1.8 : Math.max(0.3, 1.2 - Math.abs(i - 4) * 0.2)}
+            opacity={i === 4 ? 0.9 : Math.max(0.2, 0.7 - Math.abs(i - 4) * 0.12)}
+          />
+        ))}
+        {/* 6 cross rings */}
+        {Array.from({ length: 6 }).map((_, i) => (
+          <path
+            key={`ring-${i}`}
+            d="M 0 0 Q 0 0 0 0"
+            fill="none"
+            stroke="white"
+            strokeWidth={0.4 + i * 0.1}
+            opacity={0.2 + i * 0.08}
+          />
+        ))}
+      </svg>
+
+      {/* Draggable Spiderman */}
+      <motion.div
+        ref={spideyRef}
+        drag
+        dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
+        dragElastic={0.3}
+        dragTransition={{ bounceStiffness: 600, bounceDamping: 15 }}
+        style={{ x: dragX, y: dragY }}
+        className="relative mt-[15vh] z-20 cursor-grab active:cursor-grabbing flex flex-col items-center"
+      >
+        <div className="relative group hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+          {/* Subtle 3D Y-rotation for head turning feel */}
           <div
-            ref={webRef}
-            style={{ transformOrigin: "top center", transform: "rotate(0rad) scaleY(0)" }}
-            className="absolute top-[20px] w-[60px] md:w-[80px] h-[150px] z-10 pointer-events-none"
+            className="transition-transform duration-500 ease-in-out"
+            style={{
+              transform: facing === 'left' ? 'rotateY(-15deg)' : facing === 'right' ? 'rotateY(15deg)' : 'rotateY(0deg)',
+            }}
           >
-            <svg viewBox="0 0 100 200" preserveAspectRatio="none" className="w-full h-full opacity-90 drop-shadow-[0_0_2px_rgba(255,255,255,0.4)]">
-               {/* Clean Straight Radial Lines converging to x=50, y=200 */}
-               <line x1="0" y1="0" x2="47" y2="200" stroke="white" strokeWidth="0.4" opacity="0.3"/>
-               <line x1="10" y1="0" x2="47.5" y2="200" stroke="white" strokeWidth="0.6" opacity="0.4"/>
-               <line x1="20" y1="0" x2="48" y2="200" stroke="white" strokeWidth="0.8" opacity="0.5"/>
-               <line x1="30" y1="0" x2="48.5" y2="200" stroke="white" strokeWidth="1" opacity="0.6"/>
-               <line x1="40" y1="0" x2="49" y2="200" stroke="white" strokeWidth="1.2" opacity="0.7"/>
-               <line x1="50" y1="0" x2="50" y2="200" stroke="white" strokeWidth="1.5" opacity="0.9"/>
-               <line x1="60" y1="0" x2="51" y2="200" stroke="white" strokeWidth="1.2" opacity="0.7"/>
-               <line x1="70" y1="0" x2="51.5" y2="200" stroke="white" strokeWidth="1" opacity="0.6"/>
-               <line x1="80" y1="0" x2="52" y2="200" stroke="white" strokeWidth="0.8" opacity="0.5"/>
-               <line x1="90" y1="0" x2="52.5" y2="200" stroke="white" strokeWidth="0.6" opacity="0.4"/>
-               <line x1="100" y1="0" x2="53" y2="200" stroke="white" strokeWidth="0.4" opacity="0.3"/>
-
-               {/* Clean Concentric Drooping Rings (Getting denser at the narrow tip) */}
-               <path d="M 4 20 Q 50 35 96 20" fill="none" stroke="white" strokeWidth="0.5" opacity="0.3"/>
-               <path d="M 8 40 Q 50 55 92 40" fill="none" stroke="white" strokeWidth="0.5" opacity="0.4"/>
-               <path d="M 12 65 Q 50 80 88 65" fill="none" stroke="white" strokeWidth="0.6" opacity="0.4"/>
-               <path d="M 17 90 Q 50 105 83 90" fill="none" stroke="white" strokeWidth="0.6" opacity="0.5"/>
-               <path d="M 22 115 Q 50 130 78 115" fill="none" stroke="white" strokeWidth="0.7" opacity="0.6"/>
-               <path d="M 27 140 Q 50 155 73 140" fill="none" stroke="white" strokeWidth="0.7" opacity="0.6"/>
-               <path d="M 33 165 Q 50 175 67 165" fill="none" stroke="white" strokeWidth="0.8" opacity="0.7"/>
-               <path d="M 39 185 Q 50 192 61 185" fill="none" stroke="white" strokeWidth="0.9" opacity="0.8"/>
-               <path d="M 45 195 Q 50 198 55 195" fill="none" stroke="white" strokeWidth="1" opacity="0.9"/>
-            </svg>
-          </div>
-          
-          {/* 2. Draggable Spiderman */}
-          <motion.div
-            drag
-            dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-            dragElastic={0.4} // Spring intensity! Higher = looser, bounces further
-            style={{ x: dragX, y: dragY }}
-            className="absolute top-[160px] z-20 cursor-grab active:cursor-grabbing flex flex-col items-center"
-          >
-            {/* Front Layer with Depth */}
-            <div className="relative group hover:drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] transition-all duration-300">
-              {/* Depth Layer 1 (Bottom/Shadow) */}
-              <div className="absolute top-[8px] left-[0px] brightness-0 opacity-40 blur-[1px]">
-                {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
-                {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
-                {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
-              </div>
-              {/* Depth Layer 2 */}
-              <div className="absolute top-[5px] left-[0px] brightness-50">
-                {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
-                {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
-                {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
-              </div>
-              {/* Depth Layer 3 */}
-              <div className="absolute top-[2px] left-[0px] brightness-75">
-                {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
-                {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
-                {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
-              </div>
-              {/* Front Layer */}
-              <div className="relative z-10 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-                {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
-                {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
-                {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
-              </div>
+            {/* Depth Layer 1 — Deep shadow for 3D extrusion */}
+            <div className="absolute top-[8px] left-[0px] brightness-0 opacity-40 blur-[1px]">
+              {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
+              {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
+              {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
             </div>
-          </motion.div>
-
+            {/* Depth Layer 2 — Mid extrusion */}
+            <div className="absolute top-[5px] left-[0px] brightness-50">
+              {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
+              {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
+              {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
+            </div>
+            {/* Depth Layer 3 — Near extrusion */}
+            <div className="absolute top-[2px] left-[0px] brightness-75">
+              {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
+              {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
+              {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
+            </div>
+            {/* Front Layer — Full brightness with glow */}
+            <div className="relative z-10 drop-shadow-[0_0_12px_rgba(255,255,255,0.08)]">
+              {facing === 'front' && <SpideyPixelArt ascii={FRONT_ASCII} />}
+              {facing === 'left' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={true} />}
+              {facing === 'right' && <SpideyPixelArt ascii={SIDE_ASCII} flipped={false} />}
+            </div>
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
 
-function SpiderEyes() {
+function PixelSpiderFace() {
+  // 8x8 pixel art spider face: R=red, W=white, B=blue, _=transparent
+  const grid = [
+    '___RR___',
+    '__RRRR__',
+    '_RWRRWR_',
+    '_RRWWRR_',
+    'RBRRRRBR',
+    '_RRRRRR_',
+    '__RRRR__',
+    '___RR___',
+  ]
+  const colors: Record<string, string> = { R: '#e53935', W: '#ffffff', B: '#1e88e5' }
+  
   return (
-    <div className="flex bg-gradient-to-br from-[#ff5252] to-[#b71c1c] rounded-full p-1 w-10 h-10 items-center justify-center space-x-0.5 shadow-[inset_0_2px_4px_rgba(255,255,255,0.5),0_4px_10px_rgba(229,37,33,0.5)] border border-[#ff8a80]">
-      <div className="bg-gradient-to-b from-[#ffffff] to-[#cccccc] w-3 h-3.5 rounded-full shadow-[inset_0_-1px_3px_rgba(0,0,0,0.4),0_0_5px_rgba(255,255,255,0.8)] transform -rotate-12 border border-[#999]"></div>
-      <div className="bg-gradient-to-b from-[#ffffff] to-[#cccccc] w-3 h-3.5 rounded-full shadow-[inset_0_-1px_3px_rgba(0,0,0,0.4),0_0_5px_rgba(255,255,255,0.8)] transform rotate-12 border border-[#999]"></div>
-    </div>
+    <svg viewBox="0 0 8 8" className="w-7 h-7 md:w-8 md:h-8 drop-shadow-[0_0_6px_rgba(229,57,53,0.6)]">
+      {grid.map((row, y) =>
+        row.split('').map((char, x) => {
+          if (char === '_') return null
+          return <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" fill={colors[char]} rx="0.1" />
+        })
+      )}
+    </svg>
   )
 }

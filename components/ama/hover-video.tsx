@@ -2,9 +2,23 @@
 
 import { useRef, useState, useEffect } from 'react'
 
-export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: number }) {
+export function HoverVideo({ 
+  src, 
+  startTime = 0, 
+  objectFit = 'cover', 
+  layout = 'absolute',
+  pauseOthersOnHover = false 
+}: { 
+  src: string, 
+  startTime?: number, 
+  objectFit?: 'cover' | 'contain', 
+  layout?: 'absolute' | 'native' | 'native-width',
+  pauseOthersOnHover?: boolean
+}) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isHovered, setIsHovered] = useState(false)
+  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
     if (!videoRef.current) return
@@ -36,7 +50,7 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
     let syncInterval: NodeJS.Timeout
     const startSync = () => {
       syncInterval = setInterval(() => {
-        if (!video.duration || video.duration === Infinity) return
+        if (!video.duration || video.duration === Infinity || video.paused) return
 
         const nowSec = Date.now() / 1000
         const expectedTime = (nowSec + startTime) % video.duration
@@ -68,6 +82,32 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
     }
   }, [src, startTime])
 
+  // Coordinate pausing other videos
+  useEffect(() => {
+    if (!pauseOthersOnHover) return
+
+    const handleFocus = (e: Event) => {
+      const customEvent = e as CustomEvent
+      if (customEvent.detail.src !== src && videoRef.current) {
+        videoRef.current.pause()
+      }
+    }
+
+    const handleBlur = () => {
+      if (videoRef.current) {
+        videoRef.current.play().catch(() => {})
+      }
+    }
+
+    window.addEventListener('hover-video-focus', handleFocus)
+    window.addEventListener('hover-video-blur', handleBlur)
+
+    return () => {
+      window.removeEventListener('hover-video-focus', handleFocus)
+      window.removeEventListener('hover-video-blur', handleBlur)
+    }
+  }, [src, pauseOthersOnHover])
+
   // Handle unmute on hover
   useEffect(() => {
     if (videoRef.current && isHovered) {
@@ -81,11 +121,37 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
     }
   }, [isHovered])
 
+  const handleMouseEnter = () => {
+    setIsHovered(true)
+    if (pauseOthersOnHover) {
+      hoverTimerRef.current = setTimeout(() => {
+        setIsFocused(true)
+        window.dispatchEvent(new CustomEvent('hover-video-focus', { detail: { src } }))
+      }, 1000)
+    }
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+    if (pauseOthersOnHover) {
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current)
+      if (isFocused) {
+        setIsFocused(false)
+        window.dispatchEvent(new CustomEvent('hover-video-blur'))
+        if (videoRef.current) videoRef.current.play().catch(() => {})
+      }
+    }
+  }
+
   return (
     <div 
-      className="absolute inset-0 w-full h-full"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      className={
+        layout === 'native' ? 'relative w-auto h-full flex justify-start items-start' : 
+        layout === 'native-width' ? 'relative w-full h-auto flex justify-start items-start' : 
+        'absolute inset-0 w-full h-full'
+      }
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={() => {
         if (videoRef.current) {
           videoRef.current.muted = false
@@ -96,7 +162,13 @@ export function HoverVideo({ src, startTime = 0 }: { src: string, startTime?: nu
       <video
         ref={videoRef}
         src={src}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        className={
+          layout === 'native'
+            ? 'h-full w-auto'
+            : layout === 'native-width'
+            ? 'w-full h-auto'
+            : `absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`
+        }
         loop
         muted={!isHovered}
         playsInline
