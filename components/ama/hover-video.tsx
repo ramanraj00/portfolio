@@ -7,13 +7,15 @@ export function HoverVideo({
   startTime = 0, 
   objectFit = 'cover', 
   layout = 'absolute',
-  pauseOthersOnHover = false 
+  pauseOthersOnHover = false,
+  playOnView = false
 }: { 
   src: string, 
   startTime?: number, 
   objectFit?: 'cover' | 'contain', 
   layout?: 'absolute' | 'native' | 'native-width',
-  pauseOthersOnHover?: boolean
+  pauseOthersOnHover?: boolean,
+  playOnView?: boolean
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isHovered, setIsHovered] = useState(false)
@@ -40,15 +42,29 @@ export function HoverVideo({
       }
     }
 
-    if (video.readyState >= 1) {
-      attemptPlay()
+    if (playOnView) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          attemptPlay()
+          observer.disconnect() // Only trigger once when it comes into view
+        }
+      }, { threshold: 0.5 }) // Trigger when 50% visible
+      observer.observe(video)
+      
+      return () => observer.disconnect()
     } else {
-      video.addEventListener('loadedmetadata', attemptPlay, { once: true })
+      if (video.readyState >= 1) {
+        attemptPlay()
+      } else {
+        video.addEventListener('loadedmetadata', attemptPlay, { once: true })
+      }
     }
 
     // Smooth Sync Logic (Adjusts playback rate instead of stuttering currentTime)
     let syncInterval: NodeJS.Timeout
     const startSync = () => {
+      if (playOnView) return // Don't global sync videos that start independently on scroll
+
       syncInterval = setInterval(() => {
         if (!video.duration || video.duration === Infinity || video.paused) return
 

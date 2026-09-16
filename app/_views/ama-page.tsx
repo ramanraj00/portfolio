@@ -6,6 +6,9 @@ import { publicPageMetadata } from '~/lib/public-page-metadata'
 import { HoverVideo } from "~/components/ama/hover-video"
 import { SpideyTracker } from "~/components/ama/spidey-tracker"
 import { MatrixGrid } from '~/components/ama/matrix-grid'
+import { FourthScreen } from '~/components/ama/fourth-screen'
+import { FilmGrain } from '~/components/ama/film-grain'
+import { CinematicAudio } from '~/components/ama/cinematic-audio'
 import { ImageSlider } from '~/components/ama/image-slider'
 
 export function amaPageMetadata(locale: Locale): Metadata {
@@ -34,16 +37,19 @@ export function AmaPageView({ locale }: { locale: Locale }) {
     <>
       <style>{`
         footer { display: none !important; }
-        html, body { background-color: black !important; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { background-color: black !important; }
         ::-webkit-scrollbar { display: none; }
       `}</style>
       
+      <FilmGrain />
+      <CinematicAudio />
       <div className="w-full bg-black -mt-14 grid grid-cols-2 md:grid-cols-4 auto-rows-[50vh] md:auto-rows-[33.33vh] gap-[2px] md:gap-[1px] p-[1px]">
         
         {/* --- SCENE 1: THE FOLD --- */}
 
         {/* Left Pillar (Started 0.3s ahead for consistent transition wave) */}
-        <div className="relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
+        <div className="snap-start scroll-mt-0 relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 col-span-2 row-span-1 md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
           <HoverVideo src="/videos/3258679_0.mp4" startTime={0.3} />
         </div>
 
@@ -59,7 +65,7 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
 
         {/* --- SCENE 3: 3-COLUMN GRID --- */}
-        <div className="col-span-2 md:col-span-4 row-span-3 grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-[2px] md:gap-[1px] w-full h-full relative z-20">
+        <div className="snap-start scroll-mt-0 col-span-2 md:col-span-4 row-span-3 grid grid-cols-1 md:grid-cols-3 grid-rows-2 gap-[2px] md:gap-[1px] w-full h-full relative z-20">
 
           {/* SLOT 1: Left Column (Spans full vertical height) */}
           <div className="relative bg-zinc-900 group cursor-pointer w-full h-full row-span-2">
@@ -88,7 +94,7 @@ export function AmaPageView({ locale }: { locale: Locale }) {
 
         </div>
         {/* --- SCENE 4: NEW SECTION 3 (DRAGGABLE MATRIX) --- */}
-        <div className="col-span-2 md:col-span-4 row-span-3 w-full h-full relative z-10">
+        <div className="snap-start scroll-mt-0 col-span-2 md:col-span-4 row-span-3 w-full h-full relative z-10">
           <MatrixGrid 
             videos={[
               "/videos/5297483_0.mp4",
@@ -104,6 +110,11 @@ export function AmaPageView({ locale }: { locale: Locale }) {
               "/videos/5554845_0.mp4"
             ]}
           />
+        </div>
+
+        {/* --- SCENE 5: 4TH SCREEN --- */}
+        <div className="snap-start scroll-mt-0 col-span-2 md:col-span-4 row-span-3 w-full h-full relative z-10 flex flex-col items-center justify-center">
+          <FourthScreen />
         </div>
 
       </div>

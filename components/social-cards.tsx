@@ -207,7 +207,7 @@ export function XiaohongshuCardBody() {
 }
 
 export function TelegramCardBody({ data }: { data: SocialSnapshot }) {
-  return <Identity data={data} avatar="/images/avatar.png" service="telegram" withBio={false} />
+  return <Identity data={data} avatar="/images/avatar2.png" service="telegram" withBio={false} />
 }
 
 export function YouTubeCardBody({ data }: { data: SocialSnapshot }) {
@@ -482,7 +482,7 @@ export function EmailCard({
           </span>
           <span className="email-envelope-stamps">
             <span className="email-envelope-stamp email-envelope-stamp-portrait">
-              <Image src="/images/avatar.png" alt="" width={32} height={32} />
+              <Image src="/images/avatar2.png" alt="" width={32} height={32} />
               <span>RAMAN · 20</span>
             </span>
             <span className="email-envelope-stamp email-envelope-stamp-mark">

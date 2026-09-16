@@ -140,7 +140,7 @@ export function DockFallback({ locale }: { locale: Locale }) {
         goKey={dockGoKeyFor('/')}
       >
         <span className="dock-avatar">
-          <Image src="/images/avatar.png" alt="" width={26} height={26} />
+          <Image src="/images/avatar2.png" alt="" width={32} height={32} />
         </span>
       </DockItem>
       <span className="dock-rule" aria-hidden />
@@ -220,7 +220,7 @@ export function Dock() {
         onNavigate={handleNavigate}
       >
         <span className="dock-avatar">
-          <Image src="/images/avatar.png" alt="" width={26} height={26} />
+          <Image src="/images/avatar2.png" alt="" width={32} height={32} />
         </span>
       </DockItem>
       <span className="dock-rule" aria-hidden />
