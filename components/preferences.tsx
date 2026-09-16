@@ -131,7 +131,7 @@ export function Preferences({
           >
             <PreferencesIcon />
             <span className="dock-tip" aria-hidden>
-              <T zh="偏好" en="Preferences" />
+              <T zh="सेटिंग्स" en="Preferences" />
             </span>
           </button>
         }
@@ -150,15 +150,15 @@ export function Preferences({
             render={<Elevated offset={2} shadowLevel={3} />}
             className="prefs-panel w-max rounded-xl outline-none"
           >
-            <Row zh="语言" en="Language">
+            <Row zh="भाषा" en="Language">
               <Tabs value={mounted ? locale : activeLocale} onValueChange={applyLocale}>
                 <TabsList aria-label={localize(activeLocale, '语言', 'Language')}>
-                  <TabItem value="zh" label="中文" />
+                  <TabItem value="zh" label="Hindi" />
                   <TabItem value="en" label="English" />
                 </TabsList>
               </Tabs>
             </Row>
-            <Row zh="外观" en="Theme">
+            <Row zh="थीम" en="Theme">
               <Tabs
                 value={mounted && theme ? theme : 'system'}
                 onValueChange={(v) => {
@@ -173,7 +173,7 @@ export function Preferences({
                 </TabsList>
               </Tabs>
             </Row>
-            <Row zh="音效" en="Sound">
+            <Row zh="साउंड" en="Sound">
               <Tabs
                 value={mounted && sound ? 'on' : 'off'}
                 onValueChange={(v) => {
@@ -197,7 +197,7 @@ export function Preferences({
                 onClick={() => playDockSound()}
               >
                 <span className="prefs-row-label">
-                  <T zh="管理" en="Admin" />
+                  <T zh="एडमिन" en="Admin" />
                 </span>
                 <span className="dock-tip-keys" aria-hidden>
                   <kbd className="dock-tip-key">G</kbd>
@@ -209,7 +209,7 @@ export function Preferences({
               <form method="post" action="/api/admin/auth/logout">
                 <button type="submit" className="prefs-row prefs-admin prefs-signout">
                   <span className="prefs-row-label">
-                    <T zh="退出登录" en="Sign out" />
+                    <T zh="साइन आउट" en="Sign out" />
                   </span>
                 </button>
               </form>

@@ -31,10 +31,10 @@ export function NavCards({
           <span />
         </span>
         <span className="nc-label">
-          <T zh="写作" en="Writing" />
+          <T zh="आर्टिकल्स" en="Writing" />
         </span>
         <span className="nc-sub">
-          <T zh={`${postCount} 篇文章`} en={`${postCount} posts`} />
+          <T zh={`${postCount} पोस्ट्स`} en={`${postCount} posts`} />
         </span>
       </Link>
 
@@ -81,10 +81,10 @@ export function NavCards({
           </span>
         </span>
         <span className="nc-label">
-          <T zh="项目" en="Projects" />
+          <T zh="प्रोजेक्ट्स" en="Projects" />
         </span>
         <span className="nc-sub">
-          <T zh={`${projectCount} 个项目`} en={`${projectCount} projects`} />
+          <T zh={`${projectCount} प्रोजेक्ट्स`} en={`${projectCount} projects`} />
         </span>
       </Link>
     </div>
@@ -141,14 +141,14 @@ export function PhotoNavCard({
             })}
       </span>
       <span className="nc-label">
-        <T zh="照片" en="Photos" />
+        <T zh="फोटोज़" en="Photos" />
       </span>
       <span className="nc-sub">
         {pending ? (
           <span aria-hidden>…</span>
         ) : (
           <T
-            zh={`${photoPreview?.count ?? 0} 张照片`}
+            zh={`${photoPreview?.count ?? 0} फोटोज़`}
             en={`${photoPreview?.count ?? 0} photos`}
           />
         )}

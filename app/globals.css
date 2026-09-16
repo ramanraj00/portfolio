@@ -221,7 +221,7 @@
     @apply border-border outline-ring/50;
     }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background) !important; color: var(--foreground) !important;
     }
   html {
     @apply font-sans;
@@ -313,6 +313,13 @@
   /* the surface ladder, warm-tuned: elevated sheets stay on the paper */
   --surface-1: oklch(0.968 0.0018 95);
   --surface-2: oklch(0.978 0.0016 95);
+}
+
+
+.light.public-site {
+  --gray-1: oklch(0.99 0.001 95);
+  --background: var(--gray-1);
+  --foreground: var(--gray-12);
 }
 
 .dark.public-site {
@@ -7071,3 +7078,11 @@ body:has(.ama-success-stage) main {
   50% { transform: rotate(-10deg); }
   100% { transform: rotate(10deg); }
 }
+
+
+/* AMA Page Specific Styles */
+html:has(.ama-wrapper) { scroll-snap-type: y mandatory; scroll-behavior: smooth; background-color: black !important; }
+body:has(.ama-wrapper) { background-color: black !important; color: white !important; --background: oklch(0.145 0 0); --foreground: oklch(0.985 0 0); }
+body:has(.ama-wrapper) footer { display: none !important; }
+.ama-wrapper { background-color: black !important; color: white !important; color-scheme: dark; }
+body:has(.ama-wrapper) ::-webkit-scrollbar { display: none; }

@@ -45,8 +45,8 @@ const LANDING_COPY = {
     help: 'Help and support',
     privacy: 'Privacy Policy',
     terms: 'Terms of Use',
-    locale: '中文',
-    localeAriaLabel: '切换到 Cali 宝宝中文页面',
+    locale: 'Hindi',
+    localeAriaLabel: '切换到 Cali 宝宝Hindi页面',
     galleryLabel: 'Cali Baby app screenshots',
   },
 } as const

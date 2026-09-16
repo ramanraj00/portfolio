@@ -35,16 +35,11 @@ const kickButtowskiImages = [
 export function AmaPageView({ locale }: { locale: Locale }) {
   return (
     <>
-      <style>{`
-        footer { display: none !important; }
-        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
-        body { background-color: black !important; }
-        ::-webkit-scrollbar { display: none; }
-      `}</style>
+      
       
       <FilmGrain />
       <CinematicAudio />
-      <div className="w-full bg-black -mt-14 grid grid-cols-2 md:grid-cols-4 auto-rows-[50vh] md:auto-rows-[33.33vh] gap-[2px] md:gap-[1px] p-[1px]">
+      <div className="ama-wrapper dark w-full bg-black -mt-14 grid grid-cols-2 md:grid-cols-4 auto-rows-[50vh] md:auto-rows-[33.33vh] gap-[2px] md:gap-[1px] p-[1px]">
         
         {/* --- SCENE 1: THE FOLD --- */}
 

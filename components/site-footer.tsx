@@ -57,7 +57,7 @@ export function SiteFooter({
   return (
     <footer className="mx-auto mt-24 w-full max-w-[37.5rem] px-6 pb-24 text-sm text-muted-foreground sm:pb-12">
       <div className="hairline-top grid grid-cols-2 gap-x-6 gap-y-8 pt-8 sm:grid-cols-3">
-        <Tree zh="联系" en="contact">
+        <Tree zh="संपर्क" en="contact">
           <li>
             <XCard data={social.x} />
           </li>
@@ -74,30 +74,30 @@ export function SiteFooter({
             <EmailCard address="r02519625@gmail.com" />
           </li>
         </Tree>
-        <Tree zh="索引" en="index">
+        <Tree zh="लिंक्स" en="index">
           <li>
             <Link href={localePath(locale, '/')} className="footer-tree-link">
-              <T zh="首页" en="Home" />
+              <T zh="होम" en="Home" />
             </Link>
           </li>
           <li>
             <Link href={localePath(locale, '/projects')} className="footer-tree-link">
-              <T zh="项目" en="Projects" />
+              <T zh="प्रोजेक्ट्स" en="Projects" />
             </Link>
           </li>
           <li>
             <Link href={localePath(locale, '/photos')} className="footer-tree-link">
-              <T zh="照片" en="Photos" />
+              <T zh="फोटोज़" en="Photos" />
             </Link>
           </li>
           <li>
             <Link href={localePath(locale, '/blog')} className="footer-tree-link">
-              <T zh="写作" en="Writing" />
+              <T zh="आर्टिकल्स" en="Writing" />
             </Link>
           </li>
           <li>
             <Link href={localePath(locale, '/ama')} className="footer-tree-link">
-              <T zh="一对一" en="AMA" />
+              <T zh="एएमए (AMA)" en="AMA" />
             </Link>
           </li>
           <li>

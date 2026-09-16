@@ -162,10 +162,10 @@ export function HomeContact({ social, github }: { social: SocialData; github: Gi
       <T
         zh={
           <>
-            可以在 <XCard data={social.x} trigger="@r1zzdev" triggerClassName="home-contact-link" />、
-            <GitHubCard data={github} triggerClassName="home-contact-link" />、
-            <MediumCard data={social.medium} triggerClassName="home-contact-link" /> 找到我，也可以去{' '}
-            <LinkedInCard data={social.linkedin} triggerClassName="home-contact-link" />。
+            आप मुझे <XCard data={social.x} trigger="@r1zzdev" triggerClassName="home-contact-link" />,{' '}
+            <GitHubCard data={github} triggerClassName="home-contact-link" />,{' '}
+            <MediumCard data={social.medium} triggerClassName="home-contact-link" /> और{' '}
+            <LinkedInCard data={social.linkedin} triggerClassName="home-contact-link" /> पर फॉलो कर सकते हैं।
           </>
         }
         en={
@@ -190,7 +190,7 @@ export function HomeIntroduction({ social, github }: { social: SocialData; githu
         <T
           zh={
             <>
-              我是一名<DesignEngineerPhrase>全栈开发人员</DesignEngineerPhrase>，致力于通过精心的设计和结构良好的代码将想法转化为精美、可扩展的数字产品。
+              मैं एक <DesignEngineerPhrase>फुल-स्टैक डेवलपर</DesignEngineerPhrase> हूँ, जिसे बेहतरीन डिज़ाइन और क्लीन कोड के ज़रिए नए आइडियाज को शानदार डिजिटल प्रोडक्ट्स में बदलना पसंद है।
             </>
           }
           en={
@@ -202,13 +202,13 @@ export function HomeIntroduction({ social, github }: { social: SocialData; githu
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <T
-          zh="我构建现代、交互式的用户体验，同时在幕后开发可靠的后端系统和应用程序。从使用 React、Tailwind CSS 和 Motion 制作响应式界面，到构建驱动它们的逻辑和架构，我喜欢参与整个产品的开发。"
+          zh="मैं बेहतरीन और मॉडर्न यूज़र इंटरफेस बनाता हूँ, और साथ ही मजबूत बैकएंड सिस्टम भी संभालता हूँ। React, Tailwind CSS और Motion से वेबसाइट्स को डिज़ाइन करने से लेकर उनके पीछे का लॉजिक लिखने तक, मुझे प्रोडक्ट के हर हिस्से पर काम करना पसंद है。"
           en="I build modern, interactive user experiences while also working behind the scenes to develop reliable backend systems and applications. From crafting responsive interfaces with React, Tailwind CSS, and Motion to building the logic and architecture that powers them, I enjoy working across the entire product."
         />
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
         <T
-          zh="目前，我是一名专攻数据科学的大三计算机科学 B.Tech 学生。我喜欢探索新技术，解决复杂问题，完善细节，并将想法转化为直观、可靠和令人难忘的数字体验。"
+          zh="अभी मैं डेटा साइंस (Data Science) में स्पेशलाइजेशन के साथ बी.टेक कंप्यूटर साइंस के तीसरे साल का छात्र हूँ। मुझे नई टेक्नोलॉजी सीखना, मुश्किल प्रॉब्लम सॉल्व करना और अपने आइडियाज को असली डिजिटल दुनिया में उतारना बहुत पसंद है।"
           en="Currently, I'm a third-year B.Tech Computer Science student specializing in Data Science. I enjoy exploring new technologies, solving complex problems, refining details, and turning ideas into intuitive, reliable, and memorable digital experiences."
         />
       </p>

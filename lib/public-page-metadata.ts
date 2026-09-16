@@ -2,8 +2,8 @@ export const publicPageMetadata = {
   home: {
     zh: {
       title: 'Raman Raj',
-      description: '软件工程师',
-      ogDescription: '软件工程师',
+      description: 'सॉफ्टवेयर इंजीनियर',
+      ogDescription: 'सॉफ्टवेयर इंजीनियर',
     },
     en: {
       title: 'Raman Raj',
@@ -13,8 +13,8 @@ export const publicPageMetadata = {
   },
   blog: {
     zh: {
-      title: '写作',
-      description: 'Raman 关于设计、工程、产品，以及一路上在意的人和事的文章。',
+      title: 'आर्टिकल्स',
+      description: 'डिजाइन, इंजीनियरिंग, प्रोडक्ट्स और काम के आइडियाज़ पर मेरे लिखे आर्टिकल्स और एसेज।',
     },
     en: {
       title: 'Writing',
@@ -23,7 +23,7 @@ export const publicPageMetadata = {
     },
   },
   photos: {
-    zh: { title: '照片', description: 'Raman 在工作、生活和旅途中留下的一些瞬间。' },
+    zh: { title: 'फोटोज़', description: 'मेरी ज़िंदगी, काम और सफर के दौरान क्लिक की गई कुछ बेहतरीन यादें और तस्वीरें।' },
     en: {
       title: 'Photos',
       description: 'Moments Raman has kept from work, life, and everywhere in between.',
@@ -31,9 +31,9 @@ export const publicPageMetadata = {
   },
   projects: {
     zh: {
-      title: '项目',
+      title: 'प्रोजेक्ट्स',
       description:
-        '这些年做过的产品、开源工具和小实验。有些实用，有些只是好玩，但每一个我都认真做过。',
+        'पिछले कुछ सालों में बनाए गए मेरे प्रोडक्ट्स, टूल्स और कुछ छोटे-मोटे एक्सपेरिमेंट। इनमें से कुछ बहुत काम के हैं और कुछ सिर्फ मजे के लिए बनाए हैं, लेकिन सब में मैंने अपना 100% दिया है।',
     },
     en: {
       title: 'Projects',
@@ -43,9 +43,9 @@ export const publicPageMetadata = {
   },
   ama: {
     zh: {
-      title: '一对一',
+      title: 'एएमए (AMA)',
       description:
-        '从产品设计、工程、职业到独立开发、创业、出海、英语学习与 AI 工作流，用一小时聊清楚怎么判断、怎么取舍、下一步做什么。',
+        'प्रोडक्ट डिजाइन, इंजीनियरिंग, करियर, AI और स्टार्टअप्स पर वन-टू-वन बात करने का मौका।',
     },
     en: {
       title: 'AMA',

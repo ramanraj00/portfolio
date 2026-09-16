@@ -473,7 +473,7 @@ export function BookingDetail({
 
   const localeLabel =
     booking.locale === 'zh'
-      ? { zh: '中文', en: 'Chinese' }
+      ? { zh: 'Hindi', en: 'Chinese' }
       : { zh: '英文', en: 'English' }
   const provider = providerLabels[booking.meetingProvider]
   const hasStoredMeetingArtifacts = Boolean(

@@ -150,13 +150,13 @@ export function XCardBody({ data }: { data: SocialSnapshot }) {
         <span className="service-card-stat">
           {data.following && (
             <span>
-              <b>{data.following}</b> <T zh="正在关注" en="following" />
+              <b>{data.following}</b> <T zh="फॉलो कर रहे हैं" en="following" />
             </span>
           )}
           {data.followers && data.following && <span aria-hidden>·</span>}
           {data.followers && (
             <span>
-              <b>{data.followers}</b> <T zh="关注者" en="followers" />
+              <b>{data.followers}</b> <T zh="फॉलोअर्स" en="followers" />
             </span>
           )}
         </span>
@@ -220,7 +220,7 @@ export function YouTubeCardBody({ data }: { data: SocialSnapshot }) {
       />
       {data.followers && (
         <span className="service-card-stat">
-          <b>{data.followers}</b> <T zh="订阅者" en="subscribers" />
+          <b>{data.followers}</b> <T zh="सब्सक्राइबर्स" en="subscribers" />
         </span>
       )}
     </>
@@ -249,13 +249,13 @@ export function GitHubCardBody({ data }: { data: GitHubSnapshot }) {
       </span>
       <span className="service-card-stat">
         <span>
-          <b>{data.total.toLocaleString()}</b> <T zh="次贡献" en="contributions" />
+          <b>{data.total.toLocaleString()}</b> <T zh="योगदान (contributions)" en="contributions" />
         </span>
         {data.followers != null && (
           <>
             <span aria-hidden>·</span>
             <span>
-              <b>{data.followers}</b> <T zh="关注者" en="followers" />
+              <b>{data.followers}</b> <T zh="फॉलोअर्स" en="followers" />
             </span>
           </>
         )}
@@ -326,7 +326,7 @@ export function LinkedInCardBody({ data }: { data: SocialSnapshot }) {
           </span>
           {data.followers && (
             <span className="text-[0.85rem] font-medium text-[#0a66c2] dark:text-[#70b5f9] mt-3 pb-1">
-              {data.followers} <T zh="个联系人" en="connections" />
+              {data.followers} <T zh="कनेक्शन्स" en="connections" />
             </span>
           )}
         </div>
@@ -367,7 +367,7 @@ export function MediumCardBody({ data }: { data: SocialSnapshot }) {
       {data.followers && (
         <span className="service-card-stat">
           <span>
-            <b>{data.followers}</b> <T zh="个故事" en={Number(data.followers) === 1 ? "Story" : "Stories"} />
+            <b>{data.followers}</b> <T zh="स्टोरीज" en={Number(data.followers) === 1 ? "Story" : "Stories"} />
           </span>
         </span>
       )}
@@ -492,7 +492,7 @@ export function EmailCard({
           </span>
           <span className="email-envelope-postmark" />
           <span className="email-envelope-address">
-            <span><T zh="收" en="TO" /></span>
+            <span><T zh="TO" en="TO" /></span>
             {address}
           </span>
         </span>

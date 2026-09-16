@@ -25,7 +25,7 @@ export function CinematicAudio() {
         For now, using a remote placeholder audio.
         The user should replace '/main-theme.mp3' with their own track in public folder!
       */}
-      <audio ref={audioRef} loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" />
+      <audio ref={audioRef} loop src="/main-theme.mp3" preload="auto" />
       
       <button 
         onClick={togglePlay}

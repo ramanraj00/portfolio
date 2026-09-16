@@ -38,8 +38,8 @@ const SUPPORT_COPY = {
   en: {
     pageTitle: 'Help and support',
     helpTitle: 'Need help?',
-    localeLabel: '中文',
-    localeAriaLabel: '切换到中文',
+    localeLabel: 'Hindi',
+    localeAriaLabel: '切换到Hindi',
     quickLinks: [
       ['Family Sync', '#family-sync-isnt-updating', 'lavender'],
       ['Backup and restore', '#back-up-or-restore-records', 'blue'],

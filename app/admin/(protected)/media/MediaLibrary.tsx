@@ -577,7 +577,7 @@ function Inspector({
           )}
         </div>
         <Input
-          label={<T zh="地点（中文）" en="Location (Chinese)" />}
+          label={<T zh="地点（Hindi）" en="Location (Hindi)" />}
           value={locationZh}
           onChange={(event) => setLocationZh(event.target.value)}
         />
@@ -605,7 +605,7 @@ function Inspector({
           </Button>
         </div>
         <Input
-          label={<T zh="替代文本（中文）" en="Alt Text (Chinese)" />}
+          label={<T zh="替代文本（Hindi）" en="Alt Text (Hindi)" />}
           value={altZh}
           onChange={(event) => setAltZh(event.target.value)}
         />

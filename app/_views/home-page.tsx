@@ -69,6 +69,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
               }
             >
               <div className="relative w-full h-full">
+                
                 <StatusBubble />
                 <ProfileAvatar
                   realSrc="/images/real-avatar.jpg"
@@ -89,6 +90,21 @@ export async function HomePageView({ locale }: { locale: Locale }) {
             <p className="mt-2 text-muted-foreground font-medium tracking-wide">
               been here for <TimeOnEarth /> years
             </p>
+            <div className="mt-3 flex items-start">
+              <a
+                href="https://cal.com/raman-mnnz8w/15min"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <span className="border-b border-transparent group-hover:border-foreground transition-colors pb-0.5">
+                  Book an intro call
+                </span>
+                <span className="ml-1.5 opacity-70 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                  ↗
+                </span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -119,7 +135,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
 
       <section className="mt-16">
         <SectionTitle index={nextSectionIndex()} delay={120}>
-          <T zh="项目" en="Projects" />
+          <T zh="प्रोजेक्ट्स" en="Projects" />
         </SectionTitle>
         <ul className="mt-4 flex flex-col">
           {projects.map((project, i) => (
@@ -171,14 +187,14 @@ export async function HomePageView({ locale }: { locale: Locale }) {
       <section className="mt-16">
         <div className="flex items-center justify-between gap-4">
           <SectionTitle index={nextSectionIndex()} delay={200}>
-            <T zh="写作" en="Writing" />
+            <T zh="आर्टिकल्स" en="Writing" />
           </SectionTitle>
           <Link
             href={localePath(locale, '/blog')}
             className="enter relative shrink-0 text-sm text-muted-foreground transition-colors duration-150 ease-[ease] after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
             style={{ '--enter-delay': '200ms' } as React.CSSProperties}
           >
-            <T zh="查看全部" en="View all" />
+            <T zh="सभी देखें" en="View all" />
           </Link>
         </div>
         <ul className="focus-list mt-4 flex flex-col">
@@ -199,7 +215,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
       {records.length > 0 && (
         <section className="mt-16">
           <SectionTitle index={nextSectionIndex()} delay={320}>
-            <T zh="循环播放中" en="On rotation" />
+            <T zh="अभी लूप पर है" en="On rotation" />
           </SectionTitle>
           <div className="enter mt-5" style={{ '--enter-delay': '360ms' } as React.CSSProperties}>
             <VinylShelf />
@@ -210,7 +226,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
       {books.length > 0 && (
         <section className="mt-16">
           <SectionTitle index={nextSectionIndex()} delay={380}>
-            <T zh="珍藏书架" en="Books I Love" />
+            <T zh="मेरी फेवरेट बुक्स" en="Books I Love" />
           </SectionTitle>
           <div className="enter mt-5" style={{ '--enter-delay': '420ms' } as React.CSSProperties}>
             <Bookshelf />

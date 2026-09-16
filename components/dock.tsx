@@ -25,10 +25,10 @@ import {
 import { playDockSound } from '~/lib/sound'
 
 const ITEMS = [
-  { href: '/blog', zh: '写作', en: 'Writing', icon: WritingIcon },
-  { href: '/photos', zh: '照片', en: 'Photos', icon: PhotosIcon },
-  { href: '/projects', zh: '项目', en: 'Projects', icon: ProjectsIcon },
-  { href: '/ama', zh: '咨询', en: 'AMA', icon: AmaIcon },
+  { href: '/blog', zh: 'आर्टिकल्स', en: 'Writing', icon: WritingIcon },
+  { href: '/photos', zh: 'फोटोज़', en: 'Photos', icon: PhotosIcon },
+  { href: '/projects', zh: 'प्रोजेक्ट्स', en: 'Projects', icon: ProjectsIcon },
+  { href: '/ama', zh: 'एएमए (AMA)', en: 'AMA', icon: AmaIcon },
 ] as const
 
 const DOCK_VIEW_TRANSITION_STYLE = {
@@ -135,7 +135,7 @@ export function DockFallback({ locale }: { locale: Locale }) {
       <DockItem
         href={localePath(locale, '/')}
         locale={locale}
-        zh="首页"
+        zh="होम"
         en="Home"
         goKey={dockGoKeyFor('/')}
       >
@@ -164,7 +164,7 @@ export function DockFallback({ locale }: { locale: Locale }) {
         disabled
       >
         <PreferencesIcon />
-        <DockTip zh="偏好" en="Preferences" />
+        <DockTip zh="सेटिंग्स" en="Preferences" />
       </button>
     </nav>
   )
@@ -212,7 +212,7 @@ export function Dock() {
       <DockItem
         href={localePath(locale, '/')}
         locale={locale}
-        zh="首页"
+        zh="होम"
         en="Home"
         goKey={dockGoKeyFor('/')}
         active={routePathname === '/'}

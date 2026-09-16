@@ -3,6 +3,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { HoverVideo } from './hover-video'
+import Link from 'next/link'
 
 export function FourthScreen() {
   return (
@@ -19,10 +20,12 @@ export function FourthScreen() {
         <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-white uppercase drop-shadow-lg">
           You are the <span className="text-transparent bg-clip-text bg-gradient-to-br from-zinc-200 to-zinc-600">main Character</span>
         </h2>
-        <div className="flex items-center space-x-3 text-zinc-400 text-lg md:text-xl font-medium tracking-widest uppercase mt-1">
-          <span className="text-2xl animate-pulse">🫵</span>
-          <span>Always</span>
+        <div className="flex items-center space-x-3 text-zinc-400 text-lg md:text-xl font-medium tracking-widest mt-1">
+          <span className="text-4xl">🫵</span>
+          <span>always</span>
         </div>
+
+
       </motion.div>
 
       {/* VIDEO: Scale-up and Fade-in */}
