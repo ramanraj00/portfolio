@@ -5,6 +5,7 @@ import { type Locale } from '~/lib/locale-route'
 import { publicPageMetadata } from '~/lib/public-page-metadata'
 import { HoverVideo } from "~/components/ama/hover-video"
 import { SpideyTracker } from "~/components/ama/spidey-tracker"
+import { MatrixGrid } from '~/components/ama/matrix-grid'
 import { ImageSlider } from '~/components/ama/image-slider'
 
 export function amaPageMetadata(locale: Locale): Metadata {
@@ -85,6 +86,24 @@ export function AmaPageView({ locale }: { locale: Locale }) {
             <HoverVideo src="/videos/1002601241579_0.mp4?v=2" layout="absolute" pauseOthersOnHover />
           </div>
 
+        </div>
+        {/* --- SCENE 4: NEW SECTION 3 (DRAGGABLE MATRIX) --- */}
+        <div className="col-span-2 md:col-span-4 row-span-3 w-full h-full relative z-10">
+          <MatrixGrid 
+            videos={[
+              "/videos/5297483_0.mp4",
+              "/videos/3014835_0.mp4",
+              "/videos/6865265_0.mp4",
+              "/videos/7291709_0.mp4",
+              "/videos/8658813_0.mp4",
+              "/videos/2096182_0.mp4",
+              "/videos/7959353_0.mp4",
+              "/videos/9043855_0.mp4",
+              "/videos/2339545_0.mp4",
+              "/videos/1565307_0.mp4",
+              "/videos/5554845_0.mp4"
+            ]}
+          />
         </div>
 
       </div>
