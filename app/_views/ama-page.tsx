@@ -93,7 +93,7 @@ export function AmaPageView({ locale }: { locale: Locale }) {
             videos={[
               "/videos/5297483_0.mp4",
               "/videos/3014835_0.mp4",
-              "/videos/6865265_0.mp4",
+              "/videos/5500495_0.mp4",
               "/videos/7291709_0.mp4",
               "/videos/8658813_0.mp4",
               "/videos/2096182_0.mp4",
