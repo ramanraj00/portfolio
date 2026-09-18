@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 /**
  * Profile avatar with a toggle switch to flip between
@@ -23,9 +23,20 @@ export function ProfileAvatar({
   alt: string
 }) {
   const [isAnime, setIsAnime] = useState(true)
+  const audioRef = useRef<HTMLAudioElement>(null)
+
+  const playWhistle = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0
+      audioRef.current.volume = 0.5
+      audioRef.current.play().catch(console.error)
+    }
+  }
+
 
   return (
     <div className="profile-avatar-wrapper">
+      <audio ref={audioRef} src="/sounds/whistle.mp3" preload="auto" />
       <div className="profile-avatar-image-container">
         {/* Real photo */}
         <Image
@@ -51,7 +62,10 @@ export function ProfileAvatar({
       <button
         type="button"
         className="profile-avatar-switch"
-        onClick={() => setIsAnime((prev) => !prev)}
+        onClick={() => {
+          setIsAnime((prev) => !prev)
+          playWhistle()
+        }}
         aria-label={isAnime ? 'Switch to real photo' : 'Switch to anime avatar'}
         title={isAnime ? 'Switch to real photo' : 'Switch to anime avatar'}
       >
