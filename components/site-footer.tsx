@@ -114,7 +114,10 @@ export function SiteFooter({
             <p>
               © <CopyrightYear /> Raman Raj
             </p>
-
+            {/* the name echoed in braille — a printer's mark on the sheet */}
+            <p className="footer-braille" aria-hidden>
+              {brailleText('RAMAN RAJ')}
+            </p>
           </div>
           <div className="flex flex-col gap-2.5">
             <FooterClock />
