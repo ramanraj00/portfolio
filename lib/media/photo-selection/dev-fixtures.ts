@@ -23,12 +23,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 0 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.01,
+          iso: 400,
         }
       },
       {
@@ -48,12 +48,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 1 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.002,
+          iso: 50,
         }
       },
       {
@@ -73,12 +73,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 2 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
+          model: 'iPhone 16 Pro',
           lens: 'Main Camera 24mm f/1.78',
           focalLengthMillimeters: 24,
           aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          shutterSpeedSeconds: 0.001,
+          iso: 800,
         }
       },
       {
@@ -98,12 +98,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 3 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.05,
+          iso: 400,
         }
       },
       {
@@ -123,12 +123,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 4 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
+          model: 'iPhone 16 Pro',
           lens: 'Main Camera 24mm f/1.78',
           focalLengthMillimeters: 24,
           aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          shutterSpeedSeconds: 0.001,
+          iso: 200,
         }
       },
       {
@@ -148,12 +148,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 5 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.002,
+          iso: 400,
         }
       },
       {
@@ -173,12 +173,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 6 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
+          model: 'iPhone 16 Pro',
           lens: 'Main Camera 24mm f/1.78',
           focalLengthMillimeters: 24,
           aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          shutterSpeedSeconds: 0.05,
+          iso: 800,
         }
       },
       {
@@ -198,12 +198,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 7 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Telephoto 120mm f/2.8',
+          focalLengthMillimeters: 120,
+          aperture: 2.8,
+          shutterSpeedSeconds: 0.05,
+          iso: 50,
         }
       },
       {
@@ -223,10 +223,10 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 8 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
           shutterSpeedSeconds: 0.005,
           iso: 100,
         }
@@ -248,12 +248,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 9 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
+          model: 'iPhone 16 Pro',
           lens: 'Main Camera 24mm f/1.78',
           focalLengthMillimeters: 24,
           aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          shutterSpeedSeconds: 0.01,
+          iso: 200,
         }
       },
       {
@@ -273,12 +273,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 10 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.02,
+          iso: 800,
         }
       },
       {
@@ -298,12 +298,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 11 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
+          model: 'iPhone 16 Pro',
           lens: 'Main Camera 24mm f/1.78',
           focalLengthMillimeters: 24,
           aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          shutterSpeedSeconds: 0.02,
+          iso: 50,
         }
       },
       {
@@ -323,11 +323,11 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 12 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
+          model: 'iPhone 16 Pro',
+          lens: 'Telephoto 120mm f/2.8',
+          focalLengthMillimeters: 120,
+          aperture: 2.8,
+          shutterSpeedSeconds: 0.001,
           iso: 100,
         }
       },
@@ -348,12 +348,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 13 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.01,
+          iso: 800,
         }
       },
       {
@@ -373,12 +373,12 @@ export function devPhotoSelectionFixture(): PublicPhotoSelection | null {
         capturedAt: new Date(Date.now() - 14 * 86400000),
         camera: {
           make: 'Apple',
-          model: 'iPhone 15 Pro',
-          lens: 'Main Camera 24mm f/1.78',
-          focalLengthMillimeters: 24,
-          aperture: 1.78,
-          shutterSpeedSeconds: 0.005,
-          iso: 100,
+          model: 'iPhone 16 Pro',
+          lens: 'Ultra Wide 13mm f/2.2',
+          focalLengthMillimeters: 13,
+          aperture: 2.2,
+          shutterSpeedSeconds: 0.05,
+          iso: 800,
         }
       },
     ],
