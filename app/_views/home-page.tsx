@@ -90,7 +90,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
             
             <div className="mt-3 flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity">
               <img 
-                src="https://komarev.com/ghpvc/?username=ramanraj00-portfolio&style=flat-square&color=252525&label=PROFILE+VIEWS" 
+                src="/api/views" 
                 alt="Profile Views" 
               />
             </div>
