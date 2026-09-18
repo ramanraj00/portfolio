@@ -87,6 +87,13 @@ export async function HomePageView({ locale }: { locale: Locale }) {
               </h1>
               <PixelCluster variant={2} className="shrink-0 scale-125 origin-left" />
             </div>
+            
+            <div className="mt-3 flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity">
+              <img 
+                src="https://komarev.com/ghpvc/?username=ramanraj00-portfolio&style=flat-square&color=252525&label=PROFILE+VIEWS" 
+                alt="Profile Views" 
+              />
+            </div>
             <p className="mt-2 text-muted-foreground font-medium tracking-wide">
               been here for <TimeOnEarth /> years
             </p>
