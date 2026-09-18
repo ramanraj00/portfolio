@@ -18,7 +18,21 @@ export function HoverVideo({
   playOnView?: boolean
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+
   const [isHovered, setIsHovered] = useState(false)
+  const [globalAudioEnabled, setGlobalAudioEnabled] = useState(
+    typeof window !== 'undefined' ? (window as any).isGlobalVideoAudioEnabled ?? true : true
+  )
+
+  useEffect(() => {
+    const handleGlobalAudioToggle = (e: Event) => {
+      const customEvent = e as CustomEvent
+      setGlobalAudioEnabled(customEvent.detail)
+    }
+    window.addEventListener('video-audio-toggle', handleGlobalAudioToggle)
+    return () => window.removeEventListener('video-audio-toggle', handleGlobalAudioToggle)
+  }, [])
+
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [isFocused, setIsFocused] = useState(false)
 
@@ -126,16 +140,20 @@ export function HoverVideo({
 
   // Handle unmute on hover
   useEffect(() => {
-    if (videoRef.current && isHovered) {
-      videoRef.current.muted = false
-      videoRef.current.play().catch(() => {
-         if (videoRef.current) {
-           videoRef.current.muted = true
-           videoRef.current.play().catch(console.error)
-         }
-      })
+    if (videoRef.current) {
+      if (isHovered && globalAudioEnabled) {
+        videoRef.current.muted = false
+        videoRef.current.play().catch(() => {
+           if (videoRef.current) {
+             videoRef.current.muted = true
+             videoRef.current.play().catch(console.error)
+           }
+        })
+      } else {
+        videoRef.current.muted = true
+      }
     }
-  }, [isHovered])
+  }, [isHovered, globalAudioEnabled])
 
   const handleMouseEnter = () => {
     setIsHovered(true)
@@ -169,7 +187,7 @@ export function HoverVideo({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => {
-        if (videoRef.current) {
+        if (videoRef.current && globalAudioEnabled) {
           videoRef.current.muted = false
           videoRef.current.play().catch(console.error)
         }
@@ -186,7 +204,7 @@ export function HoverVideo({
             : `absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`
         }
         loop
-        muted={!isHovered}
+        muted={!isHovered || !globalAudioEnabled}
         playsInline
       />
     </div>
