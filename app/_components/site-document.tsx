@@ -50,7 +50,7 @@ export async function SiteDocument({
     // by the protected admin layout.
     return (
       <html
-        lang={english ? 'en' : 'zh-CN'}
+        lang={english ? 'en' : 'hi'}
         data-locale={english ? 'en' : undefined}
         suppressHydrationWarning
         className={cn('font-sans', fontVariables, 'public-site')}
@@ -77,7 +77,7 @@ export async function SiteDocument({
 
   return (
     <html
-      lang={english ? 'en' : 'zh-CN'}
+      lang={english ? 'en' : 'hi'}
       data-locale={english ? 'en' : undefined}
       data-route-motion="none"
       suppressHydrationWarning

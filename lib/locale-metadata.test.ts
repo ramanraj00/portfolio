@@ -24,7 +24,7 @@ describe('localeMetadata', () => {
     expect(metadata.openGraph).toMatchObject({
       title: '一篇文章',
       description: '中文摘要',
-      locale: 'zh_CN',
+      locale: 'hi_IN',
       type: 'article',
       url: new URL('/blog/a-post', seo.url),
       images: [

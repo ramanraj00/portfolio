@@ -258,7 +258,7 @@ function caliBabyMetadata(
       title,
       description,
       type: 'website',
-      locale: locale === 'en' ? 'en_US' : 'zh_CN',
+      locale: locale === 'en' ? 'en_US' : 'hi_IN',
       siteName: 'Cali Baby',
       url: canonical,
       images: [

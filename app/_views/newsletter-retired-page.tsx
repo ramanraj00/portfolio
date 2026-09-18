@@ -31,7 +31,7 @@ export function newsletterRetiredMetadata(locale: Locale): Metadata {
       title,
       description,
       type: 'website',
-      locale: locale === 'en' ? 'en_US' : 'zh_CN',
+      locale: locale === 'en' ? 'en_US' : 'hi_IN',
       siteName: 'Raman Raj',
       url: locale === 'en' ? pair.en : pair.zh,
     },

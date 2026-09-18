@@ -81,7 +81,7 @@ export function NewsletterArchivePageView({
         </p>
       </header>
 
-      <RevealScope lang={english ? 'en' : 'zh-CN'} className="prose enter">
+      <RevealScope lang={english ? 'en' : 'hi'} className="prose enter">
         <MDXRemote
           source={english ? newsletter.bodyEn : newsletter.body}
           components={{

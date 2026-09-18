@@ -13,7 +13,7 @@ import { ErrorPageView, type ErrorBoundaryProps } from './_views/error-page'
 export default function GlobalError({ retry }: ErrorBoundaryProps) {
   return (
     <html
-      lang="zh-CN"
+      lang="hi"
       suppressHydrationWarning
       className={cn('font-sans', fontVariablesForLocale('zh'))}
     >

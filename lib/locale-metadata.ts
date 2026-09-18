@@ -73,7 +73,7 @@ export function localeMetadata({
       title,
       description,
       type,
-      locale: locale === 'en' ? 'en_US' : 'zh_CN',
+      locale: locale === 'en' ? 'en_US' : 'hi_IN',
       siteName: 'Raman Raj',
       url: canonical,
       images: [image],

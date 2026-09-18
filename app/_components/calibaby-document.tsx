@@ -46,7 +46,7 @@ export function CaliBabyDocument({
 
   return (
     <html
-      lang={english ? 'en' : 'zh-CN'}
+      lang={english ? 'en' : 'hi'}
       data-locale={locale}
       suppressHydrationWarning
       className={cn(

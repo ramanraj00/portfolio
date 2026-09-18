@@ -24,7 +24,7 @@ export default function GlobalNotFound() {
   // paint and updates lang/data-locale without consulting localStorage.
   return (
     <html
-      lang="zh-CN"
+      lang="hi"
       suppressHydrationWarning
       className={cn('font-sans', fontVariablesForLocale('zh'))}
     >

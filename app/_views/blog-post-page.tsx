@@ -244,7 +244,7 @@ export async function BlogPostPageView({ slug, locale }: { slug: string; locale:
             </dl>
           </div>
         </header>
-        <RevealScope lang={english ? 'en' : 'zh-CN'} className="post-body-stage prose enter mt-10">
+        <RevealScope lang={english ? 'en' : 'hi'} className="post-body-stage prose enter mt-10">
           <CachedPostBody slug={post.slug} locale={locale} />
         </RevealScope>
         {related.length > 0 && (
