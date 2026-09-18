@@ -12,7 +12,6 @@ import { PostRow } from '~/components/post-row'
 import { ProfileAvatar } from '~/components/profile-avatar'
 import { StatusBubble } from '~/components/status-bubble'
 import { TimeOnEarth } from '~/components/time-on-earth'
-import { ProfileViews } from '~/components/profile-views'
 import { VinylShelf } from '~/components/vinyl-shelf'
 import { getAllPosts } from '~/lib/content'
 import { T } from '~/lib/i18n'
@@ -89,10 +88,9 @@ export async function HomePageView({ locale }: { locale: Locale }) {
               <PixelCluster variant={2} className="shrink-0 scale-125 origin-left" />
             </div>
             
-            <div className="mt-2 flex items-center gap-4 text-muted-foreground font-medium tracking-wide">
-              <p>been here for <TimeOnEarth /> years</p>
-              <ProfileViews />
-            </div>
+            <p className="mt-2 text-muted-foreground font-medium tracking-wide">
+              been here for <TimeOnEarth /> years
+            </p>
             <div className="mt-3 flex items-start">
               <a
                 href="https://cal.com/raman-mnnz8w/15min"
