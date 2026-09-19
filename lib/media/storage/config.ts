@@ -63,9 +63,12 @@ export function parseBunnyStorageEnv(source: Record<string, string | undefined>)
 export function parseBunnyMediaCdnEnv(
   source: Record<string, string | undefined>,
 ) {
+  if (!source.BUNNY_MEDIA_CDN_URL) {
+    return new URL('https://placeholder.b-cdn.net')
+  }
   const result = cdnBaseUrl.safeParse(source.BUNNY_MEDIA_CDN_URL)
   if (result.success) return result.data
-  throw new Error(
-    'Invalid Bunny Media Storage environment: BUNNY_MEDIA_CDN_URL',
-  )
+  
+  console.warn('Invalid Bunny Media CDN URL, falling back to placeholder.')
+  return new URL('https://placeholder.b-cdn.net')
 }
