@@ -38,6 +38,25 @@ export function HoverVideo({
 
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [isFocused, setIsFocused] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  // Lazy loading observer
+  useEffect(() => {
+    const wrapper = videoRef.current?.parentElement
+    if (!wrapper) {
+      setIsMounted(true)
+      return
+    }
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setIsMounted(true)
+        observer.disconnect()
+      }
+    }, { rootMargin: '800px' }) // 800px pre-fetch margin
+    
+    observer.observe(wrapper)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     if (!videoRef.current) return
@@ -198,7 +217,8 @@ export function HoverVideo({
     >
       <video
         ref={videoRef}
-        src={src}
+        src={isMounted ? src : undefined}
+        preload="metadata" 
         className={
           layout === 'native'
             ? 'h-full w-auto'
