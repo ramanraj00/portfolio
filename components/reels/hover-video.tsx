@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import { ZoomVideo } from '~/components/zoom-video'
 
 export function HoverVideo({ 
   src, 
@@ -178,35 +179,31 @@ export function HoverVideo({
   }
 
   return (
-    <div 
-      className={
-        layout === 'native' ? 'relative w-auto h-full flex justify-start items-start' : 
-        layout === 'native-width' ? 'relative w-full h-auto flex justify-start items-start' : 
-        'absolute inset-0 w-full h-full'
-      }
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={() => {
-        if (videoRef.current && globalAudioEnabled) {
-          videoRef.current.muted = false
-          videoRef.current.play().catch(console.error)
-        }
-      }}
-    >
-      <video
-        ref={videoRef}
-        src={src}
+    <ZoomVideo src={src} alt="Reel Video" width={1080} height={1920}>
+      <div 
         className={
-          layout === 'native'
-            ? 'h-full w-auto'
-            : layout === 'native-width'
-            ? 'w-full h-auto'
-            : `absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`
+          layout === 'native' ? 'relative w-auto h-full flex justify-start items-start' : 
+          layout === 'native-width' ? 'relative w-full h-auto flex justify-start items-start' : 
+          'absolute inset-0 w-full h-full'
         }
-        loop
-        muted={!isHovered || !globalAudioEnabled}
-        playsInline
-      />
-    </div>
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <video
+          ref={videoRef}
+          src={src}
+          className={
+            layout === 'native'
+              ? 'h-full w-auto'
+              : layout === 'native-width'
+              ? 'w-full h-auto'
+              : `absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`
+          }
+          loop
+          muted={!isHovered || !globalAudioEnabled}
+          playsInline
+        />
+      </div>
+    </ZoomVideo>
   )
 }
