@@ -34,7 +34,15 @@ export function createOwnerAuthorizer({
     }
 
     const user = await getUser(userId)
-    if (user.id !== userId || user.publicMetadata.siteOwner !== 'yes') {
+    
+    // Check if user's email matches the ADMIN_EMAIL
+    const adminEmail = getOwnerDataId()
+    const isEmailMatch = (user as any).emailAddresses?.some(
+      (email: any) => email.emailAddress === adminEmail
+    )
+    
+    // We allow access if they either have the metadata OR their email matches
+    if (user.id !== userId || (user.publicMetadata.siteOwner !== 'yes' && !isEmailMatch)) {
       return { status: 'forbidden' }
     }
 
