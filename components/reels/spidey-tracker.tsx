@@ -278,25 +278,32 @@ export function SpideyTracker() {
 
       
       <style>{`
-        @keyframes expandL1 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(-4deg) scale(1.03); } }
-        @keyframes expandL2 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(-3deg) scale(1.03); } }
-        @keyframes expandL3 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(-2deg) scale(1.03); } }
-        @keyframes expandL4 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(-1deg) scale(1.03); } }
-        
-        @keyframes expandR1 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(4deg) scale(1.03); } }
-        @keyframes expandR2 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(3deg) scale(1.03); } }
-        @keyframes expandR3 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(2deg) scale(1.03); } }
-        @keyframes expandR4 { 0%, 100% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(1deg) scale(1.03); } }
+        /* Smooth transitions for hover */
+        .leg-l-1, .leg-l-2, .leg-l-3, .leg-l-4,
+        .leg-r-1, .leg-r-2, .leg-r-3, .leg-r-4 {
+          transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-        .leg-l-1 { transform-origin: 178px 90px; animation: expandL1 4s ease-in-out infinite 0s; }
-        .leg-l-2 { transform-origin: 172px 115px; animation: expandL2 4s ease-in-out infinite 0.2s; }
-        .leg-l-3 { transform-origin: 168px 148px; animation: expandL3 4s ease-in-out infinite 0.4s; }
-        .leg-l-4 { transform-origin: 172px 175px; animation: expandL4 4s ease-in-out infinite 0.6s; }
+        .leg-l-1 { transform-origin: 178px 90px; }
+        .leg-l-2 { transform-origin: 172px 115px; transition-delay: 0.05s; }
+        .leg-l-3 { transform-origin: 168px 148px; transition-delay: 0.1s; }
+        .leg-l-4 { transform-origin: 172px 175px; transition-delay: 0.15s; }
         
-        .leg-r-1 { transform-origin: 222px 90px; animation: expandR1 4s ease-in-out infinite 0s; }
-        .leg-r-2 { transform-origin: 228px 115px; animation: expandR2 4s ease-in-out infinite 0.2s; }
-        .leg-r-3 { transform-origin: 232px 148px; animation: expandR3 4s ease-in-out infinite 0.4s; }
-        .leg-r-4 { transform-origin: 228px 175px; animation: expandR4 4s ease-in-out infinite 0.6s; }
+        .leg-r-1 { transform-origin: 222px 90px; }
+        .leg-r-2 { transform-origin: 228px 115px; transition-delay: 0.05s; }
+        .leg-r-3 { transform-origin: 232px 148px; transition-delay: 0.1s; }
+        .leg-r-4 { transform-origin: 228px 175px; transition-delay: 0.15s; }
+
+        /* Hover states triggered when the parent SVG is hovered */
+        svg:hover .leg-l-1 { transform: rotate(4deg) scale(1.12); }
+        svg:hover .leg-l-2 { transform: rotate(1deg) scale(1.12); }
+        svg:hover .leg-l-3 { transform: rotate(-1deg) scale(1.12); }
+        svg:hover .leg-l-4 { transform: rotate(-4deg) scale(1.12); }
+        
+        svg:hover .leg-r-1 { transform: rotate(-4deg) scale(1.12); }
+        svg:hover .leg-r-2 { transform: rotate(-1deg) scale(1.12); }
+        svg:hover .leg-r-3 { transform: rotate(1deg) scale(1.12); }
+        svg:hover .leg-r-4 { transform: rotate(4deg) scale(1.12); }
       `}</style>
 
       {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
