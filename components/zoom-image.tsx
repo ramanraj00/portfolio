@@ -310,9 +310,9 @@ export function ZoomImage({
               style={{
                 left: zoom.target.left,
                 top: zoom.target.top,
-                width: zoom.target.width,
-                height: zoom.target.height,
-                transform: floating ? 'none' : zoom.from,
+                width: Math.round(zoom.target.width),
+                height: Math.round(zoom.target.height),
+                transform: floating ? 'translate3d(0px, 0px, 0px) scale(1)' : zoom.from,
               }}
               onTransitionEnd={settle}
             />
