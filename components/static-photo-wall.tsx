@@ -71,7 +71,7 @@ export function StaticPhotoWall() {
                 width={photo.width}
                 height={photo.height}
                 sizes="(max-width: 704px) 50vw, 288px"
-                className="w-full h-auto object-cover"
+
                 expandedContent={<PhotoDetails photo={photo} />}
               />
               <span className="calibration-corners" aria-hidden />
