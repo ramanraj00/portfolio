@@ -97,7 +97,7 @@ export function SiteFooter({
           </li>
           <li>
             <Link href={localePath(locale, '/ama')} className="footer-tree-link">
-              <T zh="एएमए (AMA)" en="AMA" />
+              <T zh="रील्स" en="Reels" />
             </Link>
           </li>
           <li>

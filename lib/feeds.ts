@@ -12,7 +12,10 @@ export function buildChineseFeedXml() {
     language: 'zh-CN',
     // RSS <image> wants a small square channel logo, not the 1200×630 OG
     image_url: `${seo.url.href}images/avatar.png`,
-    generator: 'PHP 9.0',
+    generator: 'Next.js',
+    copyright: 'All rights reserved, Raman Raj',
+    managingEditor: 'Raman Raj',
+    webMaster: 'Raman Raj',
   })
 
   for (const post of getAllPosts()) {
@@ -23,6 +26,7 @@ export function buildChineseFeedXml() {
       url,
       description: post.description ?? '',
       date: post.publishedAt,
+      author: 'Raman Raj',
       ...(post.cover && {
         enclosure: { url: new URL(post.cover.src, seo.url).href },
       }),
@@ -42,7 +46,10 @@ export function buildEnglishFeedXml() {
     feed_url: `${seoEn.url.href}feed.en.xml`,
     language: 'en-US',
     image_url: `${seoEn.url.href}images/avatar.png`,
-    generator: 'PHP 9.0',
+    generator: 'Next.js',
+    copyright: 'All rights reserved, Raman Raj',
+    managingEditor: 'Raman Raj',
+    webMaster: 'Raman Raj',
   })
 
   for (const post of getAllPosts()) {
@@ -53,6 +60,7 @@ export function buildEnglishFeedXml() {
       url,
       description: post.descriptionEn,
       date: post.publishedAt,
+      author: 'Raman Raj',
       ...(post.cover && {
         enclosure: { url: new URL(post.cover.src, seoEn.url).href },
       }),
