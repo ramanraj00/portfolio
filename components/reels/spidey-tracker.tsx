@@ -241,6 +241,12 @@ export function SpideyTracker() {
 
   return (
     <div ref={containerRef} className="relative w-full h-full bg-black flex flex-col items-center overflow-hidden font-mono">
+      
+      {/* Mobile-only message */}
+      <div className="md:hidden absolute top-[10%] left-0 w-full text-center text-white/50 font-mono text-xs uppercase tracking-widest px-6 z-50 pointer-events-none">
+        Please view on desktop<br/>for the full experience
+      </div>
+
       {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ top: '8%' }}>
         <svg 

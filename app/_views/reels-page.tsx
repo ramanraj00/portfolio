@@ -47,12 +47,12 @@ export function ReelsPageView({ locale }: { locale: Locale }) {
         {/* --- SCENE 1: THE FOLD --- */}
 
         {/* Left Pillar (Started 0.3s ahead for consistent transition wave) */}
-        <div className="snap-start scroll-mt-0 relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 w-full h-[100vh] md:h-auto md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
+        <div className="hidden md:block snap-start scroll-mt-0 relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 w-full md:h-auto md:col-start-1 md:col-span-1 md:row-start-1 md:row-span-3">
           <HoverVideo src="/videos/3258679_0.mp4" startTime={0.3} />
         </div>
 
         {/* Right Pillar */}
-        <div className="snap-start scroll-mt-0 relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 w-full h-[100vh] md:h-auto md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-3">
+        <div className="hidden md:block snap-start scroll-mt-0 relative bg-zinc-900 overflow-hidden group cursor-pointer z-10 w-full md:h-auto md:col-start-4 md:col-span-1 md:row-start-1 md:row-span-3">
           <HoverVideo src="/videos/3258679_0.mp4" />
         </div>
 
@@ -63,7 +63,7 @@ export function ReelsPageView({ locale }: { locale: Locale }) {
 
 
         {/* --- SCENE 3: 3-COLUMN GRID --- */}
-        <div className="w-full relative z-20 flex flex-col md:grid md:col-span-4 md:row-span-3 md:grid-cols-3 md:grid-rows-2 gap-[2px] md:gap-[1px]">
+        <div className="hidden md:grid w-full relative z-20 md:col-span-4 md:row-span-3 md:grid-cols-3 md:grid-rows-2 gap-[2px] md:gap-[1px]">
 
           {/* SLOT 1: Left Column (Spans full vertical height) */}
           <div className="snap-start scroll-mt-0 relative bg-zinc-900 group cursor-pointer w-full h-[100vh] md:h-full md:row-span-2">
@@ -92,7 +92,7 @@ export function ReelsPageView({ locale }: { locale: Locale }) {
 
         </div>
         {/* --- SCENE 4: NEW SECTION 3 (DRAGGABLE MATRIX) --- */}
-        <div className="snap-start scroll-mt-0 w-full h-[100vh] md:h-full relative z-10 md:col-span-4 md:row-span-3">
+        <div className="hidden md:block snap-start scroll-mt-0 w-full md:h-full relative z-10 md:col-span-4 md:row-span-3">
           <MatrixGrid 
             videos={[
               "/videos/5297483_0.mp4",
@@ -111,7 +111,7 @@ export function ReelsPageView({ locale }: { locale: Locale }) {
         </div>
 
         {/* --- SCENE 5: 4TH SCREEN --- */}
-        <div className="snap-start scroll-mt-0 w-full h-[100vh] md:h-full relative z-10 flex flex-col items-center justify-center md:col-span-4 md:row-span-3">
+        <div className="hidden md:flex snap-start scroll-mt-0 w-full md:h-full relative z-10 flex-col items-center justify-center md:col-span-4 md:row-span-3">
           <FourthScreen />
         </div>
 
