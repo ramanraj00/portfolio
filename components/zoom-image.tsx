@@ -313,6 +313,7 @@ export function ZoomImage({
                 width: zoom.target.width,
                 height: zoom.target.height,
                 transform: floating ? 'none' : zoom.from,
+                objectFit: 'cover',
               }}
               onTransitionEnd={settle}
             />
