@@ -7104,7 +7104,7 @@ body:has(.ama-success-stage) main {
 
 
 /* Reels Page Specific Styles */
-html.reels-active { scroll-snap-type: y mandatory; scroll-behavior: smooth; background-color: black !important; }
+html.reels-active { scroll-snap-type: y mandatory; background-color: black !important; }
 body.reels-active { background-color: black !important; color: white !important; --background: oklch(0.145 0 0); --foreground: oklch(0.985 0 0); }
 body.reels-active footer { display: none !important; }
 .reels-wrapper { background-color: black !important; color: white !important; color-scheme: dark; }
@@ -7112,10 +7112,7 @@ body.reels-active ::-webkit-scrollbar { display: none; }
 
 @media (max-width: 767px) {
   html.reels-active, body.reels-active {
-    overflow: hidden !important;
     overscroll-behavior: none !important;
-    position: fixed !important;
-    width: 100vw !important;
-    height: 100vh !important;
+    height: 100dvh !important;
   }
 }

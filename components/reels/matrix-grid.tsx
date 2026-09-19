@@ -53,7 +53,7 @@ export function MatrixGrid({ videos }: MatrixGridProps) {
         stepRef.current = currentStep + 1
         return newArr
       })
-    }, 4000) // 4 seconds per step - slow and relaxed - creating a continuous sequential wave
+    }, 8000) // 8 seconds per step — slower to reduce GPU load while videos decode
     
     return () => clearInterval(interval)
   }, [isPaused])
@@ -76,7 +76,7 @@ export function MatrixGrid({ videos }: MatrixGridProps) {
             transition={{
               type: "tween",
               ease: "easeInOut",
-              duration: 2.5
+              duration: 1.2
             }}
           >
             {item.src ? <HoverVideo src={item.src} layout="absolute" pauseOthersOnHover zoomable /> : null}

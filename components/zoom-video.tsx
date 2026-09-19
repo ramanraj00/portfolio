@@ -71,13 +71,11 @@ export function ZoomVideo({
     stateRef.current = state
   }, [state])
 
+  // Preload removed: the old code had a tautology (src === src) and tried
+  // to preload a video URL as an <img> element, which is invalid.
   const preloadExpanded = useCallback(() => {
-    if (src === src || preloadedSrcRef.current === src) return
-    const preload = document.createElement('img')
-    preload.decoding = 'async'
-    preload.src = src
-    preloadedSrcRef.current = src
-  }, [src, src])
+    // No-op: video preloading is handled by the browser when the lightbox opens
+  }, [])
 
   const open = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     const img = triggerRef.current?.querySelector('video')
@@ -263,6 +261,7 @@ export function ZoomVideo({
             <video
               src={zoom.src}
               autoPlay
+              muted
               loop
               playsInline
               controls

@@ -9,7 +9,7 @@ import { MatrixGrid } from '~/components/reels/matrix-grid'
 import { FourthScreen } from '~/components/reels/fourth-screen'
 import { FilmGrain } from '~/components/reels/film-grain'
 import { CinematicAudio } from '~/components/reels/cinematic-audio'
-import { ImageSlider } from '~/components/reels/image-slider'
+
 import { ReelsThemeEffect } from '~/components/reels/reels-theme-effect'
 
 export function reelsPageMetadata(locale: Locale): Metadata {
@@ -22,16 +22,6 @@ export function reelsPageMetadata(locale: Locale): Metadata {
   })
 }
 
-const kickButtowskiImages = [
-  '/images/kick-buttowski/1.jpg',
-  '/images/kick-buttowski/2.jpg',
-  '/images/kick-buttowski/3.jpg',
-  '/images/kick-buttowski/4.jpg',
-  '/images/kick-buttowski/5.jpg',
-  '/images/kick-buttowski/6.jpg',
-  '/images/kick-buttowski/7.jpg',
-  '/images/kick-buttowski/8.jpg',
-]
 
 export function ReelsPageView({ locale }: { locale: Locale }) {
 

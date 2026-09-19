@@ -1,32 +1,18 @@
 'use client'
-import React from 'react'
 
+// Lightweight film grain effect using a CSS-only noise pattern.
+// Replaces the previous SVG feTurbulence approach which created a 96-megapixel
+// animated overlay and destroyed Safari GPU compositing.
 export function FilmGrain() {
   return (
-    <div className="pointer-events-none fixed inset-0 z-[100] h-full w-full opacity-[0.04] mix-blend-screen">
-      <style>{`
-        @keyframes grain {
-          0%, 100% { transform: translate(0, 0); }
-          10% { transform: translate(-5%, -10%); }
-          20% { transform: translate(-15%, 5%); }
-          30% { transform: translate(7%, -25%); }
-          40% { transform: translate(-5%, 25%); }
-          50% { transform: translate(-15%, 10%); }
-          60% { transform: translate(15%, 0%); }
-          70% { transform: translate(0%, 15%); }
-          80% { transform: translate(3%, 35%); }
-          90% { transform: translate(-10%, 10%); }
-        }
-        .animate-grain {
-          animation: grain 8s steps(10) infinite;
-        }
-      `}</style>
-      <div 
-        className="absolute -inset-[200%] w-[400%] h-[400%] animate-grain"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-        }}
-      />
-    </div>
+    <div
+      className="pointer-events-none fixed inset-0 z-[100] opacity-[0.06]"
+      style={{
+        backgroundImage: `url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAElBMVEUAAAAAAAAAAAAAAAAAAAAAAADgKxmiAAAABnRSTlMAESIzRFUl8oYEAAAASUlEQVQ4y2NgsGFgYGBhBREsDAwMFkCKBUQJMjCwAilBIEUITDECKSYGhv8QirEASLEwMEApRiDFBKREGBhEQBQTkBIBUUwAACkMAXh08lVmAAAAAElFTkSuQmCC")`,
+        backgroundRepeat: 'repeat',
+        backgroundSize: '48px 48px',
+      }}
+      aria-hidden
+    />
   )
 }
