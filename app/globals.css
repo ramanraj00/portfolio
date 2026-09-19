@@ -7081,8 +7081,8 @@ body:has(.ama-success-stage) main {
 
 
 /* AMA Page Specific Styles */
-html:has(.ama-wrapper) { scroll-snap-type: y mandatory; scroll-behavior: smooth; background-color: black !important; }
-body:has(.ama-wrapper) { background-color: black !important; color: white !important; --background: oklch(0.145 0 0); --foreground: oklch(0.985 0 0); }
-body:has(.ama-wrapper) footer { display: none !important; }
+html.ama-active { scroll-snap-type: y mandatory; scroll-behavior: smooth; background-color: black !important; }
+body.ama-active { background-color: black !important; color: white !important; --background: oklch(0.145 0 0); --foreground: oklch(0.985 0 0); }
+body.ama-active footer { display: none !important; }
 .ama-wrapper { background-color: black !important; color: white !important; color-scheme: dark; }
-body:has(.ama-wrapper) ::-webkit-scrollbar { display: none; }
+body.ama-active ::-webkit-scrollbar { display: none; }

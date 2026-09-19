@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import type { Metadata } from 'next'
 
 import { localeMetadata } from '~/lib/locale-metadata'
@@ -10,6 +11,7 @@ import { FourthScreen } from '~/components/ama/fourth-screen'
 import { FilmGrain } from '~/components/ama/film-grain'
 import { CinematicAudio } from '~/components/ama/cinematic-audio'
 import { ImageSlider } from '~/components/ama/image-slider'
+import { AmaThemeEffect } from '~/components/ama/ama-theme-effect'
 
 export function amaPageMetadata(locale: Locale): Metadata {
   const copy = publicPageMetadata.ama[locale]
@@ -33,10 +35,12 @@ const kickButtowskiImages = [
 ]
 
 export function AmaPageView({ locale }: { locale: Locale }) {
+
   return (
     <>
       
       
+      <AmaThemeEffect />
       <FilmGrain />
       <CinematicAudio />
       <div className="ama-wrapper dark w-full bg-black -mt-14 grid grid-cols-2 md:grid-cols-4 auto-rows-[50vh] md:auto-rows-[33.33vh] gap-[2px] md:gap-[1px] p-[1px]">
