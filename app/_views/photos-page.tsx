@@ -1,12 +1,13 @@
-import { Suspense } from 'react'
-
 import { PixelCluster } from '~/components/pixel-cluster'
-import {
-  PublishedPhotoWall,
-  PublishedPhotoWallLoading,
-} from '~/components/published-photo-wall'
+import { StaticPhotoWall } from '~/components/static-photo-wall'
 import { T } from '~/lib/i18n'
-import { getPublishedPhotoSelection } from '~/lib/media/photo-selection/server'
+
+// Add your image paths here, just like you did for videos in reels!
+// Ensure you put the actual image files inside the 'public/images/photos/' folder.
+const myPhotos: string[] = [
+  // '/images/photos/1.jpg',
+  // '/images/photos/2.jpg',
+]
 
 export function PhotosPageView() {
   return (
@@ -17,14 +18,7 @@ export function PhotosPageView() {
         </h1>
         <PixelCluster variant={4} className="enter shrink-0" />
       </div>
-      <Suspense fallback={<PublishedPhotoWallLoading />}>
-        <PublishedPhotoMasonry />
-      </Suspense>
+      <StaticPhotoWall images={myPhotos} />
     </div>
   )
-}
-
-async function PublishedPhotoMasonry() {
-  const selection = await getPublishedPhotoSelection()
-  return <PublishedPhotoWall selection={selection} />
 }
