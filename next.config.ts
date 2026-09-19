@@ -30,6 +30,10 @@ const ogRuntimeAssets = [
 ]
 
 const nextConfig: NextConfig = {
+  devIndicators: {
+    buildActivityPosition: 'bottom-right',
+  },
+
   cacheComponents: true,
   partialPrefetching: true,
 
