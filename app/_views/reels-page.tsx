@@ -77,17 +77,17 @@ export function ReelsPageView({ locale }: { locale: Locale }) {
           
           {/* SLOT 3: Top Right */}
           <div className="snap-start scroll-mt-0 relative bg-zinc-900 group cursor-pointer w-full h-[100vh] md:h-full">
-            <HoverVideo src="/videos/1342238_0.mp4?v=2" layout="absolute" pauseOthersOnHover />
+            <HoverVideo src="/videos/1342238_0.mp4?v=2" layout="absolute" pauseOthersOnHover zoomable />
           </div>
           
           {/* SLOT 4: Bottom Middle */}
           <div className="snap-start scroll-mt-0 relative bg-zinc-900 group cursor-pointer w-full h-[100vh] md:h-full">
-            <HoverVideo src="/videos/4448828_0.mp4" layout="absolute" pauseOthersOnHover />
+            <HoverVideo src="/videos/4448828_0.mp4" layout="absolute" pauseOthersOnHover zoomable />
           </div>
 
           {/* SLOT 5: Bottom Right */}
           <div className="snap-start scroll-mt-0 relative bg-zinc-900 group cursor-pointer w-full h-[100vh] md:h-full">
-            <HoverVideo src="/videos/1002601241579_0.mp4?v=2" layout="absolute" pauseOthersOnHover />
+            <HoverVideo src="/videos/1002601241579_0.mp4?v=2" layout="absolute" pauseOthersOnHover zoomable />
           </div>
 
         </div>
