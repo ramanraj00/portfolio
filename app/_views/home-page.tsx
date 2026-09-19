@@ -19,8 +19,7 @@ import { localePath, type Locale } from '~/lib/locale-route'
 import { books, experience, records } from '~/lib/personal'
 import { projects } from '~/lib/projects'
 import { getGitHub, getSocial } from '~/lib/social-live'
-import { getHomepagePhotoPreview } from '~/lib/media/photo-selection/repository'
-import { getPublishedPhotoSelection } from '~/lib/media/photo-selection/server'
+import { STATIC_PHOTOS } from '~/lib/photos-data'
 
 function SectionTitle({
   index,
@@ -129,7 +128,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
               />
             }
           >
-            <PublishedPhotoNavCard locale={locale} />
+            <StaticPhotoNavCard locale={locale} />
           </Suspense>
         }
       />
@@ -238,11 +237,19 @@ export async function HomePageView({ locale }: { locale: Locale }) {
   )
 }
 
-async function PublishedPhotoNavCard({ locale }: { locale: Locale }) {
-  const photoSelection = await getPublishedPhotoSelection()
+function StaticPhotoNavCard({ locale }: { locale: Locale }) {
+  const photoPreview = {
+    count: STATIC_PHOTOS.length,
+    items: STATIC_PHOTOS.slice(0, 3).map(p => ({
+      id: p.id,
+      renditions: [{ src: p.src }],
+      focalPoint: { x: 0.5, y: 0.5 }
+    }))
+  } as any
+
   return (
     <PhotoNavCard
-      photoPreview={getHomepagePhotoPreview(photoSelection)}
+      photoPreview={photoPreview}
       locale={locale}
     />
   )
