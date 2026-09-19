@@ -130,7 +130,7 @@ export function SpideyTracker() {
 
   useEffect(() => {
     spiderAudioRef.current = new Audio('/sounds/spider-stretch.wav')
-    spiderAudioRef.current.volume = 0.6
+    spiderAudioRef.current.volume = 0.3
   }, [])
 
   const handleSpiderHover = useCallback(() => {
