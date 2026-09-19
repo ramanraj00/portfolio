@@ -2,11 +2,22 @@ import { PixelCluster } from '~/components/pixel-cluster'
 import { StaticPhotoWall } from '~/components/static-photo-wall'
 import { T } from '~/lib/i18n'
 
-// Add your image paths here, just like you did for videos in reels!
-// Ensure you put the actual image files inside the 'public/images/photos/' folder.
 const myPhotos: string[] = [
-  // '/images/photos/1.jpg',
-  // '/images/photos/2.jpg',
+  '/photos/photo-1.jpeg',
+  '/photos/photo-2.jpeg',
+  '/photos/photo-3.jpeg',
+  '/photos/photo-4.jpeg',
+  '/photos/photo-5.jpeg',
+  '/photos/photo-6.jpeg',
+  '/photos/photo-7.jpeg',
+  '/photos/photo-8.jpeg',
+  '/photos/photo-9.jpeg',
+  '/photos/photo-10.jpeg',
+  '/photos/photo-11.jpeg',
+  '/photos/photo-12.jpeg',
+  '/photos/photo-13.jpeg',
+  '/photos/photo-14.jpeg',
+  '/photos/photo-15.jpeg',
 ]
 
 export function PhotosPageView() {
