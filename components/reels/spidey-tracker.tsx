@@ -126,6 +126,22 @@ export function SpideyTracker() {
   const dragX = useMotionValue(0)
   const dragY = useMotionValue(0)
 
+  const spiderAudioRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    spiderAudioRef.current = new Audio('/sounds/spider-stretch.wav')
+    spiderAudioRef.current.volume = 0.6
+  }, [])
+
+  const handleSpiderHover = useCallback(() => {
+    if (typeof window !== 'undefined' && (window as any).isGlobalVideoAudioEnabled !== false) {
+      if (spiderAudioRef.current) {
+        spiderAudioRef.current.currentTime = 0
+        spiderAudioRef.current.play().catch(() => {})
+      }
+    }
+  }, [])
+
   // Draw the web line from anchor to Spiderman
   const updateWebLine = useCallback(() => {
     if (!containerRef.current || !anchorRef.current || !webSvgRef.current || !spideyRef.current) return
@@ -309,6 +325,7 @@ export function SpideyTracker() {
       {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ top: '8%' }}>
         <svg 
+          onMouseEnter={handleSpiderHover}
           viewBox="0 0 400 500" 
           className="w-[75%] md:w-[50%] h-auto pointer-events-auto cursor-pointer transition-all duration-700 ease-out opacity-[0.15] hover:opacity-[0.7] [filter:drop-shadow(2px_4px_0px_rgba(0,0,0,0.8))_drop-shadow(4px_8px_0px_rgba(0,0,0,0.5))]"
         >
