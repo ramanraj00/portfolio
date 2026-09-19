@@ -41,14 +41,14 @@ export const publicPageMetadata = {
         'Products, open-source tools, and small experiments I have made over the years. Some useful, some playful, all made with care.',
     },
   },
-  ama: {
+  reels: {
     zh: {
-      title: 'एएमए (AMA)',
+      title: 'रील्स (Reels)',
       description:
         'प्रोडक्ट डिजाइन, इंजीनियरिंग, करियर, AI और स्टार्टअप्स पर वन-टू-वन बात करने का मौका।',
     },
     en: {
-      title: 'AMA',
+      title: 'Reels',
       description:
         'A one-to-one conversation about AI-native work, product strategy, engineering, startups, career moves, and building products.',
     },

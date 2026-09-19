@@ -48,7 +48,7 @@ export function buildLlmsText() {
       ),
     ]
   })
-  const sections = ['blog', 'photos', 'projects', 'ama'] as const
+  const sections = ['blog', 'photos', 'projects', 'reels'] as const
 
   return [
     '# Cali Castle and Cali Baby',

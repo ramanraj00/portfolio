@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
-import { SlotPicker, type PublicSlot } from '~/components/ama/slot-picker'
+import { SlotPicker, type PublicSlot } from '~/components/reels/slot-picker'
 import { Barcode } from '~/components/barcode'
 import { Button } from '~/components/ui/button'
 import {

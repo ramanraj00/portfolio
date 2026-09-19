@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 import {
-  AmaIcon,
+  ReelsIcon,
   MediaIcon,
   PhotosIcon,
   PreferencesIcon,
@@ -18,7 +18,7 @@ import { localePath } from '~/lib/locale-route'
 import { localize, useLocale } from '~/lib/locale-client'
 
 const ITEMS = [
-  { href: '/admin/ama', zh: '咨询', en: 'AMA', icon: AmaIcon },
+  { href: '/admin/ama', zh: '咨询', en: 'AMA', icon: ReelsIcon },
   { href: '/admin/media', zh: '媒体', en: 'Media', icon: MediaIcon },
   { href: '/admin/photos', zh: '照片', en: 'Photos', icon: PhotosIcon },
 ] as const

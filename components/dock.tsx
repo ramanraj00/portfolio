@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import {
-  AmaIcon,
+  ReelsIcon,
   PhotosIcon,
   PreferencesIcon,
   ProjectsIcon,
@@ -28,7 +28,7 @@ const ITEMS = [
   { href: '/blog', zh: 'आर्टिकल्स', en: 'Writing', icon: WritingIcon },
   { href: '/photos', zh: 'फोटोज़', en: 'Photos', icon: PhotosIcon },
   { href: '/projects', zh: 'प्रोजेक्ट्स', en: 'Projects', icon: ProjectsIcon },
-  { href: '/ama', zh: 'एएमए (AMA)', en: 'AMA', icon: AmaIcon },
+  { href: '/reels', zh: 'रील्स (Reels)', en: 'Reels', icon: ReelsIcon },
 ] as const
 
 const DOCK_VIEW_TRANSITION_STYLE = {

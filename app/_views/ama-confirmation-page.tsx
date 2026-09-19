@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
 
-import { BookingConfirmation } from '~/components/ama/booking-confirmation'
+import { BookingConfirmation } from '~/components/reels/booking-confirmation'
 import { PixelCluster } from '~/components/pixel-cluster'
 import { T } from '~/lib/i18n'
 import { localeMetadata } from '~/lib/locale-metadata'

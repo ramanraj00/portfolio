@@ -13,7 +13,7 @@ import {
 } from '~/lib/newsletters'
 import type { PublicSection } from '~/lib/public-page-metadata'
 
-const PUBLIC_SECTIONS = new Set<PublicSection>(['ama', 'blog', 'photos', 'projects'])
+const PUBLIC_SECTIONS = new Set<PublicSection>(['reels', 'blog', 'photos', 'projects'])
 const CALIBABY_PATHS = new Set([
   'calibaby',
   'calibaby/help',

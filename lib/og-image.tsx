@@ -240,7 +240,7 @@ function OgSectionMark({ section }: { section: PublicSection }) {
     )
   }
 
-  if (section === 'ama') {
+  if (section === 'reels') {
     // Two sketched speech bubbles trading a conversation, with an hour tick.
     return (
       <svg

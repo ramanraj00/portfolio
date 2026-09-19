@@ -3,7 +3,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { AmaPageView } from './ama-page'
+import { ReelsPageView } from './reels-page'
 import { AMA_TOPICS } from '~/lib/ama/booking/topics'
 
 beforeEach(() => {
@@ -22,9 +22,9 @@ afterEach(() => {
   vi.unstubAllGlobals()
 })
 
-describe('AmaPageView', () => {
+describe('ReelsPageView', () => {
   it('presents the Chinese AMA Session spec sheet without English copy', () => {
-    const { container } = render(<AmaPageView locale="zh" />)
+    const { container } = render(<ReelsPageView locale="zh" />)
 
     expect(screen.getByText('一对一')).toBeTruthy()
     expect(screen.getByText(/答案越来越便宜/)).toBeTruthy()
@@ -47,7 +47,7 @@ describe('AmaPageView', () => {
   })
 
   it('presents the English AMA Session spec sheet without Chinese copy', () => {
-    const { container } = render(<AmaPageView locale="en" />)
+    const { container } = render(<ReelsPageView locale="en" />)
 
     expect(screen.getByText('AMA')).toBeTruthy()
     expect(screen.getByText(/Answers are getting cheaper/)).toBeTruthy()
@@ -74,7 +74,7 @@ describe('AmaPageView', () => {
   })
 
   it('lists all seven topics in each locale', () => {
-    const zh = render(<AmaPageView locale="zh" />)
+    const zh = render(<ReelsPageView locale="zh" />)
 
     expect(AMA_TOPICS.length).toBe(7)
 
@@ -104,7 +104,7 @@ describe('AmaPageView', () => {
     expect(zh.container.querySelectorAll('.ama-product-logo')).toHaveLength(5)
 
     cleanup()
-    const en = render(<AmaPageView locale="en" />)
+    const en = render(<ReelsPageView locale="en" />)
 
     for (const enLabel of [
       'Web, iOS, and full-stack engineering',
@@ -139,7 +139,7 @@ describe('AmaPageView', () => {
   })
 
   it('states the 24 hour policy and carries the testimonials', () => {
-    const zh = render(<AmaPageView locale="zh" />)
+    const zh = render(<ReelsPageView locale="zh" />)
 
     expect(zh.container.textContent).toContain('离开始还有 24 小时以上')
     expect(
@@ -153,7 +153,7 @@ describe('AmaPageView', () => {
     expect(zh.container.textContent).not.toContain('¥300')
 
     cleanup()
-    const en = render(<AmaPageView locale="en" />)
+    const en = render(<ReelsPageView locale="en" />)
 
     expect(en.container.textContent).toContain('If we’re at least 24 hours out')
     expect(en.container.textContent).toContain('refunds are no longer automatic')
@@ -169,7 +169,7 @@ describe('AmaPageView', () => {
   })
 
   it('links each locale CTA to its booking flow and nothing legacy', () => {
-    const zh = render(<AmaPageView locale="zh" />)
+    const zh = render(<ReelsPageView locale="zh" />)
 
     const zhCtas = screen.getAllByRole('link', { name: '约个时间' })
     expect(zhCtas).toHaveLength(2)
@@ -183,7 +183,7 @@ describe('AmaPageView', () => {
     )
 
     cleanup()
-    const en = render(<AmaPageView locale="en" />)
+    const en = render(<ReelsPageView locale="en" />)
 
     const enCtas = screen.getAllByRole('link', { name: 'Book an hour' })
     expect(enCtas).toHaveLength(2)

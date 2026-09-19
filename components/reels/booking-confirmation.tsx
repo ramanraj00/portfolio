@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import { Barcode } from '~/components/barcode'
-import { BookingSuccessStage } from '~/components/ama/booking-success-stage'
+import { BookingSuccessStage } from '~/components/reels/booking-success-stage'
 import { Tooltip } from '~/components/ui/tooltip'
 import { trackFunnelEvent } from '~/lib/analytics'
 import { T } from '~/lib/i18n'

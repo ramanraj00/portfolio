@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 
-import { SlotPicker, type PublicSlot } from '~/components/ama/slot-picker'
+import { SlotPicker, type PublicSlot } from '~/components/reels/slot-picker'
 import { Button } from '~/components/ui/button'
 import { CheckboxGroup, CheckboxItem } from '~/components/ui/checkbox-group'
 import { Input } from '~/components/ui/input'

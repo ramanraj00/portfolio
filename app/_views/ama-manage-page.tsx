@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-import { AmaStage } from '~/components/ama/booking-success-stage'
-import { ManageBooking } from '~/components/ama/manage-booking'
+import { AmaStage } from '~/components/reels/booking-success-stage'
+import { ManageBooking } from '~/components/reels/manage-booking'
 import { PixelCluster } from '~/components/pixel-cluster'
 import { T } from '~/lib/i18n'
 import { localeMetadata } from '~/lib/locale-metadata'

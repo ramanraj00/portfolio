@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-import { BookingFlow } from '~/components/ama/booking-flow'
+import { BookingFlow } from '~/components/reels/booking-flow'
 import { PixelCluster } from '~/components/pixel-cluster'
 import { T } from '~/lib/i18n'
 import { localeMetadata } from '~/lib/locale-metadata'

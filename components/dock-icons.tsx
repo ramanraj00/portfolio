@@ -67,7 +67,7 @@ export function ProjectsIcon() {
   )
 }
 
-export function AmaIcon() {
+export function ReelsIcon() {
   return (
     <Base>
       <path
