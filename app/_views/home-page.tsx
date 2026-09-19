@@ -59,7 +59,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
     <div className="mx-auto w-full max-w-[37.5rem] px-6">
       <div className="flex flex-col gap-8 sm:gap-10 mt-6 sm:mt-10 mb-10 w-full">
         {/* Top Row: Identity (Avatar + Name) */}
-        <div className="flex flex-col sm:flex-row items-center sm:items-center gap-6 sm:gap-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
           <div className="w-28 shrink-0 sm:w-36">
             <PortraitHiddenStage
               label={
