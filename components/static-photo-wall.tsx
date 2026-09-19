@@ -1,5 +1,6 @@
-import { tiltFromSlug } from '~/lib/polaroid'
 'use client'
+import { tiltFromSlug } from '~/lib/polaroid'
+
 
 import { T } from '~/lib/i18n'
 import { ZoomImage } from './zoom-image'
