@@ -243,8 +243,18 @@ export function SpideyTracker() {
     <div ref={containerRef} className="relative w-full h-full bg-black flex flex-col items-center overflow-hidden font-mono">
       
       {/* Mobile-only message */}
-      <div className="md:hidden absolute top-[10%] left-0 w-full text-center text-white/50 font-mono text-xs uppercase tracking-widest px-6 z-50 pointer-events-none">
-        Only for desktop
+      <div className="md:hidden absolute bottom-[15%] left-0 w-full flex justify-center z-50 pointer-events-none">
+        <div className="relative font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#54a0ff] px-4 py-2 drop-shadow-[0_0_12px_rgba(49,120,198,0.8)]">
+          {/* Blue pixelated border box */}
+          <div className="absolute inset-0 border-[2px] border-[#3178c6] bg-[#050b14]"></div>
+          {/* Decorative red pixel corners */}
+          <div className="absolute -top-[2px] -left-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
+          <div className="absolute -top-[2px] -right-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
+          <div className="absolute -bottom-[2px] -left-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
+          <div className="absolute -bottom-[2px] -right-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
+          
+          <span className="relative z-10 text-[#82baff] drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">ONLY FOR DESKTOP</span>
+        </div>
       </div>
 
       {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
