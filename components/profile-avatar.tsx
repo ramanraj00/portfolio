@@ -36,7 +36,7 @@ export function ProfileAvatar({
 
   return (
     <div className="profile-avatar-wrapper">
-      <audio ref={audioRef} src="/sounds/whistle.mp3" preload="auto" />
+      <audio ref={audioRef} src="/sounds/camera-click.mp3" preload="auto" />
       <div className="profile-avatar-image-container">
         {/* Real photo */}
         <Image
