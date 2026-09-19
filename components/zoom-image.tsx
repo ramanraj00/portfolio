@@ -115,26 +115,25 @@ export function ZoomImage({
     if (!img) return
     const rect = img.getBoundingClientRect()
 
-    const maxW = window.innerWidth - VIEWPORT_PAD * 2
+    // Fit within the viewport but never beyond the intrinsic size —
+    // zoom means "actual size", not "stretch".
+    const maxW = Math.min(window.innerWidth - VIEWPORT_PAD * 2, width)
     const rootFontSize = rootFontSizePixels()
     const detailSpace = expandedContent
       ? (window.innerWidth < MOBILE_BREAKPOINT_REM * rootFontSize
           ? MOBILE_DETAIL_SPACE_REM
           : DETAIL_SPACE_REM) * rootFontSize
       : 0
-    const maxH = Math.max(1, window.innerHeight - VIEWPORT_PAD * 2 - detailSpace)
-
-    // Mathematically eliminate layout jerks by strictly maintaining the thumbnail's DOM aspect ratio
-    const screenScale = Math.min(maxW / rect.width, maxH / rect.height)
-    const maxAllowedDim = Math.max(width, height)
-    
-    // Prevent upscaling beyond the original image resolution
-    const finalScale = (rect.width * screenScale > maxAllowedDim || rect.height * screenScale > maxAllowedDim)
-      ? Math.min(maxAllowedDim / rect.width, maxAllowedDim / rect.height)
-      : screenScale
-
-    const w = Math.round(rect.width * finalScale)
-    const h = Math.round(rect.height * finalScale)
+    const maxH = Math.max(
+      1,
+      Math.min(
+        window.innerHeight - VIEWPORT_PAD * 2 - detailSpace,
+        height,
+      ),
+    )
+    const scale = Math.min(maxW / width, maxH / height)
+    const w = Math.round(width * scale)
+    const h = Math.round(height * scale)
     const target = {
       left: Math.round((window.innerWidth - w) / 2),
       top: Math.round((window.innerHeight - detailSpace - h) / 2),
