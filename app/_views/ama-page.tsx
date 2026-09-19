@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import type { Metadata } from 'next'
 
 import { localeMetadata } from '~/lib/locale-metadata'
