@@ -114,10 +114,14 @@ export function ZoomImage({
     const img = triggerRef.current?.querySelector('img')
     if (!img) return
     const rect = img.getBoundingClientRect()
+    
+    // Use the actual rendered natural dimensions to avoid Safari EXIF rotation discrepancies
+    const naturalWidth = img.naturalWidth || width
+    const naturalHeight = img.naturalHeight || height
 
     // Fit within the viewport but never beyond the intrinsic size —
     // zoom means "actual size", not "stretch".
-    const maxW = Math.min(window.innerWidth - VIEWPORT_PAD * 2, width)
+    const maxW = Math.min(window.innerWidth - VIEWPORT_PAD * 2, naturalWidth)
     const rootFontSize = rootFontSizePixels()
     const detailSpace = expandedContent
       ? (window.innerWidth < MOBILE_BREAKPOINT_REM * rootFontSize
@@ -128,12 +132,12 @@ export function ZoomImage({
       1,
       Math.min(
         window.innerHeight - VIEWPORT_PAD * 2 - detailSpace,
-        height,
+        naturalHeight,
       ),
     )
-    const scale = Math.min(maxW / width, maxH / height)
-    const w = Math.round(width * scale)
-    const h = Math.round(height * scale)
+    const scale = Math.min(maxW / naturalWidth, maxH / naturalHeight)
+    const w = Math.round(naturalWidth * scale)
+    const h = Math.round(naturalHeight * scale)
     const target = {
       left: Math.round((window.innerWidth - w) / 2),
       top: Math.round((window.innerHeight - detailSpace - h) / 2),
