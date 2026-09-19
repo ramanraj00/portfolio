@@ -327,10 +327,10 @@ export function parseAmaFeatures(source: Record<string, string | undefined>) {
 
 export function parseServerEnv(source: Record<string, string | undefined>) {
   const overrides = { ...source }
-  if (!overrides.ADMIN_EMAIL) overrides.ADMIN_EMAIL = 'dummy@example.com'
+  if (!overrides.ADMIN_EMAIL || !overrides.ADMIN_EMAIL.includes('@')) overrides.ADMIN_EMAIL = 'dummy@example.com'
   if (!overrides.AMA_ENCRYPTION_KEY) overrides.AMA_ENCRYPTION_KEY = Buffer.alloc(32).toString('base64')
   if (!overrides.RATE_LIMIT_HASH_KEY) overrides.RATE_LIMIT_HASH_KEY = Buffer.alloc(32).toString('base64')
-  if (!overrides.AMA_EMAIL_FROM) overrides.AMA_EMAIL_FROM = 'dummy@example.com'
+  if (!overrides.AMA_EMAIL_FROM || !overrides.AMA_EMAIL_FROM.includes('@')) overrides.AMA_EMAIL_FROM = 'dummy@example.com'
   
   const result = serverEnvironmentSchema.safeParse(overrides)
   if (result.success) return result.data
