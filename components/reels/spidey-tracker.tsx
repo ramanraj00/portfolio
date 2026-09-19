@@ -280,7 +280,7 @@ export function SpideyTracker() {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ top: '8%' }}>
         <svg 
           viewBox="0 0 400 500" 
-          className="w-[75%] md:w-[50%] h-auto pointer-events-auto cursor-pointer transition-all duration-700 ease-out opacity-[0.15] hover:opacity-[0.7] [filter:drop-shadow(2px_4px_0px_rgba(0,0,0,0.8))_drop-shadow(4px_8px_0px_rgba(0,0,0,0.5))] hover:[filter:drop-shadow(2px_4px_0px_rgba(0,0,0,0.8))_drop-shadow(4px_8px_0px_rgba(0,0,0,0.5))_drop-shadow(0_0_20px_rgba(229,57,53,0.6))_drop-shadow(0_0_40px_rgba(49,120,198,0.5))]"
+          className="w-[75%] md:w-[50%] h-auto pointer-events-auto cursor-pointer transition-all duration-700 ease-out opacity-[0.15] hover:opacity-[0.7] [filter:drop-shadow(2px_4px_0px_rgba(0,0,0,0.8))_drop-shadow(4px_8px_0px_rgba(0,0,0,0.5))]"
         >
           <defs>
             {/* Gradient for hover state */}
