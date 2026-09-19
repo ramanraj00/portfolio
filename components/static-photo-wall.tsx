@@ -1,3 +1,4 @@
+import { tiltFromSlug } from '~/lib/polaroid'
 'use client'
 
 import { T } from '~/lib/i18n'
@@ -48,7 +49,7 @@ export function StaticPhotoWall() {
     <div className="photo-masonry mt-6">
       {STATIC_PHOTOS.map((photo, index) => {
         // Random tilt between -2deg and 2deg for that Cali polaroid look
-        const tilt = ((Math.random() - 0.5) * 4).toFixed(2)
+        const tilt = (tiltFromSlug(photo.id) / 2).toFixed(2)
         
         return (
           <div 
