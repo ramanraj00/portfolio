@@ -21,7 +21,7 @@ export function CinematicAudio() {
   }
 
   return (
-    <div className="fixed bottom-8 right-8 z-[9999]">
+    <div className="hidden md:block fixed bottom-8 right-8 z-[9999]">
       <button 
         onClick={toggleAudio}
         className="group relative flex items-center justify-center px-4 py-3 rounded-full bg-white/10 backdrop-blur-md border border-white/30 hover:border-white hover:bg-white/20 transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)]"

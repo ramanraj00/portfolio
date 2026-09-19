@@ -244,7 +244,7 @@ export function SpideyTracker() {
       
       {/* Mobile-only message */}
       <div className="md:hidden absolute top-[10%] left-0 w-full text-center text-white/50 font-mono text-xs uppercase tracking-widest px-6 z-50 pointer-events-none">
-        Please view on desktop<br/>for the full experience
+        Only for desktop
       </div>
 
       {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
