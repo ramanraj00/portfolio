@@ -278,32 +278,32 @@ export function SpideyTracker() {
 
       
       <style>{`
-        /* Smooth transitions for hover */
+        /* Organic, lifelike slow transitions */
         .leg-l-1, .leg-l-2, .leg-l-3, .leg-l-4,
         .leg-r-1, .leg-r-2, .leg-r-3, .leg-r-4 {
-          transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+          transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .leg-l-1 { transform-origin: 178px 90px; }
-        .leg-l-2 { transform-origin: 172px 115px; transition-delay: 0.05s; }
-        .leg-l-3 { transform-origin: 168px 148px; transition-delay: 0.1s; }
-        .leg-l-4 { transform-origin: 172px 175px; transition-delay: 0.15s; }
+        .leg-l-1 { transform-origin: 178px 90px; transition-delay: 0s; }
+        .leg-l-2 { transform-origin: 172px 115px; transition-delay: 0.08s; }
+        .leg-l-3 { transform-origin: 168px 148px; transition-delay: 0.16s; }
+        .leg-l-4 { transform-origin: 172px 175px; transition-delay: 0.24s; }
         
-        .leg-r-1 { transform-origin: 222px 90px; }
-        .leg-r-2 { transform-origin: 228px 115px; transition-delay: 0.05s; }
-        .leg-r-3 { transform-origin: 232px 148px; transition-delay: 0.1s; }
-        .leg-r-4 { transform-origin: 228px 175px; transition-delay: 0.15s; }
+        .leg-r-1 { transform-origin: 222px 90px; transition-delay: 0s; }
+        .leg-r-2 { transform-origin: 228px 115px; transition-delay: 0.08s; }
+        .leg-r-3 { transform-origin: 232px 148px; transition-delay: 0.16s; }
+        .leg-r-4 { transform-origin: 228px 175px; transition-delay: 0.24s; }
 
-        /* Hover states triggered when the parent SVG is hovered */
-        svg:hover .leg-l-1 { transform: rotate(4deg) scale(1.12); }
-        svg:hover .leg-l-2 { transform: rotate(1deg) scale(1.12); }
-        svg:hover .leg-l-3 { transform: rotate(-1deg) scale(1.12); }
-        svg:hover .leg-l-4 { transform: rotate(-4deg) scale(1.12); }
+        /* Subtle, deliberate fanning for realism */
+        svg:hover .leg-l-1 { transform: rotate(3deg) scale(1.06); }
+        svg:hover .leg-l-2 { transform: rotate(1deg) scale(1.06); }
+        svg:hover .leg-l-3 { transform: rotate(-1deg) scale(1.06); }
+        svg:hover .leg-l-4 { transform: rotate(-3deg) scale(1.06); }
         
-        svg:hover .leg-r-1 { transform: rotate(-4deg) scale(1.12); }
-        svg:hover .leg-r-2 { transform: rotate(-1deg) scale(1.12); }
-        svg:hover .leg-r-3 { transform: rotate(1deg) scale(1.12); }
-        svg:hover .leg-r-4 { transform: rotate(4deg) scale(1.12); }
+        svg:hover .leg-r-1 { transform: rotate(-3deg) scale(1.06); }
+        svg:hover .leg-r-2 { transform: rotate(-1deg) scale(1.06); }
+        svg:hover .leg-r-3 { transform: rotate(1deg) scale(1.06); }
+        svg:hover .leg-r-4 { transform: rotate(3deg) scale(1.06); }
       `}</style>
 
       {/* Background Spider-Man Logo Silhouette (Insomniac style) — hover to reveal */}
