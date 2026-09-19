@@ -79,7 +79,7 @@ export function MatrixGrid({ videos }: MatrixGridProps) {
               duration: 2.5
             }}
           >
-            {item.src ? <HoverVideo src={item.src} layout="absolute" pauseOthersOnHover /> : null}
+            {item.src ? <HoverVideo src={item.src} layout="absolute" pauseOthersOnHover zoomable /> : null}
           </motion.div>
         )
       })}

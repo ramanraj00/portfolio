@@ -9,14 +9,16 @@ export function HoverVideo({
   objectFit = 'cover', 
   layout = 'absolute',
   pauseOthersOnHover = false,
-  playOnView = false
+  playOnView = false,
+  zoomable = false
 }: { 
   src: string, 
   startTime?: number, 
   objectFit?: 'cover' | 'contain', 
   layout?: 'absolute' | 'native' | 'native-width',
   pauseOthersOnHover?: boolean,
-  playOnView?: boolean
+  playOnView?: boolean,
+  zoomable?: boolean
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
@@ -178,32 +180,46 @@ export function HoverVideo({
     }
   }
 
-  return (
-    <ZoomVideo src={src} alt="Reel Video" width={1080} height={1920}>
-      <div 
-        className={
-          layout === 'native' ? 'relative w-auto h-full flex justify-start items-start' : 
-          layout === 'native-width' ? 'relative w-full h-auto flex justify-start items-start' : 
-          'absolute inset-0 w-full h-full'
+  const videoContent = (
+    <div 
+      className={
+        layout === 'native' ? 'relative w-auto h-full flex justify-start items-start' : 
+        layout === 'native-width' ? 'relative w-full h-auto flex justify-start items-start' : 
+        'absolute inset-0 w-full h-full'
+      }
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={() => {
+        if (!zoomable && videoRef.current && globalAudioEnabled) {
+          videoRef.current.muted = false
+          videoRef.current.play().catch(console.error)
         }
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <video
-          ref={videoRef}
-          src={src}
-          className={
-            layout === 'native'
-              ? 'h-full w-auto'
-              : layout === 'native-width'
-              ? 'w-full h-auto'
-              : `absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`
-          }
-          loop
-          muted={!isHovered || !globalAudioEnabled}
-          playsInline
-        />
-      </div>
-    </ZoomVideo>
+      }}
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        className={
+          layout === 'native'
+            ? 'h-full w-auto'
+            : layout === 'native-width'
+            ? 'w-full h-auto'
+            : `absolute inset-0 w-full h-full ${objectFit === 'contain' ? 'object-contain' : 'object-cover'}`
+        }
+        loop
+        muted={!isHovered || !globalAudioEnabled}
+        playsInline
+      />
+    </div>
   )
+
+  if (zoomable) {
+    return (
+      <ZoomVideo src={src} alt="Reel Video" width={1080} height={1920}>
+        {videoContent}
+      </ZoomVideo>
+    )
+  }
+
+  return videoContent
 }
