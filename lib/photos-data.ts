@@ -5,11 +5,11 @@ export const STATIC_PHOTOS = [
     width: 2048,
     height: 1536,
     alt: 'Photo photo-1.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/120 s',
+    iso: '100'
   },
   {
     id: 'photo-10.jpeg',
@@ -17,11 +17,11 @@ export const STATIC_PHOTOS = [
     width: 960,
     height: 1280,
     alt: 'Photo photo-10.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '120 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/100 s',
+    iso: '125'
   },
   {
     id: 'photo-11.jpeg',
@@ -29,11 +29,11 @@ export const STATIC_PHOTOS = [
     width: 1280,
     height: 960,
     alt: 'Photo photo-11.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '13 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/400 s',
+    iso: '64'
   },
   {
     id: 'photo-12.jpeg',
@@ -41,11 +41,11 @@ export const STATIC_PHOTOS = [
     width: 1280,
     height: 960,
     alt: 'Photo photo-12.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '120 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/120 s',
+    iso: '125'
   },
   {
     id: 'photo-13.jpeg',
@@ -53,11 +53,11 @@ export const STATIC_PHOTOS = [
     width: 960,
     height: 1280,
     alt: 'Photo photo-13.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/250 s',
+    iso: '64'
   },
   {
     id: 'photo-14.jpeg',
@@ -65,11 +65,11 @@ export const STATIC_PHOTOS = [
     width: 960,
     height: 1280,
     alt: 'Photo photo-14.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/60 s',
+    iso: '125'
   },
   {
     id: 'photo-15.jpeg',
@@ -77,11 +77,11 @@ export const STATIC_PHOTOS = [
     width: 720,
     height: 1280,
     alt: 'Photo photo-15.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/100 s',
+    iso: '80'
   },
   {
     id: 'photo-2.jpeg',
@@ -89,11 +89,11 @@ export const STATIC_PHOTOS = [
     width: 1206,
     height: 883,
     alt: 'Photo photo-2.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/120 s',
+    iso: '80'
   },
   {
     id: 'photo-3.jpeg',
@@ -101,11 +101,11 @@ export const STATIC_PHOTOS = [
     width: 982,
     height: 1280,
     alt: 'Photo photo-3.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '120 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/250 s',
+    iso: '100'
   },
   {
     id: 'photo-4.jpeg',
@@ -113,11 +113,11 @@ export const STATIC_PHOTOS = [
     width: 960,
     height: 1280,
     alt: 'Photo photo-4.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '13 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/60 s',
+    iso: '80'
   },
   {
     id: 'photo-5.jpeg',
@@ -125,11 +125,11 @@ export const STATIC_PHOTOS = [
     width: 960,
     height: 1280,
     alt: 'Photo photo-5.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '120 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/100 s',
+    iso: '250'
   },
   {
     id: 'photo-6.jpeg',
@@ -137,11 +137,11 @@ export const STATIC_PHOTOS = [
     width: 720,
     height: 1280,
     alt: 'Photo photo-6.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/400 s',
+    iso: '250'
   },
   {
     id: 'photo-7.jpeg',
@@ -149,11 +149,11 @@ export const STATIC_PHOTOS = [
     width: 720,
     height: 1280,
     alt: 'Photo photo-7.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/120 s',
+    iso: '250'
   },
   {
     id: 'photo-8.jpeg',
@@ -161,11 +161,11 @@ export const STATIC_PHOTOS = [
     width: 720,
     height: 1280,
     alt: 'Photo photo-8.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/2.8',
+    shutter: '1/250 s',
+    iso: '250'
   },
   {
     id: 'photo-9.jpeg',
@@ -173,10 +173,10 @@ export const STATIC_PHOTOS = [
     width: 720,
     height: 1280,
     alt: 'Photo photo-9.jpeg',
-    camera: 'Digital Camera',
-    focalLength: null,
-    aperture: null,
-    shutter: null,
-    iso: null
+    camera: 'Apple iPhone 16 Pro',
+    focalLength: '24 mm',
+    aperture: 'ƒ/1.78',
+    shutter: '1/120 s',
+    iso: '250'
   },
 ];
