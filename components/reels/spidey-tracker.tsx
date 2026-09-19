@@ -244,16 +244,35 @@ export function SpideyTracker() {
       
       {/* Mobile-only message */}
       <div className="md:hidden absolute bottom-[15%] left-0 w-full flex justify-center z-50 pointer-events-none">
-        <div className="relative font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#54a0ff] px-4 py-2 drop-shadow-[0_0_12px_rgba(49,120,198,0.8)]">
-          {/* Blue pixelated border box */}
-          <div className="absolute inset-0 border-[2px] border-[#3178c6] bg-[#050b14]"></div>
-          {/* Decorative red pixel corners */}
-          <div className="absolute -top-[2px] -left-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
-          <div className="absolute -top-[2px] -right-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
-          <div className="absolute -bottom-[2px] -left-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
-          <div className="absolute -bottom-[2px] -right-[2px] w-[6px] h-[6px] bg-[#e53935] border-[1px] border-black"></div>
+        <div className="relative font-mono text-[11px] font-bold uppercase tracking-[0.25em] px-5 py-2.5 drop-shadow-[0_10px_20px_rgba(49,120,198,0.3)]">
+          {/* Deep 3D Shadow Extrusion */}
+          <div className="absolute inset-0 bg-[#040810] translate-y-[4px] border-[2px] border-black rounded-sm"></div>
           
-          <span className="relative z-10 text-[#82baff] drop-shadow-[0_0_2px_rgba(255,255,255,0.8)]">ONLY FOR DESKTOP</span>
+          {/* Main Blue Box with 3D Retro Bevel */}
+          <div className="absolute inset-0 bg-[#0c1a2c] border-[2px] border-black rounded-sm">
+            {/* Inner bevel highlights/shadows */}
+            <div className="absolute inset-0 border-t-[2px] border-l-[2px] border-[#54a0ff]"></div>
+            <div className="absolute inset-0 border-b-[2px] border-r-[2px] border-[#153a66]"></div>
+            {/* Inner cyan glow ring */}
+            <div className="absolute inset-[2px] border-[1px] border-[#3178c6]/50"></div>
+          </div>
+          
+          {/* 3D Red Pixel Corners */}
+          <div className="absolute -top-[3px] -left-[3px] w-[8px] h-[8px] bg-[#e53935] border border-black shadow-[1px_2px_0px_rgba(0,0,0,1)]">
+             <div className="absolute inset-0 border-t-[1px] border-l-[1px] border-[#ff6b68]"></div>
+          </div>
+          <div className="absolute -top-[3px] -right-[3px] w-[8px] h-[8px] bg-[#e53935] border border-black shadow-[1px_2px_0px_rgba(0,0,0,1)]">
+             <div className="absolute inset-0 border-t-[1px] border-l-[1px] border-[#ff6b68]"></div>
+          </div>
+          <div className="absolute -bottom-[3px] -left-[3px] w-[8px] h-[8px] bg-[#e53935] border border-black shadow-[1px_2px_0px_rgba(0,0,0,1)]">
+             <div className="absolute inset-0 border-t-[1px] border-l-[1px] border-[#ff6b68]"></div>
+          </div>
+          <div className="absolute -bottom-[3px] -right-[3px] w-[8px] h-[8px] bg-[#e53935] border border-black shadow-[1px_2px_0px_rgba(0,0,0,1)]">
+             <div className="absolute inset-0 border-t-[1px] border-l-[1px] border-[#ff6b68]"></div>
+          </div>
+          
+          {/* Text with solid shadow and blue glow */}
+          <span className="relative z-10 text-white drop-shadow-[1px_2px_0px_rgba(0,0,0,1)] [text-shadow:0_0_8px_rgba(84,160,255,0.6)]">ONLY FOR DESKTOP</span>
         </div>
       </div>
 
