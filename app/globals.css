@@ -7109,3 +7109,13 @@ body.reels-active { background-color: black !important; color: white !important;
 body.reels-active footer { display: none !important; }
 .reels-wrapper { background-color: black !important; color: white !important; color-scheme: dark; }
 body.reels-active ::-webkit-scrollbar { display: none; }
+
+@media (max-width: 767px) {
+  html.reels-active, body.reels-active {
+    overflow: hidden !important;
+    overscroll-behavior: none !important;
+    position: fixed !important;
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+}
