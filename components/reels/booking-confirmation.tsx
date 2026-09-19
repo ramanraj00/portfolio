@@ -275,10 +275,10 @@ export function BookingConfirmation() {
         </p>
         <p className="text-sm">
           <Link
-            href={localePath(locale, '/ama')}
+            href={localePath(locale, '/reels')}
             className="text-muted-foreground underline decoration-dotted underline-offset-4 transition-colors duration-150 hover:text-foreground"
           >
-            <T zh="回到 AMA 介绍页" en="Back to the AMA page" />
+            <T zh="回到 AMA 介绍页" en="Back to the Reels page" />
           </Link>
         </p>
       </div>
@@ -338,7 +338,7 @@ export function BookingConfirmation() {
         </p>
         <p className="text-sm">
           <Link
-            href={localePath(locale, '/ama/book')}
+            href={localePath(locale, '/reels/book')}
             className="text-muted-foreground underline decoration-dotted underline-offset-4 transition-colors duration-150 hover:text-foreground"
           >
             <T zh="重新选择时间" en="Pick a new time" />
@@ -356,7 +356,7 @@ export function BookingConfirmation() {
         </p>
         <p className="text-sm">
           <Link
-            href={localePath(locale, '/ama/book')}
+            href={localePath(locale, '/reels/book')}
             className="text-muted-foreground underline decoration-dotted underline-offset-4 transition-colors duration-150 hover:text-foreground"
           >
             <T zh="重新选择时间" en="Pick a new time" />

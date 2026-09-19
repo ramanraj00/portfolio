@@ -112,7 +112,7 @@ function manageBlocks(
 }
 
 function signOff(): Block {
-  return { type: 'paragraph', text: 'Cali' }
+  return { type: 'paragraph', text: 'Raman' }
 }
 
 function subjectFor(kind: BookingEmailKind, locale: Locale): string {

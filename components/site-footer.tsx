@@ -96,7 +96,7 @@ export function SiteFooter({
             </Link>
           </li>
           <li>
-            <Link href={localePath(locale, '/ama')} className="footer-tree-link">
+            <Link href={localePath(locale, '/reels')} className="footer-tree-link">
               <T zh="रील्स" en="Reels" />
             </Link>
           </li>

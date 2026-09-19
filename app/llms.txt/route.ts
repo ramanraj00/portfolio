@@ -51,7 +51,7 @@ export function buildLlmsText() {
   const sections = ['blog', 'photos', 'projects', 'reels'] as const
 
   return [
-    '# Cali Castle and Cali Baby',
+    '# Raman Raj',
     '',
     '> The bilingual public site of design engineer Cali Castle and the official product, support, and legal information for Cali Baby, a baby tracker by Zolplay.',
     '',
@@ -82,7 +82,7 @@ export function buildLlmsText() {
     ),
     ...caliBabyPages,
     '',
-    '## Cali Castle',
+    '## Raman Raj',
     '',
     markdownLink(
       publicPageMetadata.home.en.title,

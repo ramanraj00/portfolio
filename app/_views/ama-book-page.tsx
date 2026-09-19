@@ -10,7 +10,7 @@ export function amaBookMetadata(locale: Locale): Metadata {
   return {
     ...localeMetadata({
       locale,
-      path: '/ama/book',
+      path: '/reels/book',
       title: locale === 'en' ? 'Book an AMA Session' : '预订 AMA 时间',
       description:
         locale === 'en'

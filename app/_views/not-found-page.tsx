@@ -53,7 +53,7 @@ export function NotFoundPageView() {
           <ErrorHomeAction />
         </nav>
 
-        <Barcode code="ERR-404-CALI-SO" className="error-barcode" />
+        <Barcode code="ERR-404-RAMAN" className="error-barcode" />
 
         <div className="error-proof-footer font-mono" aria-hidden>
           <span>

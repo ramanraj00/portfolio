@@ -352,10 +352,10 @@ export function createBookingService(dependencies: BookingServiceDependencies) {
 
       const prefix = localePathPrefix(intent.locale)
       const confirmationUrl = new URL(
-        `${prefix}/ama/book/confirmation?hold=${holdId}`,
+        `${prefix}/reels/book/confirmation?hold=${holdId}`,
         baseUrl,
       )
-      const cancelUrl = new URL(`${prefix}/ama/book?checkout=cancelled`, baseUrl)
+      const cancelUrl = new URL(`${prefix}/reels/book?checkout=cancelled`, baseUrl)
 
       try {
         const session = await stripe.createCheckoutSession({
@@ -364,8 +364,8 @@ export function createBookingService(dependencies: BookingServiceDependencies) {
           currency: AMA_SESSION_PRICE.currency,
           productName:
             intent.locale === 'en'
-              ? 'AMA Session with Cali (60 minutes)'
-              : 'Cali AMA Session（60 分钟）',
+              ? 'Session with Raman Raj (60 minutes)'
+              : 'Raman Raj Session（60 मिनट）',
           customerEmail: intent.guestEmail,
           successUrl: confirmationUrl.toString(),
           cancelUrl: cancelUrl.toString(),

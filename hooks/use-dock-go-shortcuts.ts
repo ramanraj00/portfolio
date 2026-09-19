@@ -14,7 +14,7 @@ export const DOCK_GO_SHORTCUTS: Record<string, string> = {
   w: '/blog',
   p: '/photos',
   j: '/projects',
-  a: '/ama',
+  r: '/reels',
 }
 
 /**

@@ -11,7 +11,7 @@ export function amaManageMetadata(locale: Locale): Metadata {
   return {
     ...localeMetadata({
       locale,
-      path: '/ama/manage',
+      path: '/reels/manage',
       title: locale === 'en' ? 'Manage your booking' : '管理你的预订',
       description:
         locale === 'en'

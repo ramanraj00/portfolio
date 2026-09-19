@@ -11,7 +11,7 @@ export function amaConfirmationMetadata(locale: Locale): Metadata {
   return {
     ...localeMetadata({
       locale,
-      path: '/ama/book/confirmation',
+      path: '/reels/book/confirmation',
       title: locale === 'en' ? 'Booking confirmation' : '预订确认',
       description:
         locale === 'en'

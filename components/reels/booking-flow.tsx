@@ -457,7 +457,7 @@ export function BookingFlow() {
         return
       }
       if (body.hold.state === 'paid' || body.hold.state === 'processing') {
-        assignLocation(localePath(locale, `/ama/book/confirmation?hold=${current.id}`))
+        assignLocation(localePath(locale, `/reels/book/confirmation?hold=${current.id}`))
         return
       }
       setHold(null)
@@ -629,7 +629,7 @@ export function BookingFlow() {
       if (response.status === 409) {
         const body = (await response.json().catch(() => null)) as { error?: string } | null
         if (body?.error === 'already_paid') {
-          assignLocation(localePath(locale, `/ama/book/confirmation?hold=${current.id}`))
+          assignLocation(localePath(locale, `/reels/book/confirmation?hold=${current.id}`))
           return
         }
         setHold(null)
@@ -728,8 +728,8 @@ export function BookingFlow() {
         <AlternateTimeRequestForm timeZone={timeZone} defaultName={name} defaultEmail={email} />
         <div>
           <Button asChild variant="ghost" size="lg" expandHitArea>
-            <Link href={localePath(locale, '/ama')}>
-              <T zh="返回介绍页" en="Back to the AMA page" />
+            <Link href={localePath(locale, '/reels')}>
+              <T zh="返回介绍页" en="Back to the Reels page" />
             </Link>
           </Button>
         </div>
