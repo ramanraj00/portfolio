@@ -79,6 +79,7 @@ const nextConfig: NextConfig = {
     localPatterns: [
       { pathname: '/content/**' },
       { pathname: '/images/**' },
+      { pathname: '/photos/**' },
       { pathname: '/_next/static/**' },
     ],
   },
@@ -132,10 +133,6 @@ const nextConfig: NextConfig = {
   // replaced or retired public URL from the legacy site.
   redirects: async () => [
     ...legacyRedirects,
-    { source: '/ama', destination: '/reels', permanent: true },
-    { source: '/en/ama', destination: '/en/reels', permanent: true },
-    { source: '/ama/:path*', destination: '/reels/:path*', permanent: true },
-    { source: '/en/ama/:path*', destination: '/en/reels/:path*', permanent: true },
   ],
 
   rewrites: async () => legacyRewrites,

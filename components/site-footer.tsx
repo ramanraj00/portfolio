@@ -95,11 +95,7 @@ export function SiteFooter({
               <T zh="आर्टिकल्स" en="Writing" />
             </Link>
           </li>
-          <li>
-            <Link href={localePath(locale, '/reels')} className="footer-tree-link">
-              <T zh="रील्स" en="Reels" />
-            </Link>
-          </li>
+
           <li>
             <a href="/feed.xml" className="footer-tree-link" data-zh>
               RSS
