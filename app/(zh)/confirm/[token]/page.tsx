@@ -12,6 +12,6 @@ export const instant = false
 
 // The token parameter is deliberately not accepted or read. This route only
 // preserves the old URL shape and cannot query or mutate subscriber data.
-export default function ChineseNewsletterRetiredPage() {
-  return <NewsletterRetiredPageView locale="zh" />
+export default function EnglishNewsletterRetiredPage() {
+  return <NewsletterRetiredPageView locale="en" />
 }

@@ -9,7 +9,7 @@ export const instant = true
 
 export const metadata: Metadata = {
   ...localeMetadata({
-    locale: 'zh',
+    locale: 'en',
     path: '/',
     title: seo.title,
     description: seo.description,
@@ -17,6 +17,6 @@ export const metadata: Metadata = {
   title: { absolute: seo.title },
 }
 
-export default function ChineseHomePage() {
-  return <HomePageView locale="zh" />
+export default function EnglishHomePage() {
+  return <HomePageView locale="en" />
 }

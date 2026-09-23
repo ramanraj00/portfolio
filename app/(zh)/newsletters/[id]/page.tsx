@@ -23,12 +23,12 @@ export async function generateMetadata({
   return newsletterArchiveMetadata('zh', id)
 }
 
-export default async function ChineseNewsletterArchivePage({
+export default async function EnglishNewsletterArchivePage({
   params,
 }: {
   params: Promise<{ id: string }>
 }) {
   const { id } = await params
   if (!isArchivedNewsletterId(id)) notFound()
-  return <NewsletterArchivePageView id={id} locale="zh" />
+  return <NewsletterArchivePageView id={id} locale="en" />
 }

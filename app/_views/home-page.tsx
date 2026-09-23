@@ -135,7 +135,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
 
       <section className="mt-16">
         <SectionTitle index={nextSectionIndex()} delay={120}>
-          <T zh="प्रोजेक्ट्स" en="Projects" />
+          Projects
         </SectionTitle>
         <ul className="mt-4 flex flex-col">
           {projects.map((project, i) => (
@@ -166,17 +166,17 @@ export async function HomePageView({ locale }: { locale: Locale }) {
                 <span className="project-identity">
                   <span className="project-name font-medium">
                     {project.url.startsWith('/') ? (
-                      <T zh={project.name} en={project.nameEn} />
+                      project.nameEn
                     ) : (
                       <ExternalLabel>
-                        <T zh={project.name} en={project.nameEn} />
+                        {project.nameEn}
                       </ExternalLabel>
                     )}
                   </span>
                   <span className="project-domain text-muted-foreground">{project.domain}</span>
                 </span>
                 <span className="project-description text-muted-foreground">
-                  <T zh={project.description} en={project.descriptionEn ?? project.description} />
+                  {project.descriptionEn ?? project.description}
                 </span>
               </Link>
             </li>
@@ -187,14 +187,14 @@ export async function HomePageView({ locale }: { locale: Locale }) {
       <section className="mt-16">
         <div className="flex items-center justify-between gap-4">
           <SectionTitle index={nextSectionIndex()} delay={200}>
-            <T zh="आर्टिकल्स" en="Writing" />
+            Writing
           </SectionTitle>
           <Link
-            href={localePath(locale, '/blog')}
+            href={'/blog'}
             className="enter relative shrink-0 text-sm text-muted-foreground transition-colors duration-150 ease-[ease] after:absolute after:-inset-x-2 after:-inset-y-3 after:content-[''] hover:text-foreground focus-visible:rounded-sm focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4"
             style={{ '--enter-delay': '200ms' } as React.CSSProperties}
           >
-            <T zh="सभी देखें" en="View all" />
+            View all
           </Link>
         </div>
         <ul className="focus-list mt-4 flex flex-col">
@@ -215,7 +215,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
       {records.length > 0 && (
         <section className="mt-16">
           <SectionTitle index={nextSectionIndex()} delay={320}>
-            <T zh="अभी लूप पर है" en="On rotation" />
+            On rotation
           </SectionTitle>
           <div className="enter mt-5" style={{ '--enter-delay': '360ms' } as React.CSSProperties}>
             <VinylShelf />
@@ -226,7 +226,7 @@ export async function HomePageView({ locale }: { locale: Locale }) {
       {books.length > 0 && (
         <section className="mt-16">
           <SectionTitle index={nextSectionIndex()} delay={380}>
-            <T zh="मेरी फेवरेट बुक्स" en="Books I Love" />
+            Books I Love
           </SectionTitle>
           <div className="enter mt-5" style={{ '--enter-delay': '420ms' } as React.CSSProperties}>
             <Bookshelf />

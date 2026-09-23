@@ -5062,6 +5062,7 @@ a:focus-visible .external-label .external-mark {
    [data-zh]/[data-en] pair from <T> appears there. The block variant
    survives solely for admin, which swaps locale in place (no route
    change) and needs both DOM branches present in scheduling controls. */
+/* ── English-only site — no bilingual chrome ──────────────────────── */
 
 [data-en] {
   display: none;

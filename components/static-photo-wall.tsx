@@ -25,7 +25,7 @@ function PhotoDetails({ photo }: { photo: typeof STATIC_PHOTOS[number] }) {
             style={{ '--detail-index': index } as React.CSSProperties}
           >
             <dt>
-              <T zh={field.zh} en={field.en} />
+              {field.en}
             </dt>
             <dd>{field.value}</dd>
           </div>
@@ -39,7 +39,7 @@ export function StaticPhotoWall() {
   if (!STATIC_PHOTOS || STATIC_PHOTOS.length === 0) {
     return (
       <p className="mt-6 border-t border-dashed border-border py-10 text-sm leading-6 text-muted-foreground">
-        <T zh="还没有照片。" en="No photos have been added yet." />
+        No photos have been added yet.
       </p>
     )
   }

@@ -5,11 +5,11 @@ import { publicPageMetadata } from '~/lib/public-page-metadata'
 const copy = publicPageMetadata.projects.zh
 
 export const metadata = localeMetadata({
-  locale: 'zh',
+  locale: 'en',
   path: '/projects',
   ...copy,
 })
 
-export default function ChineseProjectsPage() {
-  return <ProjectsPageView locale="zh" />
+export default function EnglishProjectsPage() {
+  return <ProjectsPageView locale="en" />
 }

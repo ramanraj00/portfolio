@@ -24,7 +24,7 @@ export function BlogIndexPageView({ locale }: { locale: Locale }) {
     <div className="mx-auto w-full max-w-[37.5rem] px-6">
       <header className="enter flex items-center justify-between">
         <h1 className="page-eyebrow">
-          <T zh="आर्टिकल्स" en="Writing" />
+          Writing
         </h1>
         <PixelCluster variant={1} />
       </header>

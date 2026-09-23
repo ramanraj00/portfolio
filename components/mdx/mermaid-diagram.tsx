@@ -43,7 +43,7 @@ export function MermaidDiagram({
           role="img"
           // role="img" needs a name even without a caption; the generic
           // fallback beats AT reading the svg's positioned text fragments
-          aria-label={caption ?? localize(locale, '图表', 'Diagram')}
+          aria-label={caption ?? 'Diagram'}
           // trusted-input boundary: diagram source is repo-committed MDX
           // rendered at build time, never user-supplied — revisit with a
           // sanitizer before ever feeding this component runtime input

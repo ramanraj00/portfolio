@@ -3,17 +3,12 @@
 import { Popover } from '@base-ui/react/popover'
 import { Monitor, Moon, Sun, Volume2, VolumeX } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 
 import { PreferencesIcon } from '~/components/dock-icons'
 import { useTheme } from '~/components/theme-provider'
-import { useEffect, useRef, useState } from 'react'
-
 import { TabItem, Tabs, TabsList } from '~/components/ui/tabs'
 import { Elevated } from '~/lib/elevated'
-import { T } from '~/lib/i18n'
-import { LOCALE_CHANGE_EVENT, localize, useLocale } from '~/lib/locale-client'
-import { localePath, type Locale } from '~/lib/locale-route'
 import {
   playDockSound,
   playPreferenceSound,
@@ -21,21 +16,17 @@ import {
   soundEnabled,
 } from '~/lib/sound'
 
-function Row({ zh, en, children }: { zh: string; en: string; children: React.ReactNode }) {
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="prefs-row">
       <span className="prefs-row-label">
-        <T zh={zh} en={en} />
+        {label}
       </span>
       {children}
     </div>
   )
 }
 
-// 偏好 — the dock's preferences panel: language, theme, and UI sound,
-// each as full-width fluid tabs. On the public dock the site owner gets
-// one more row (the way into the admin); the owner dock's variant swaps
-// it for sign-out and never probes.
 export function Preferences({
   variant = 'public',
   ownerAdmin = false,
@@ -45,25 +36,16 @@ export function Preferences({
   ownerAdmin?: boolean
   onOwnerAdminChange?: (owner: boolean) => void
 } = {}) {
-  const activeLocale = useLocale()
-  const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [locale, setLocale] = useState<'zh' | 'en'>('zh')
   const [sound, setSound] = useState(false)
   const probingRef = useRef(false)
 
   useEffect(() => {
     setMounted(true)
-    setLocale(document.documentElement.dataset.locale === 'en' ? 'en' : 'zh')
     setSound(soundEnabled())
   }, [])
 
-  // The owner probe runs on each panel open (never on page load, so public
-  // pages stay static and ordinary visitors never trigger it in passing).
-  // A confirmed answer is remembered so the row and the G D chord are
-  // armed instantly on later visits, and a stale hint self-corrects the
-  // next time the panel opens.
   function probeOwner(open: boolean) {
     if (!open || probingRef.current) return
     probingRef.current = true
@@ -80,44 +62,11 @@ export function Preferences({
         }
       })
       .catch(() => {
-        /* offline — leave the current hint alone */
+        /* offline */
       })
       .finally(() => {
         probingRef.current = false
       })
-  }
-
-  function applyLocale(next: string) {
-    const nextLocale = next as Locale
-    const nextPathname =
-      pathname && pathname !== '/admin' && !pathname.startsWith('/admin/')
-        ? localePath(nextLocale, pathname)
-        : null
-
-    try {
-      localStorage.locale = nextLocale
-    } catch {
-      /* private mode */
-    }
-    playPreferenceSound()
-
-    if (nextPathname) {
-      // Assigning pathname preserves the query and hash while keeping the
-      // destination on this origin. localePath rejects malformed segments.
-      window.location.pathname = nextPathname
-      return
-    }
-
-    const html = document.documentElement
-    if (nextLocale === 'en') {
-      html.dataset.locale = 'en'
-      html.lang = 'en'
-    } else {
-      delete html.dataset.locale
-      html.lang = 'zh-CN'
-    }
-    setLocale(nextLocale)
-    window.dispatchEvent(new Event(LOCALE_CHANGE_EVENT))
   }
 
   return (
@@ -127,11 +76,11 @@ export function Preferences({
           <button
             type="button"
             className="dock-item"
-            aria-label={localize(activeLocale, '偏好设置', 'Preferences')}
+            aria-label="Preferences"
           >
             <PreferencesIcon />
             <span className="dock-tip" aria-hidden>
-              <T zh="सेटिंग्स" en="Preferences" />
+              Preferences
             </span>
           </button>
         }
@@ -144,21 +93,13 @@ export function Preferences({
           className="z-[var(--z-card)] outline-none"
         >
           <Popover.Popup
-            aria-label={localize(activeLocale, '偏好设置', 'Preferences')}
+            aria-label="Preferences"
             initialFocus
             finalFocus
             render={<Elevated offset={2} shadowLevel={3} />}
             className="prefs-panel w-max rounded-xl outline-none"
           >
-            <Row zh="भाषा" en="Language">
-              <Tabs value={mounted ? locale : activeLocale} onValueChange={applyLocale}>
-                <TabsList aria-label={localize(activeLocale, '语言', 'Language')}>
-                  <TabItem value="zh" label="Hindi" />
-                  <TabItem value="en" label="English" />
-                </TabsList>
-              </Tabs>
-            </Row>
-            <Row zh="थीम" en="Theme">
+            <Row label="Theme">
               <Tabs
                 value={mounted && theme ? theme : 'system'}
                 onValueChange={(v) => {
@@ -166,14 +107,14 @@ export function Preferences({
                   playPreferenceSound()
                 }}
               >
-                <TabsList aria-label={localize(activeLocale, '外观', 'Theme')}>
-                  <TabItem value="light" icon={Sun} label="" aria-label={localize(activeLocale, '浅色', 'Light')} />
-                  <TabItem value="system" icon={Monitor} label="" aria-label={localize(activeLocale, '系统', 'System')} />
-                  <TabItem value="dark" icon={Moon} label="" aria-label={localize(activeLocale, '深色', 'Dark')} />
+                <TabsList aria-label="Theme">
+                  <TabItem value="light" icon={Sun} label="" aria-label="Light" />
+                  <TabItem value="system" icon={Monitor} label="" aria-label="System" />
+                  <TabItem value="dark" icon={Moon} label="" aria-label="Dark" />
                 </TabsList>
               </Tabs>
             </Row>
-            <Row zh="साउंड" en="Sound">
+            <Row label="Sound">
               <Tabs
                 value={mounted && sound ? 'on' : 'off'}
                 onValueChange={(v) => {
@@ -184,9 +125,9 @@ export function Preferences({
                   if (on) playPreferenceSound()
                 }}
               >
-                <TabsList aria-label={localize(activeLocale, '音效', 'Sound')}>
-                  <TabItem value="on" icon={Volume2} label="" aria-label={localize(activeLocale, '开', 'On')} />
-                  <TabItem value="off" icon={VolumeX} label="" aria-label={localize(activeLocale, '关', 'Off')} />
+                <TabsList aria-label="Sound">
+                  <TabItem value="on" icon={Volume2} label="" aria-label="On" />
+                  <TabItem value="off" icon={VolumeX} label="" aria-label="Off" />
                 </TabsList>
               </Tabs>
             </Row>
@@ -197,7 +138,7 @@ export function Preferences({
                 onClick={() => playDockSound()}
               >
                 <span className="prefs-row-label">
-                  <T zh="एडमिन" en="Admin" />
+                  Admin
                 </span>
                 <span className="dock-tip-keys" aria-hidden>
                   <kbd className="dock-tip-key">G</kbd>
@@ -209,7 +150,7 @@ export function Preferences({
               <form method="post" action="/api/admin/auth/logout">
                 <button type="submit" className="prefs-row prefs-admin prefs-signout">
                   <span className="prefs-row-label">
-                    <T zh="साइन आउट" en="Sign out" />
+                    Sign out
                   </span>
                 </button>
               </form>

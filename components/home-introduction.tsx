@@ -187,30 +187,17 @@ export function HomeIntroduction({ social, github }: { social: SocialData; githu
   return (
     <div className="home-introduction">
       <p className="text-sm leading-relaxed text-muted-foreground">
-        <T
-          zh={
-            <>
-              मैं एक <DesignEngineerPhrase>फुल-स्टैक डेवलपर</DesignEngineerPhrase> हूँ, जिसे बेहतरीन डिज़ाइन और क्लीन कोड के ज़रिए नए आइडियाज को शानदार डिजिटल प्रोडक्ट्स में बदलना पसंद है।
-            </>
-          }
-          en={
+        {
             <>
               I'm a <DesignEngineerPhrase>Full-Stack Developer</DesignEngineerPhrase> who enjoys turning ideas into polished, scalable digital products through thoughtful design and well-structured code.
             </>
           }
-        />
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        <T
-          zh="मैं बेहतरीन और मॉडर्न यूज़र इंटरफेस बनाता हूँ, और साथ ही मजबूत बैकएंड सिस्टम भी संभालता हूँ। React, Tailwind CSS और Motion से वेबसाइट्स को डिज़ाइन करने से लेकर उनके पीछे का लॉजिक लिखने तक, मुझे प्रोडक्ट के हर हिस्से पर काम करना पसंद है。"
-          en="I build modern, interactive user experiences while also working behind the scenes to develop reliable backend systems and applications. From crafting responsive interfaces with React, Tailwind CSS, and Motion to building the logic and architecture that powers them, I enjoy working across the entire product."
-        />
+        I build modern, interactive user experiences while also working behind the scenes to develop reliable backend systems and applications. From crafting responsive interfaces with React, Tailwind CSS, and Motion to building the logic and architecture that powers them, I enjoy working across the entire product.
       </p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        <T
-          zh="अभी मैं डेटा साइंस (Data Science) में स्पेशलाइजेशन के साथ बी.टेक कंप्यूटर साइंस के तीसरे साल का छात्र हूँ। मुझे नई टेक्नोलॉजी सीखना, मुश्किल प्रॉब्लम सॉल्व करना और अपने आइडियाज को असली डिजिटल दुनिया में उतारना बहुत पसंद है।"
-          en="Currently, I'm a third-year B.Tech Computer Science student specializing in Data Science. I enjoy exploring new technologies, solving complex problems, refining details, and turning ideas into intuitive, reliable, and memorable digital experiences."
-        />
+        Currently, I'm a third-year B.Tech Computer Science student specializing in Data Science. I enjoy exploring new technologies, solving complex problems, refining details, and turning ideas into intuitive, reliable, and memorable digital experiences.
       </p>
       <HomeContact social={social} github={github} />
     </div>

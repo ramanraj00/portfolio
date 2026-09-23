@@ -634,8 +634,8 @@ export function PostToc({ nodes, nodesEn }: { nodes: PostRailNode[]; nodesEn: Po
           className="post-minimap-toggle"
           aria-label={
             open
-              ? localize(locale, '收起文章地图', 'Close article map')
-              : localize(locale, '展开文章地图', 'Open article map')
+              ? 'Close article map'
+              : 'Open article map'
           }
           aria-expanded={open}
           aria-controls={RAIL_ID}
@@ -701,19 +701,19 @@ export function PostToc({ nodes, nodesEn }: { nodes: PostRailNode[]; nodesEn: Po
           ref={panelRef}
           id={RAIL_ID}
           className="post-minimap"
-          aria-label={localize(locale, '文章地图', 'Article map')}
+          aria-label={'Article map'}
           aria-hidden={!open}
           inert={open ? undefined : true}
         >
           <div className="post-minimap-phone-surface backdrop-blur-[12px]" aria-hidden />
           <div className="post-minimap-utilities post-minimap-utilities-top">
             <Link
-              href={localePath(locale, '/blog')}
+              href={'/blog'}
               className="post-minimap-utility"
-              aria-label={localize(locale, '返回写作', 'Back to writing')}
+              aria-label={'Back to writing'}
             >
               <WayfindingArrow direction="back" />
-              <span>{localize(locale, '写作', 'Writing')}</span>
+              <span>{'Writing'}</span>
             </Link>
           </div>
           <div className="post-minimap-clip">
@@ -743,14 +743,14 @@ export function PostToc({ nodes, nodesEn }: { nodes: PostRailNode[]; nodesEn: Po
             <button
               type="button"
               className="post-minimap-utility post-minimap-back-to-top"
-              aria-label={localize(locale, '返回顶部', 'Back to top')}
+              aria-label={'Back to top'}
               aria-hidden={!backToTopVisible}
               tabIndex={backToTopVisible ? 0 : -1}
               data-visible={backToTopVisible || undefined}
               onClick={returnToTop}
             >
               <WayfindingArrow direction="top" />
-              <span>{localize(locale, '顶部', 'Top')}</span>
+              <span>{'Top'}</span>
             </button>
           </div>
         </nav>

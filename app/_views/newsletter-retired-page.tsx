@@ -50,22 +50,16 @@ export function NewsletterRetiredPageView({ locale }: { locale: Locale }) {
         aria-labelledby="newsletter-retired-title"
       >
         <p className="font-mono text-sm tracking-[-0.011em] text-muted-foreground">
-          <T zh="确认链接已停用" en="CONFIRMATION_RETIRED" />
+          CONFIRMATION_RETIRED
         </p>
         <h1
           id="newsletter-retired-title"
           className="mt-4 text-sm font-semibold tracking-[-0.011em]"
         >
-          <T
-            zh={retiredCopy.zh.title}
-            en={retiredCopy.en.title}
-          />
+          {retiredCopy.en.title}
         </h1>
         <p className="mt-3 max-w-[32rem] text-sm leading-relaxed text-muted-foreground">
-          <T
-            zh={retiredCopy.zh.description}
-            en={retiredCopy.en.description}
-          />
+          {retiredCopy.en.description}
         </p>
         <nav
           className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm"
@@ -75,13 +69,13 @@ export function NewsletterRetiredPageView({ locale }: { locale: Locale }) {
             href={feed}
             className="underline decoration-border underline-offset-4 hover:decoration-foreground"
           >
-            <T zh="打开 RSS" en="Open RSS" />
+            Open RSS
           </a>
           <Link
-            href={localePath(locale, '/')}
+            href={'/'}
             className="underline decoration-border underline-offset-4 hover:decoration-foreground"
           >
-            <T zh="返回首页" en="Return home" />
+            Return home
           </Link>
         </nav>
       </section>

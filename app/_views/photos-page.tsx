@@ -7,7 +7,7 @@ export function PhotosPageView() {
     <div className="mx-auto w-full max-w-[37.5rem] px-6">
       <div className="flex items-center justify-between gap-4">
         <h1 className="page-eyebrow enter">
-          <T zh="फोटोज़" en="Photos" />
+          Photos
         </h1>
         <PixelCluster variant={4} className="enter shrink-0" />
       </div>

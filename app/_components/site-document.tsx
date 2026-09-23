@@ -4,8 +4,6 @@ import { Suspense } from 'react'
 
 import { AmbientBackground } from '~/components/ambient-background'
 import { Dock, DockFallback } from '~/components/dock'
-import { LocaleRestorer } from '~/components/locale-restorer'
-import { LocaleSuggestion } from '~/components/locale-suggestion'
 import { PreviewCardTimingProvider } from '~/components/preview-card-timing'
 import {
   RouteMotionController,
@@ -16,7 +14,6 @@ import { ThemeProvider } from '~/components/theme-provider'
 import { getGitHub, getSocial } from '~/lib/social-live'
 import { PREPAINT_SCRIPT } from '~/lib/security/inline-scripts'
 import { seo } from '~/lib/seo'
-import type { Locale } from '~/lib/locale-route'
 import { cn } from '~/lib/utils'
 
 import { fontVariablesForLocale } from '../fonts'
@@ -32,26 +29,16 @@ export const rootMetadata: Metadata = {
 export async function SiteDocument({
   children,
   isAdmin = false,
-  locale,
-  restoreLocale = false,
 }: Readonly<{
   children: React.ReactNode
   isAdmin?: boolean
-  locale: Locale
-  restoreLocale?: boolean
 }>) {
-  const english = locale === 'en'
-  const fontVariables = fontVariablesForLocale(locale)
+  const fontVariables = fontVariablesForLocale('en')
 
   if (isAdmin) {
-    // The owner admin shares the public warm paper, ambient layer, and
-    // column geometry, but stays outside public analytics, social reads,
-    // and route view transitions — its chrome is the owner dock rendered
-    // by the protected admin layout.
     return (
       <html
-        lang={english ? 'en' : 'hi'}
-        data-locale={english ? 'en' : undefined}
+        lang="en"
         suppressHydrationWarning
         className={cn('font-sans', fontVariables, 'public-site')}
       >
@@ -60,7 +47,6 @@ export async function SiteDocument({
         </head>
         <body className="antialiased">
           <ThemeProvider>
-            {restoreLocale && <LocaleRestorer />}
             <AmbientBackground />
             <div className="flex min-h-screen flex-col pb-20">
               <main className="flex-1 pt-14">{children}</main>
@@ -71,41 +57,30 @@ export async function SiteDocument({
     )
   }
 
-  // Live-but-cached social numbers (ISR via the fetch data cache) keep the
-  // shared public chrome fresh without making any page request-bound.
   const [social, github] = await Promise.all([getSocial(), getGitHub()])
 
   return (
     <html
-      lang={english ? 'en' : 'hi'}
-      data-locale={english ? 'en' : undefined}
+      lang="en"
       data-route-motion="none"
       suppressHydrationWarning
       className={cn('font-sans', fontVariables, 'public-site')}
     >
       <head>
-        {/* Pre-paint handles the visited flag and theme. Locale restoration
-            is intentionally limited to /admin; public URLs are explicit. */}
         <script dangerouslySetInnerHTML={{ __html: PREPAINT_SCRIPT }} />
       </head>
       <body className="antialiased">
         <ThemeProvider>
           <PreviewCardTimingProvider>
             <RouteMotionController />
-            <Suspense fallback={null}>
-              <LocaleSuggestion locale={locale} />
-            </Suspense>
-            {restoreLocale && <LocaleRestorer />}
             <AmbientBackground />
             <div className="flex min-h-screen flex-col pb-20">
               <main className="flex-1 pt-14">
-                {/* The non-none default isolates route content while keeping the
-                    CSS-named list → loading shell → article groups active. */}
                 <RouteViewTransition>{children}</RouteViewTransition>
               </main>
-              <SiteFooter social={social} github={github} locale={locale} />
+              <SiteFooter social={social} github={github} />
             </div>
-            <Suspense fallback={<DockFallback locale={locale} />}>
+            <Suspense fallback={<DockFallback />}>
               <Dock />
             </Suspense>
           </PreviewCardTimingProvider>

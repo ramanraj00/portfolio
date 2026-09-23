@@ -10,10 +10,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return blogPostMetadata('zh', (await params).slug)
 }
 
-export default function ChineseBlogPostPage({
+export default function EnglishBlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string }>
 }) {
-  return <BlogPostRoute params={params} locale="zh" />
+  return <BlogPostRoute params={params} locale="en" />
 }

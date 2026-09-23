@@ -5,11 +5,11 @@ import { publicPageMetadata } from '~/lib/public-page-metadata'
 const copy = publicPageMetadata.blog.zh
 
 export const metadata = localeMetadata({
-  locale: 'zh',
+  locale: 'en',
   path: '/blog',
   ...copy,
 })
 
-export default function ChineseBlogIndexPage() {
-  return <BlogIndexPageView locale="zh" />
+export default function EnglishBlogIndexPage() {
+  return <BlogIndexPageView locale="en" />
 }

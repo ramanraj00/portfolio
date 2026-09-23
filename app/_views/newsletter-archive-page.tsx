@@ -65,19 +65,13 @@ export function NewsletterArchivePageView({
     <article className="mx-auto box-border w-full max-w-[37.5rem] px-6">
       <header className="hairline-bottom mb-10 pb-8">
         <p className="font-mono text-sm tracking-[-0.011em] text-muted-foreground">
-          <T
-            zh={`存档 / ${id.padStart(3, '0')}`}
-            en={`ARCHIVE / ${id.padStart(3, '0')}`}
-          />
+          {`ARCHIVE / ${id.padStart(3, '0')}`}
         </p>
         <h1 className="mt-4 text-2xl font-semibold tracking-tight text-balance">
-          <T zh={newsletter.title} en={newsletter.titleEn} />
+          {newsletter.titleEn}
         </h1>
         <p className="mt-3 max-w-[32rem] text-sm leading-relaxed text-muted-foreground">
-          <T
-            zh="这是原始 Newsletter 的只读存档。订阅、发送和旧账户功能已经停止。"
-            en="This is a read-only archive of the original newsletter. Subscriptions, sending and legacy account features are retired."
-          />
+          This is a read-only archive of the original newsletter. Subscriptions, sending and legacy account features are retired.
         </p>
       </header>
 

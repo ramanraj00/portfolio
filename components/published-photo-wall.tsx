@@ -73,7 +73,7 @@ function PhotoDetails({ photo }: { photo: PublishedPhoto }) {
             style={{ '--detail-index': index } as React.CSSProperties}
           >
             <dt>
-              <T zh={field.zh} en={field.en} />
+              {field.en}
             </dt>
             <dd>{field.value}</dd>
           </div>
@@ -131,7 +131,7 @@ export function PublishedPhotoWall({
   if (!selection || selection.items.length === 0) {
     return (
       <p className="mt-6 border-t border-dashed border-border py-10 text-sm leading-6 text-muted-foreground">
-        <T zh="还没有发布照片。" en="No photos have been published yet." />
+        No photos have been published yet.
       </p>
     )
   }
@@ -150,7 +150,7 @@ export function PublishedPhotoWallLoading() {
   return (
     <div className="photo-masonry mt-6" role="status" aria-busy="true">
       <span className="sr-only">
-        <T zh="正在加载照片" en="Loading photos" />
+        Loading photos
       </span>
       {LOADING_ASPECT_RATIOS.map((aspectRatio, index) => (
         <span

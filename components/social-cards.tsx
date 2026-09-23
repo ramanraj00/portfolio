@@ -126,7 +126,7 @@ function Identity({
       </span>
       {withBio && (
         <span className="service-card-bio">
-          <T zh={data.bio} en={data.bioEn} />
+          {data.bioEn}
         </span>
       )}
     </>
@@ -150,13 +150,13 @@ export function XCardBody({ data }: { data: SocialSnapshot }) {
         <span className="service-card-stat">
           {data.following && (
             <span>
-              <b>{data.following}</b> <T zh="फॉलो कर रहे हैं" en="following" />
+              <b>{data.following}</b> following
             </span>
           )}
           {data.followers && data.following && <span aria-hidden>·</span>}
           {data.followers && (
             <span>
-              <b>{data.followers}</b> <T zh="फॉलोअर्स" en="followers" />
+              <b>{data.followers}</b> followers
             </span>
           )}
         </span>
@@ -220,7 +220,7 @@ export function YouTubeCardBody({ data }: { data: SocialSnapshot }) {
       />
       {data.followers && (
         <span className="service-card-stat">
-          <b>{data.followers}</b> <T zh="सब्सक्राइबर्स" en="subscribers" />
+          <b>{data.followers}</b> subscribers
         </span>
       )}
     </>
@@ -249,13 +249,13 @@ export function GitHubCardBody({ data }: { data: GitHubSnapshot }) {
       </span>
       <span className="service-card-stat">
         <span>
-          <b>{data.total.toLocaleString()}</b> <T zh="योगदान (contributions)" en="contributions" />
+          <b>{data.total.toLocaleString()}</b> contributions
         </span>
         {data.followers != null && (
           <>
             <span aria-hidden>·</span>
             <span>
-              <b>{data.followers}</b> <T zh="फॉलोअर्स" en="followers" />
+              <b>{data.followers}</b> followers
             </span>
           </>
         )}
@@ -322,11 +322,11 @@ export function LinkedInCardBody({ data }: { data: SocialSnapshot }) {
             {data.name}
           </span>
           <span className="text-[0.85rem] text-muted-foreground mt-[2px] whitespace-pre-line">
-            <T zh={data.bio} en={data.bioEn} />
+            {data.bioEn}
           </span>
           {data.followers && (
             <span className="text-[0.85rem] font-medium text-[#0a66c2] dark:text-[#70b5f9] mt-3 pb-1">
-              {data.followers} <T zh="कनेक्शन्स" en="connections" />
+              {data.followers} connections
             </span>
           )}
         </div>
@@ -368,6 +368,7 @@ export function MediumCardBody({ data }: { data: SocialSnapshot }) {
         <span className="service-card-stat">
           <span>
             <b>{data.followers}</b> <T zh="स्टोरीज" en={Number(data.followers) === 1 ? "Story" : "Stories"} />
+            <b>{data.followers}</b> {Number(data.followers) === 1 ? "Story" : "Stories"}
           </span>
         </span>
       )}
@@ -492,7 +493,7 @@ export function EmailCard({
           </span>
           <span className="email-envelope-postmark" />
           <span className="email-envelope-address">
-            <span><T zh="TO" en="TO" /></span>
+            <span>TO</span>
             {address}
           </span>
         </span>

@@ -129,7 +129,7 @@ function ProductHeader({ locale, path }: { locale: Locale; path: string }) {
 
   return (
     <header className={styles.productHeader}>
-      <Link href={localePath(locale, '/calibaby')} className={styles.brandLink}>
+      <Link href={'/calibaby'} className={styles.brandLink}>
         <Image
           src="/images/calibaby-app-icon.png"
           alt=""
@@ -213,10 +213,10 @@ function LegalActions({ locale }: { locale: Locale }) {
 
   return (
     <nav aria-label={locale === 'en' ? 'Legal information' : '法律信息'} className={styles.legalActions}>
-      <Link href={localePath(locale, '/calibaby/privacy')} className={styles.ghostAction}>
+      <Link href={'/calibaby/privacy'} className={styles.ghostAction}>
         {copy.privacy}
       </Link>
-      <Link href={localePath(locale, '/calibaby/terms')} className={styles.ghostAction}>
+      <Link href={'/calibaby/terms'} className={styles.ghostAction}>
         {copy.terms}
       </Link>
     </nav>
@@ -229,7 +229,7 @@ function PageFooter({ locale, kind }: { locale: Locale; kind: CaliBabyPageKind }
   return (
     <footer className={styles.footer}>
       {kind !== 'support' && (
-        <Link href={localePath(locale, '/calibaby/help')} className={styles.footerLink}>
+        <Link href={'/calibaby/help'} className={styles.footerLink}>
           {copy.back}
         </Link>
       )}

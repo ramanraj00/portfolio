@@ -12,8 +12,8 @@ export function ErrorHomeAction() {
   const locale = useLocale()
   return (
     <Button asChild size="md" leadingIcon={ChevronLeft}>
-      <Link href={localePath(locale, '/')}>
-        <T zh="返回首页" en="Go home" />
+      <Link href={'/'}>
+        Go home
       </Link>
     </Button>
   )

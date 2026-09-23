@@ -13,22 +13,18 @@ import {
   
 } from '~/components/social-cards'
 import { brailleText } from '~/lib/braille'
-import { T } from '~/lib/i18n'
-import { localePath, type Locale } from '~/lib/locale-route'
 
 function Tree({
-  zh,
-  en,
+  label,
   children,
 }: {
-  zh: string
-  en: string
+  label: string
   children: React.ReactNode
 }) {
   return (
     <div className="footer-tree">
       <h2 className="footer-label">
-        <T zh={zh} en={en} />
+        {label}
       </h2>
       <ul>{children}</ul>
     </div>
@@ -42,22 +38,17 @@ async function CopyrightYear() {
   return new Date().getFullYear()
 }
 
-// Swiss editorial footer, set as folder trees: each column is a directory
-// listing with box-drawing connectors; the controls in 偏好 fill the
-// column width (auto on mobile).
 export function SiteFooter({
   social,
   github,
-  locale = 'zh',
 }: {
   social: { x: SocialSnapshot; linkedin: SocialSnapshot; medium: SocialSnapshot }
   github: GitHubSnapshot
-  locale?: Locale
 }) {
   return (
     <footer className="mx-auto mt-24 w-full max-w-[37.5rem] px-6 pb-24 text-sm text-muted-foreground sm:pb-12">
       <div className="hairline-top grid grid-cols-2 gap-x-6 gap-y-8 pt-8 sm:grid-cols-3">
-        <Tree zh="संपर्क" en="contact">
+        <Tree label="contact">
           <li>
             <XCard data={social.x} />
           </li>
@@ -74,33 +65,29 @@ export function SiteFooter({
             <EmailCard address="r02519625@gmail.com" />
           </li>
         </Tree>
-        <Tree zh="लिंक्स" en="index">
+        <Tree label="index">
           <li>
-            <Link href={localePath(locale, '/')} className="footer-tree-link">
-              <T zh="होम" en="Home" />
+            <Link href="/" className="footer-tree-link">
+              Home
             </Link>
           </li>
           <li>
-            <Link href={localePath(locale, '/projects')} className="footer-tree-link">
-              <T zh="प्रोजेक्ट्स" en="Projects" />
+            <Link href="/projects" className="footer-tree-link">
+              Projects
             </Link>
           </li>
           <li>
-            <Link href={localePath(locale, '/photos')} className="footer-tree-link">
-              <T zh="फोटोज़" en="Photos" />
+            <Link href="/photos" className="footer-tree-link">
+              Photos
             </Link>
           </li>
           <li>
-            <Link href={localePath(locale, '/blog')} className="footer-tree-link">
-              <T zh="आर्टिकल्स" en="Writing" />
+            <Link href="/blog" className="footer-tree-link">
+              Writing
             </Link>
           </li>
-
           <li>
-            <a href="/feed.xml" className="footer-tree-link" data-zh>
-              RSS
-            </a>
-            <a href="/feed.en.xml" className="footer-tree-link" data-en>
+            <a href="/feed.xml" className="footer-tree-link">
               RSS
             </a>
           </li>
@@ -110,14 +97,12 @@ export function SiteFooter({
             <p>
               © <CopyrightYear /> Raman Raj
             </p>
-            {/* the name echoed in braille — a printer's mark on the sheet */}
             <p className="footer-braille" aria-hidden>
               {brailleText('RAMAN RAJ')}
             </p>
           </div>
           <div className="flex flex-col gap-2.5">
             <FooterClock />
-            {/* geo stamp: the colophon's location line, a decorative twin of the clock */}
             <div className="footer-geo" aria-hidden>
               <svg className="footer-geo-globe" viewBox="0 0 20 20">
                 <circle cx="10" cy="10" r="9" />

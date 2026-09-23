@@ -19,16 +19,13 @@ export function ProjectsPageView({ locale }: { locale: Locale }) {
       <div className="flex items-start justify-between gap-4">
         <header className="max-w-[34rem]">
           <h1 className="page-eyebrow enter">
-            <T zh="项目" en="Projects" />
+            Projects
           </h1>
           <p
             className="page-introduction enter mt-4 text-balance"
             style={{ '--enter-delay': '70ms' } as React.CSSProperties}
           >
-            <T
-              zh={publicPageMetadata.projects.zh.description}
-              en={publicPageMetadata.projects.en.description}
-            />
+            {publicPageMetadata.projects.en.description}
           </p>
         </header>
         <PixelCluster variant={3} className="enter shrink-0" />
@@ -70,17 +67,17 @@ export function ProjectsPageView({ locale }: { locale: Locale }) {
                 <span className="project-identity">
                   <span className="project-name font-medium">
                     {project.url.startsWith('/') ? (
-                      <T zh={project.name} en={project.nameEn} />
+                      project.nameEn
                     ) : (
                       <ExternalLabel>
-                        <T zh={project.name} en={project.nameEn} />
+                        {project.nameEn}
                       </ExternalLabel>
                     )}
                   </span>
                   <span className="project-domain text-muted-foreground">{project.domain}</span>
                 </span>
                 <span className="project-description text-muted-foreground">
-                  <T zh={project.description} en={project.descriptionEn ?? project.description} />
+                  {project.descriptionEn ?? project.description}
                 </span>
               </Link>
             </li>

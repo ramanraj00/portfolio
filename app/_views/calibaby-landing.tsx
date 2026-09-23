@@ -57,7 +57,7 @@ function LandingHeader({ locale }: { locale: Locale }) {
 
   return (
     <header className={styles.header}>
-      <Link href={localePath(locale, '/calibaby')} className={styles.brandLink}>
+      <Link href={'/calibaby'} className={styles.brandLink}>
         <Image
           src="/images/calibaby-app-icon.png"
           alt=""
@@ -70,7 +70,7 @@ function LandingHeader({ locale }: { locale: Locale }) {
       </Link>
 
       <nav aria-label={locale === 'en' ? 'Cali Baby' : 'Cali 宝宝'} className={styles.headerLinks}>
-        <Link href={localePath(locale, '/calibaby/help')} className={styles.headerLink}>
+        <Link href={'/calibaby/help'} className={styles.headerLink}>
           {copy.help}
         </Link>
         <Link
@@ -169,9 +169,9 @@ export function CaliBabyLandingPage({ locale }: { locale: Locale }) {
       <footer className={styles.footer}>
         <span>© Cali Baby</span>
         <nav aria-label={locale === 'en' ? 'Cali Baby information' : 'Cali 宝宝信息'} className={styles.footerLinks}>
-          <Link href={localePath(locale, '/calibaby/help')}>{copy.help}</Link>
-          <Link href={localePath(locale, '/calibaby/privacy')}>{copy.privacy}</Link>
-          <Link href={localePath(locale, '/calibaby/terms')}>{copy.terms}</Link>
+          <Link href={'/calibaby/help'}>{copy.help}</Link>
+          <Link href={'/calibaby/privacy'}>{copy.privacy}</Link>
+          <Link href={'/calibaby/terms'}>{copy.terms}</Link>
         </nav>
       </footer>
     </div>

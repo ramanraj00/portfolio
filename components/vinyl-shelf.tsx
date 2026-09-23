@@ -624,7 +624,7 @@ export function VinylShelf() {
         <ul
           ref={shelfRef}
           className="vinyl-shelf"
-          aria-label={localize(locale, '喜欢的唱片', 'Favorite records')}
+          aria-label={'Favorite records'}
           data-active-index={activeIndex}
         >
           {records.map((record, index) => {

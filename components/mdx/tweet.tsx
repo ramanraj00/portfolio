@@ -136,10 +136,10 @@ export async function Tweet({ slug, id }: { slug: string; id: string }) {
         </time>
         {likes !== null && (
           <span>
-            · {likes.toLocaleString('en-US')} <T zh="喜欢" en="Likes" />
+            · {likes.toLocaleString('en-US')} Likes
           </span>
         )}
-        {tweet.media === 'video' && <span><T zh="· 含视频" en="· Contains video" /></span>}
+        {tweet.media === 'video' && <span>· Contains video</span>}
         <span className="tweet-card-mark" aria-hidden>
           ↗
         </span>

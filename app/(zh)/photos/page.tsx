@@ -8,11 +8,11 @@ export const instant = true
 const copy = publicPageMetadata.photos.zh
 
 export const metadata = localeMetadata({
-  locale: 'zh',
+  locale: 'en',
   path: '/photos',
   ...copy,
 })
 
-export default function ChinesePhotosPage() {
+export default function EnglishPhotosPage() {
   return <PhotosPageView />
 }

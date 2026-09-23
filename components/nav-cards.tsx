@@ -21,7 +21,7 @@ export function NavCards({
   return (
     <div className="nav-cards">
       <Link
-        href={localePath(locale, '/blog')}
+        href={'/blog'}
         className="nav-card enter-swing"
         style={{ '--enter-delay': '140ms' } as React.CSSProperties}
       >
@@ -31,17 +31,17 @@ export function NavCards({
           <span />
         </span>
         <span className="nc-label">
-          <T zh="आर्टिकल्स" en="Writing" />
+          Writing
         </span>
         <span className="nc-sub">
-          <T zh={`${postCount} पोस्ट्स`} en={`${postCount} posts`} />
+          {`${postCount} posts`}
         </span>
       </Link>
 
       {photoCard}
 
       <Link
-        href={localePath(locale, '/projects')}
+        href={'/projects'}
         className="nav-card enter-swing"
         style={{ '--enter-delay': '240ms' } as React.CSSProperties}
       >
@@ -81,10 +81,10 @@ export function NavCards({
           </span>
         </span>
         <span className="nc-label">
-          <T zh="प्रोजेक्ट्स" en="Projects" />
+          Projects
         </span>
         <span className="nc-sub">
-          <T zh={`${projectCount} प्रोजेक्ट्स`} en={`${projectCount} projects`} />
+          {`${projectCount} projects`}
         </span>
       </Link>
     </div>
@@ -102,7 +102,7 @@ export function PhotoNavCard({
 }) {
   return (
     <Link
-      href={localePath(locale, '/photos')}
+      href={'/photos'}
       className="nav-card enter-swing"
       style={{ '--enter-delay': '190ms' } as React.CSSProperties}
       aria-busy={pending || undefined}
@@ -141,16 +141,13 @@ export function PhotoNavCard({
             })}
       </span>
       <span className="nc-label">
-        <T zh="फोटोज़" en="Photos" />
+        Photos
       </span>
       <span className="nc-sub">
         {pending ? (
           <span aria-hidden>…</span>
         ) : (
-          <T
-            zh={`${photoPreview?.count ?? 0} फोटोज़`}
-            en={`${photoPreview?.count ?? 0} photos`}
-          />
+          `${photoPreview?.count ?? 0} photos`
         )}
       </span>
     </Link>

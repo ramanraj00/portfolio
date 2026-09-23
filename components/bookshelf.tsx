@@ -479,7 +479,7 @@ export function Bookshelf() {
         <ul
           ref={shelfRef}
           className="shelf3"
-          aria-label={localize(locale, '书架', 'Bookshelf')}
+          aria-label={'Bookshelf'}
           onClickCapture={handleShelfClickCapture}
           onPointerMove={handleShelfPointerMove}
           onPointerLeave={handleShelfPointerLeave}
@@ -571,8 +571,8 @@ export function Bookshelf() {
                 tabIndex={isOpen ? 0 : -1}
                 aria-label={`${book.title} by ${book.author} ${
                   isOpen
-                    ? localize(locale, '（当前展示）', '(currently shown)')
-                    : localize(locale, '（选择）', '(select)')
+                    ? '(currently shown)'
+                    : '(select)'
                 }`}
                 onKeyDown={(event) => handleBookKeyDown(event, i)}
                 onPointerDown={() => void prepareBookCover(i)}

@@ -2,7 +2,12 @@ import type { MetadataRoute } from 'next'
 
 import { getAllPosts } from '~/lib/content'
 import { localeRoutePair } from '~/lib/locale-metadata'
+import { seo } from '~/lib/seo'
 import { archivedNewsletterIds } from '~/lib/newsletters'
+
+function entry(path: string, lastModified?: Date): MetadataRoute.Sitemap[number] {
+  return { url: new URL(path, seo.url).href, lastModified }
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getAllPosts()
@@ -24,8 +29,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...pairedEntry('/blog', latest),
     ...pairedEntry('/photos', latest),
     ...pairedEntry('/projects', latest),
+    ...pairedEntry('/reels'),
     ...pairedEntry('/calibaby'),
     ...archivedNewsletterIds.flatMap((id) => pairedEntry(`/newsletters/${id}`)),
     ...posts.flatMap((post) => pairedEntry(`/blog/${post.slug}`, post.publishedAt)),
+    entry('/', latest),
+    entry('/blog', latest),
+    entry('/photos', latest),
+    entry('/projects', latest),
+    entry('/calibaby'),
+    ...archivedNewsletterIds.map((id) => entry(`/newsletters/${id}`)),
+    ...posts.map((post) => entry(`/blog/${post.slug}`, post.publishedAt)),
   ]
 }

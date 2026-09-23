@@ -197,14 +197,14 @@ export async function BlogPostPageView({ slug, locale }: { slug: string; locale:
                 className="text-2xl font-semibold tracking-tight text-balance"
                 style={{ viewTransitionName: postViewTransitionName('title', post.slug) } as React.CSSProperties}
               >
-                <T zh={post.title} en={post.titleEn} />
+                {post.titleEn}
               </h1>
               <PixelCluster variant={clusterVariant} className="mt-1.5 shrink-0" />
             </div>
             <dl className="post-title-meta spec-plate">
               <div>
                 <dt>
-                  <T zh="编号" en="No." />
+                  No.
                 </dt>
                 <dd>
                   <span className="spec-signal" aria-hidden />
@@ -213,7 +213,7 @@ export async function BlogPostPageView({ slug, locale }: { slug: string; locale:
               </div>
               <div>
                 <dt>
-                  <T zh="日期" en="Date" />
+                  Date
                 </dt>
                 <dd>
                   <time dateTime={post.publishedAt.toISOString()}>{plateDate}</time>
@@ -221,24 +221,18 @@ export async function BlogPostPageView({ slug, locale }: { slug: string; locale:
               </div>
               <div>
                 <dt>
-                  <T zh="时长" en="Length" />
+                  Length
                 </dt>
                 <dd>
-                  <T
-                    zh={`${post.readingMinutes} 分钟`}
-                    en={`${post.readingMinutesEn} min`}
-                  />
+                  {`${post.readingMinutesEn} min`}
                 </dd>
               </div>
               <div>
                 <dt>
-                  <T zh="字数" en="Words" />
+                  Words
                 </dt>
                 <dd>
-                  <T
-                    zh={post.bodyUnits.toLocaleString('en-US')}
-                    en={post.bodyUnitsEn.toLocaleString('en-US')}
-                  />
+                  {post.bodyUnitsEn.toLocaleString('en-US')}
                 </dd>
               </div>
             </dl>
@@ -253,7 +247,7 @@ export async function BlogPostPageView({ slug, locale }: { slug: string; locale:
             aria-labelledby="post-related-heading"
           >
             <h2 id="post-related-heading" className="post-related-label">
-              <T zh="相关阅读" en="Posts like this" />
+              Posts like this
             </h2>
             <ul className="focus-list mt-3 flex flex-col">
               {related.map((entry) => (

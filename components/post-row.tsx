@@ -27,7 +27,7 @@ export function PostRow({
   const titleTransitionName = postViewTransitionName('title', post.slug)
   return (
     <PostTransitionLink
-      href={localePath(locale, `/blog/${safeSlug}`)}
+      href={`/blog/${safeSlug}`}
       coverTransitionName={coverTransitionName}
       titleTransitionName={titleTransitionName}
       className="group blog-row hairline-top"
@@ -58,7 +58,7 @@ export function PostRow({
         className="blog-row-title"
         style={{ viewTransitionName: titleTransitionName } as React.CSSProperties}
       >
-        <T zh={post.title} en={post.titleEn} />
+        {post.titleEn}
       </Heading>
       <span
         className="blog-row-leader"

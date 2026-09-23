@@ -267,8 +267,8 @@ export function ZoomImage({
         style={style}
         aria-label={
           alt
-            ? localize(locale, `放大图片：${alt}`, `Zoom image: ${alt}`)
-            : localize(locale, '放大图片', 'Zoom image')
+            ? `Zoom image: ${alt}`
+            : 'Zoom image'
         }
         data-zoomed={zoom ? '' : undefined}
         onPointerEnter={preloadExpanded}
@@ -295,7 +295,7 @@ export function ZoomImage({
             data-motion={zoom.motion}
             role="dialog"
             aria-modal="true"
-            aria-label={alt || localize(locale, '图片', 'Image')}
+            aria-label={alt || 'Image'}
             onClick={() => close('overlay')}
           >
             <div className="zoom-overlay-backdrop" />
