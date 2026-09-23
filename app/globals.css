@@ -5728,9 +5728,6 @@ html[data-locale='en'] [data-en-block] {
   margin-bottom: 0.75rem;
   display: inline-block;
   width: 100%;
-  position: relative;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 /* tiles sit on the register's 2px corner, matching the loading shell */
