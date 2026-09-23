@@ -367,7 +367,6 @@ export function MediumCardBody({ data }: { data: SocialSnapshot }) {
       {data.followers && (
         <span className="service-card-stat">
           <span>
-            <b>{data.followers}</b> <T zh="स्टोरीज" en={Number(data.followers) === 1 ? "Story" : "Stories"} />
             <b>{data.followers}</b> {Number(data.followers) === 1 ? "Story" : "Stories"}
           </span>
         </span>
