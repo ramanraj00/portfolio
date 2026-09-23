@@ -5713,20 +5713,19 @@ html[data-locale='en'] [data-en-block] {
 /* ── Photo masonry (/photos) — 2 cols, 3 from sm up ───────────────── */
 
 .photo-masonry {
-  columns: 2;
-  column-gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: start;
 }
 
 @media (min-width: 40rem) {
   .photo-masonry {
-    columns: 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 .photo-item {
-  break-inside: avoid;
-  margin-bottom: 0.75rem;
-  display: inline-block;
   width: 100%;
 }
 
