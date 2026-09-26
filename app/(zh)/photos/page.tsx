@@ -5,7 +5,7 @@ import { publicPageMetadata } from '~/lib/public-page-metadata'
 // The active photo publication streams into a prefetched masonry shell.
 export const instant = true
 
-const copy = publicPageMetadata.photos.zh
+const copy = publicPageMetadata.photos.en
 
 export const metadata = localeMetadata({
   locale: 'en',

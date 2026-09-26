@@ -20,8 +20,8 @@ function publicSiteUrl() {
 }
 
 export const seo = {
-  title: publicPageMetadata.home.zh.title,
-  description: publicPageMetadata.home.zh.description,
+  title: publicPageMetadata.home.en.title,
+  description: publicPageMetadata.home.en.description,
   url: publicSiteUrl(),
 } as const
 
