@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 
 /**
  * Profile avatar with a toggle switch to flip between
@@ -23,20 +23,50 @@ export function ProfileAvatar({
   alt: string
 }) {
   const [isAnime, setIsAnime] = useState(true)
-  const audioRef = useRef<HTMLAudioElement>(null)
+  const audioCtxRef = useRef<AudioContext | null>(null)
+  const audioBufferRef = useRef<AudioBuffer | null>(null)
 
-  const playWhistle = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0
-      audioRef.current.volume = 0.5
-      audioRef.current.play().catch(console.error)
+  // Pre-load the sound into an AudioBuffer once on mount
+  useEffect(() => {
+    let cancelled = false
+    const ctx = new AudioContext()
+    audioCtxRef.current = ctx
+
+    fetch('/sounds/camera-click.mp3')
+      .then((res) => res.arrayBuffer())
+      .then((buf) => ctx.decodeAudioData(buf))
+      .then((decoded) => {
+        if (!cancelled) audioBufferRef.current = decoded
+      })
+      .catch(() => {
+        // Sound is cosmetic — fail silently
+      })
+
+    return () => {
+      cancelled = true
+      void ctx.close()
     }
-  }
+  }, [])
 
+  const playClick = useCallback(() => {
+    const ctx = audioCtxRef.current
+    const buffer = audioBufferRef.current
+    if (!ctx || !buffer) return
+
+    // Resume context if suspended (autoplay policy)
+    if (ctx.state === 'suspended') void ctx.resume()
+
+    // Each call creates a fresh source → instant, overlappable playback
+    const source = ctx.createBufferSource()
+    source.buffer = buffer
+    const gain = ctx.createGain()
+    gain.gain.value = 0.5
+    source.connect(gain).connect(ctx.destination)
+    source.start(0)
+  }, [])
 
   return (
     <div className="profile-avatar-wrapper">
-      <audio ref={audioRef} src="/sounds/camera-click.mp3" preload="auto" />
       <div className="profile-avatar-image-container">
         {/* Real photo */}
         <Image
@@ -63,8 +93,8 @@ export function ProfileAvatar({
         type="button"
         className="profile-avatar-switch"
         onClick={() => {
+          playClick()
           setIsAnime((prev) => !prev)
-          playWhistle()
         }}
         aria-label={isAnime ? 'Switch to real photo' : 'Switch to anime avatar'}
         title={isAnime ? 'Switch to real photo' : 'Switch to anime avatar'}
